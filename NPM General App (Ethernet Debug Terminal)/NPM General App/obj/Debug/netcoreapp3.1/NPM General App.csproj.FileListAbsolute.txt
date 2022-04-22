@@ -1,0 +1,42 @@
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.csproj.AssemblyReference.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM_General_App.MainForm.resources
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM_General_App.Properties.Resources.resources
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.csproj.GenerateResource.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.AssemblyInfoInputs.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.AssemblyInfo.cs
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.csproj.CoreCompileInputs.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\NPM General App.exe
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\NPM General App.deps.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\NPM General App.runtimeconfig.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\NPM General App.runtimeconfig.dev.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\NPM General App.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\NPM General App.pdb
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\Microsoft.Win32.Registry.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\OxyPlot.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\OxyPlot.WindowsForms.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\System.CodeDom.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\System.IO.Ports.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\System.Management.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\System.Security.AccessControl.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\System.Security.Principal.Windows.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\Microsoft.Win32.Registry.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\linux-arm\native\libSystem.IO.Ports.Native.so
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\linux-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\osx-arm64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard2.0\System.IO.Ports.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.IO.Ports.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Management.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Security.AccessControl.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.csproj.CopyComplete
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.pdb
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM General App.genruntimeconfig.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM_General_App.AdvancedTerminalTCP.resources
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM_General_App.Utilities.DataRetrievalForm.resources
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM_General_App.Utilities.FWUpgradeTCP.resources
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.1\NPM_General_App.Utilities.FWUpgradeSerial.resources

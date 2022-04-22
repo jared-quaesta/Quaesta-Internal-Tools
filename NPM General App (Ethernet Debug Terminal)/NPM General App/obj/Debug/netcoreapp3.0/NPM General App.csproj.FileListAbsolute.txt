@@ -1,0 +1,21 @@
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.0\NPM General App.exe
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.0\NPM General App.deps.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.0\NPM General App.runtimeconfig.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.0\NPM General App.runtimeconfig.dev.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.0\NPM General App.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.0\NPM General App.pdb
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.csproj.AssemblyReference.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM_General_App.MainForm.resources
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.csproj.GenerateResource.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.AssemblyInfoInputs.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.AssemblyInfo.cs
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.csproj.CoreCompileInputs.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.pdb
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.genruntimeconfig.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM_General_App.AdvancedTerminal.resources
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.0\OxyPlot.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\netcoreapp3.0\OxyPlot.WindowsForms.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM General App.csproj.CopyComplete
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\netcoreapp3.0\NPM_General_App.Properties.Resources.resources

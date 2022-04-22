@@ -1,0 +1,18 @@
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\net5.0-windows\NPM General App.exe
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\net5.0-windows\NPM General App.deps.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\net5.0-windows\NPM General App.runtimeconfig.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\net5.0-windows\NPM General App.runtimeconfig.dev.json
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\net5.0-windows\NPM General App.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\net5.0-windows\ref\NPM General App.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\bin\Debug\net5.0-windows\NPM General App.pdb
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.csproj.AssemblyReference.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM_General_App.MainForm.resources
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.csproj.GenerateResource.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.AssemblyInfoInputs.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.AssemblyInfo.cs
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.csproj.CoreCompileInputs.cache
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\ref\NPM General App.dll
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.pdb
+C:\Users\shama\source\repos\NPM General App\NPM General App\obj\Debug\net5.0-windows\NPM General App.genruntimeconfig.cache
