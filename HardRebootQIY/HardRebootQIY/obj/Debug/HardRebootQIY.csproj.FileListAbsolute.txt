@@ -1,0 +1,10 @@
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\bin\Debug\HardRebootQIY.exe.config
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\bin\Debug\HardRebootQIY.exe
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\bin\Debug\HardRebootQIY.pdb
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\obj\Debug\HardRebootQIY.csproj.AssemblyReference.cache
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\obj\Debug\HardRebootQIY.Form1.resources
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\obj\Debug\HardRebootQIY.Properties.Resources.resources
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\obj\Debug\HardRebootQIY.csproj.GenerateResource.cache
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\obj\Debug\HardRebootQIY.csproj.CoreCompileInputs.cache
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\obj\Debug\HardRebootQIY.exe
+C:\Users\shama\source\repos\HardRebootQIY\HardRebootQIY\obj\Debug\HardRebootQIY.pdb

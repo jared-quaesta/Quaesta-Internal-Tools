@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "gZyJSd/a9geFbm7wSldM9SNVu8ecLoKiHIVvnYLdPTRz0ycR84Gl0y8DBgLghnQjd06QDIFkLbwjIrBBcSVLXg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\shama\\source\\repos\\RestfulSwarm\\RestfulSwarm\\RestfulSwarm.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\shama\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

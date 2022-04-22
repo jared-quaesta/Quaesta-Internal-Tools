@@ -1,0 +1,12 @@
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\bin\Debug\net5.0\RestfulSwarm.deps.json
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\bin\Debug\net5.0\RestfulSwarm.dll
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\bin\Debug\net5.0\ref\RestfulSwarm.dll
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\bin\Debug\net5.0\RestfulSwarm.pdb
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\obj\Debug\net5.0\RestfulSwarm.csproj.AssemblyReference.cache
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\obj\Debug\net5.0\RestfulSwarm.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\obj\Debug\net5.0\RestfulSwarm.AssemblyInfoInputs.cache
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\obj\Debug\net5.0\RestfulSwarm.AssemblyInfo.cs
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\obj\Debug\net5.0\RestfulSwarm.csproj.CoreCompileInputs.cache
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\obj\Debug\net5.0\RestfulSwarm.dll
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\obj\Debug\net5.0\ref\RestfulSwarm.dll
+C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\obj\Debug\net5.0\RestfulSwarm.pdb

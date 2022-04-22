@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>RestfulSwarm</id>
+    <version>1.0.0</version>
+    <authors>Jared Malooly</authors>
+    <description>Communicates with Swarm's Rest API for data retrieval</description>
+    <dependencies>
+      <group targetFramework="net5.0">
+        <dependency id="Newtonsoft.Json" version="13.0.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\shama\source\repos\RestfulSwarm\RestfulSwarm\bin\Release\net5.0\RestfulSwarm.dll" target="lib\net5.0\RestfulSwarm.dll" />
+  </files>
+</package>

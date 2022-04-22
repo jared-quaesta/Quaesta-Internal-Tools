@@ -1,0 +1,15 @@
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\bin\Debug\UniversalUpdate.exe.config
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\bin\Debug\UniversalUpdate.exe
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\bin\Debug\UniversalUpdate.pdb
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\bin\Debug\System.CodeDom.dll
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\bin\Debug\System.CodeDom.xml
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.csproj.AssemblyReference.cache
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.MainForm.resources
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.Properties.Resources.resources
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.csproj.GenerateResource.cache
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.csproj.CoreCompileInputs.cache
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.csproj.CopyComplete
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.exe
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.pdb
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.Finished.resources
+C:\Users\shama\source\repos\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.STLinkForm.resources
