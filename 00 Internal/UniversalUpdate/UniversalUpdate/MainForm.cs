@@ -29,7 +29,7 @@ namespace UniversalUpdate
             foreach (Tuple<string, string> com in SerialNPMManager.GetComs("STMicroelectronics"))
             {
                 // get sn, app to com number
-                serialMans.Add(new SerialNPMManager(new SerialListener(), com.Item1));
+                serialMans.Add(new SerialNPMManager("unk", com.Item1));
                 //
             }
 
@@ -64,15 +64,15 @@ namespace UniversalUpdate
                     att = 0;
                     while (serialMan.listener.GetSerial().Length == 0)
                     {
-                        if (att == 10) 
+                        if (att == 10)
                         {
-                            Debug.WriteLine("Unable to get " + serialMan.com);                            
+                            Debug.WriteLine("Unable to get " + serialMan.com);
                             break;
                         };
                         att++;
                         serialMan.listener.Clearinfo();
                         Thread.Sleep(30);
-                        serialMan.SendCommand("info\r");                        
+                        serialMan.SendCommand("info\r");
                         Thread.Sleep(30);
                         serialMan.SendCommand("info\r");
                         Thread.Sleep(30);
@@ -115,6 +115,7 @@ namespace UniversalUpdate
             avail.Text = $"Available NPMs ({availComs.Items.Count} Connected)";
 
         }
+
 
         private void SelAll(object sender, EventArgs e)
         {
@@ -191,7 +192,7 @@ namespace UniversalUpdate
                     return;
                 }
             }
-            
+
 
             if (curFWPath.Equals("") && showWarningsToolStripMenuItem.Checked)
             {
@@ -212,7 +213,6 @@ namespace UniversalUpdate
 
             bool serialize = refServerCheck.Checked;
             bool prevID = prevSn.Text.Length > 0;
-            List<Tuple<string, string, string>> comData = new List<Tuple<string, string, string>>();
             updateBtn.Enabled = false;
 
             string[] commands = addCommandsBox.Text.Trim().Split('\n');
@@ -220,7 +220,7 @@ namespace UniversalUpdate
 
             int numUpdating = availComs.CheckedItems.Count;
             int finished = 0;
-
+            List<Thread> threads = new List<Thread>();
 
             List<SerialNPMManager> serialManagers = new List<SerialNPMManager>();
 
@@ -228,26 +228,25 @@ namespace UniversalUpdate
             foreach (string com in availComs.CheckedItems)
             {
                 string comport = com.Split(':')[0].Trim();
+                string serial = com.Split(':')[1].Trim();
                 SerialListener listener = new SerialListener();
-                SerialNPMManager serialMan = new SerialNPMManager(listener, comport);
+                SerialNPMManager serialMan = new SerialNPMManager(serial, comport);
                 serialManagers.Add(serialMan);
             }
 
 
             //perform pre-flight safety checks (can I connect?)
-
             bool canConnect = true;
             string coms = "";
             int conFinished = 0;
             int conTotal = serialManagers.Count;
             progTxt.Text = "Checking Connections....";
+
             foreach (SerialNPMManager serialMan in serialManagers)
             {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-
-                // begin a thread for each device to update 
-                Task.Run(() =>
+                ThreadStart threadDelegate = new ThreadStart(() =>
                 {
+                    // Connect to device.
                     int att = 0;
                     while (!serialMan.IsConnected())
                     {
@@ -261,30 +260,24 @@ namespace UniversalUpdate
                         }
                         att++;
                         bool conn = serialMan.Connect(serialMan.com);
-                        //Debug.WriteLine($"Tried to Connect to {serialMan.com}... {conn}");
-                        Thread.Sleep(1000);
-                        
-                    }
-                    conFinished++;
-                    //Debug.WriteLine($"initial Connection: {serialMan.IsConnected()}");
-                });
+                        Thread.Sleep(500);
 
+                    }
+                });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
             }
+
             await Task.Run(() =>
             {
-                while (conTotal != conFinished)
+                foreach (Thread t in threads)
                 {
-                    Thread.Sleep(10);
+                    t.Join();
                 }
             });
-            if (!canConnect)
-            {
-                MessageBox.Show($"Could not connect to one or more npms: \n{coms}", "Error");
-                updateBtn.Enabled = true;
-                progTxt.Text = "Error";
-                return;
+            threads.Clear();
 
-            }
             ////////// FIRMWARE BIT
             if (!curFWPath.Equals(""))
             {
@@ -294,12 +287,10 @@ namespace UniversalUpdate
                 string firstcom = availComs.CheckedItems[0].ToString().Split(':')[0].Trim();
                 foreach (SerialNPMManager serialMan in serialManagers)
                 {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 
-                    // begin a thread for each device to update 
-                    Task.Run(() =>
+                    ThreadStart threadDelegate = new ThreadStart(() =>
                     {
-                        //Debug.WriteLine($"Writing {allBytes.Length}b to {serialMan.com}");
+                        // Connect to device.
                         int att = 0;
                         while (!serialMan.IsConnected())
                         {
@@ -307,14 +298,16 @@ namespace UniversalUpdate
                             {
                                 finished++;
                                 Debug.WriteLine($"Failed to connect to {serialMan.com}");
-                                return;
+                                coms += serialMan.com + "\n";
+                                canConnect = false;
+                                break;
                             }
                             att++;
                             bool conn = serialMan.Connect(serialMan.com);
-                            //Debug.WriteLine($"Tried to Connect to {serialMan.com}... {conn}");
-                            Thread.Sleep(1000);
+                            Thread.Sleep(500);
+
                         }
-                        //Debug.WriteLine($"initial Connection: {serialMan.IsConnected()}");
+
                         serialMan.ClearInput();
 
                         Stopwatch timeout = new Stopwatch();
@@ -372,29 +365,25 @@ namespace UniversalUpdate
                                 block[j + 3] = buffer[j];
                             }
 
-                            //NewCmd("", block);
                             serialMan.SendBytes(block, 0);
                             while (!serialMan.listener.GotACK())
                             {
                                 Thread.Sleep(1);
                             }
-                            //Debug.WriteLine($"Success {++blockNum} / {blockCount}");
                             Invoke((MethodInvoker)delegate
-                                {
-                                    progTxt.Text = $"Sending block {blockNum}/{blockCount}";
-                                    progTxt.Refresh();
-                                });
+                            {
+                                progTxt.Text = $"Sending block {blockNum}/{blockCount}";
+                                progTxt.Refresh();
+                            });
                             blockNum++;
 
                             // finish transfer
                         }
 
-                        // Debug.WriteLine("Finishing Transfer...");
                         serialMan.SendBytes(new byte[] { 0x04 });
                         Thread.Sleep(100);
                         serialMan.SendBytes(new byte[] { 0x04 });
 
-                        // Debug.WriteLine($"Waiting for confirmation... {serialMan.com}");
                         Invoke((MethodInvoker)delegate
                         {
                             progTxt.Text = "Finishing Update, Reconnecting...";
@@ -402,13 +391,11 @@ namespace UniversalUpdate
                         });
                         Thread.Sleep(15000);
 
-                        //Debug.WriteLine($"Got confirmation... {serialMan.com}");
 
                         try
                         {
                             serialMan.SendCommand("Y");
                             Thread.Sleep(100);
-
                         }
                         catch
                         {
@@ -423,8 +410,6 @@ namespace UniversalUpdate
                             {
                                 Thread.Sleep(2000);
                                 Debug.WriteLine("Reconnecting...");
-                                
-                                
                             }
                         }
                         catch (Exception ex)
@@ -433,25 +418,23 @@ namespace UniversalUpdate
                         }
                         // open comport
                         serialMan.Disconnect();
-                        finished++;
-
                     });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    Thread thread = new Thread(threadDelegate);
+                    thread.Start();
+                    threads.Add(thread);
+
                 }
             }
-            else
-            {
-                finished = numUpdating;
-            }
 
-            // Pause. Wait for update to finish. 
             await Task.Run(() =>
             {
-                while (numUpdating != finished)
+                foreach (Thread t in threads)
                 {
-                    Thread.Sleep(10);
+                    t.Join();
                 }
             });
+            threads.Clear();
+
 
             ///////////////////////////// BEGIN Extra CMDs ////////////////////////////////
 
@@ -462,43 +445,28 @@ namespace UniversalUpdate
                 finished = 0;
                 foreach (SerialNPMManager serialMan in serialManagers)
                 {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                    Task.Run(() =>
+                    ThreadStart threadDelegate = new ThreadStart(() =>
                     {
+                        // Connect to device.
                         int att = 0;
-
-                        bool conn = serialMan.Connect(serialMan.com);
                         while (!serialMan.IsConnected())
                         {
                             if (att == 10)
                             {
                                 finished++;
+                                Debug.WriteLine($"Failed to connect to {serialMan.com}");
+                                coms += serialMan.com + "\n";
+                                canConnect = false;
                                 break;
                             }
                             att++;
-                            Thread.Sleep(1000);
-                            conn = serialMan.Connect(serialMan.com);
+                            bool conn = serialMan.Connect(serialMan.com);
+                            Thread.Sleep(500);
+
                         }
 
-                        if (!serialMan.IsConnected())
-                        {
-                            finished++;
-                            return;
-                        }
-
-                        try
-                        {
-
-                            serialMan.ClearInput();
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine(ex);
-                        }
-
-
-
-                        Stopwatch timeout = new Stopwatch();
+                        serialMan.ClearInput();
+                        Thread.Sleep(30);
 
                         if (secretCheck.Checked)
                         {
@@ -510,7 +478,7 @@ namespace UniversalUpdate
                             string fixedCmd = command.Trim('\r', '\n', ' ') + "\r\n";
                             serialMan.SendCommand(fixedCmd, 5);
 
-                            Thread.Sleep(1000);
+                            Thread.Sleep(300);
 
                             Invoke((MethodInvoker)delegate
                             {
@@ -518,104 +486,118 @@ namespace UniversalUpdate
                                 progTxt.Refresh();
                             });
                         }
-
-
-                        finished++;
-
                     });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    Thread thread = new Thread(threadDelegate);
+                    thread.Start();
+                    threads.Add(thread);
                 }
-            }
-            else
-            {
-                finished = numUpdating;
+
             }
             await Task.Run(() =>
             {
-                while (numUpdating > finished)
+                foreach (Thread t in threads)
                 {
-                    Thread.Sleep(10);
+                    t.Join();
                 }
             });
+            threads.Clear();
 
 
-            /////////////////////////////// BEGIN SERIALIZATION
-
-            int inc = 0;
             if (refServerCheck.Checked)
             {
+                /////////////////////////////// BEGIN SERIALIZATION
+                ConcurrentDictionary<string, string> serialDict = new ConcurrentDictionary<string, string>();
+                if (refServerCheck.Checked)
+                {
+                    List<string> allSerials = SQLManager.GetAllSerials();
+                    string newSerial = "";
+                    foreach (SerialNPMManager serialMan in serialManagers)
+                    {
+                        string curSerial = serialMan.GetSerial();
+                        if (prevSn.Text.Length != 0)
+                        {
+                            newSerial = ParseSerial(prevSn.Text, desSn.Text, allSerials, curSerial);
+                            allSerials.Add(newSerial);
+                            serialMan.ClearInput();
+                            SQLManager.EditSerial(curSerial, newSerial);
 
-                List<string> allSerials = SQLManager.GetAllSerials();
+                            progTxt.Text = $"Setting Serial #: {newSerial}";
+                            progTxt.Update();
+
+                            //serialMan.SendCommand($"serialnumber={newSerial}\r\n");
+                            serialMan.listener.ClearInfo();
+                        }
+                        else
+                        {
+                            newSerial = ParseSerial(prevSn.Text, desSn.Text, allSerials);
+                            allSerials.Add(newSerial);
+                            serialMan.ClearInput();
+                            Debug.WriteLine($"serialnumber={newSerial}\r\n");
+                            //serialMan.SendCommand($"serialnumber={newSerial}\r\n");
+
+                            progTxt.Text = $"Setting Serial #: {newSerial}";
+                            progTxt.Refresh();
+                        }
+
+                        while (!serialDict.TryAdd(serialMan.com, newSerial))
+                            Thread.Sleep(100);
+                    }
+
+                }
+
+                //////////////////// BEGIN GET INFO, ADD/EDIT SERVER ENTRY ///////
+
                 foreach (SerialNPMManager serialMan in serialManagers)
                 {
-                    // connect
+                    ThreadStart threadDelegate = new ThreadStart(() =>
+                    {
+                    // Connect to device.
                     int att = 0;
-
-                    bool conn = serialMan.Connect(serialMan.com);
-                    while (!serialMan.IsConnected())
-                    {
-                        if (att == 10)
+                        while (!serialMan.IsConnected())
                         {
-                            finished++;
-                            break;
-                        }
-                        att++;
-                        Thread.Sleep(1000);
-                        conn = serialMan.Connect(serialMan.com);
-                    }
-                    serialMan.ClearInput();
-                    serialMan.AllowSecret();
-                    serialMan.ClearInput();
-
-                    if (prevSn.Text.Length != 0)
-                    {
-                        serialMan.SendCommand("info\r\n");
-                        Thread.Sleep(100);
-                        att = 0;
-                        while (serialMan.listener.GetInfo().Contains("Unknown") || serialMan.listener.GetInfo().Trim().Length == 0)
-                        {
-                            if (att == 5) break;
+                            if (att == 10)
+                            {
+                                finished++;
+                                Debug.WriteLine($"Failed to connect to {serialMan.com}");
+                                coms += serialMan.com + "\n";
+                                canConnect = false;
+                                break;
+                            }
                             att++;
-                            serialMan.listener.Clearinfo();
-                            serialMan.SendCommand("info\r\n");
+                            bool conn = serialMan.Connect(serialMan.com);
                             Thread.Sleep(500);
+
                         }
-                        serialMan.listener.ParseInfo();
-                        string curSerial = serialMan.listener.GetSerial();
-                        string newSerial = ParseSerial(prevSn.Text, desSn.Text, allSerials, curSerial);
-                        allSerials.Add(newSerial);
+
                         serialMan.ClearInput();
-                        SQLManager.EditSerial(curSerial, newSerial);
+                        Thread.Sleep(30);
 
-                        progTxt.Text = $"Setting Serial #: {newSerial}";
-                        progTxt.Update();
-
-                        serialMan.SendCommand($"serialnumber={newSerial}\r\n");
-                        serialMan.listener.ClearInfo();
-                    }
-                    else
-                    {
-                        string newSerial = ParseSerial(prevSn.Text, desSn.Text, allSerials);
-                        allSerials.Add(newSerial);
+                        serialMan.AllowSecret();
+                        Thread.Sleep(30);
                         serialMan.ClearInput();
-                        Debug.WriteLine($"serialnumber={newSerial}\r\n");
-                        serialMan.SendCommand($"serialnumber={newSerial}\r\n");
+                        Thread.Sleep(30);
+                        serialMan.SendCommand($"serialnumber = {serialDict[serialMan.com]}\r\n");
 
-                        progTxt.Text = $"Setting Serial #: {newSerial}";
-                        progTxt.Refresh();
-                    }
-                    serialMan.ClearInput();
-                    serialMan.Disconnect();
+                    });
+                    Thread thread = new Thread(threadDelegate);
+                    thread.Start();
+                    threads.Add(thread);
                 }
+
+                await Task.Run(() =>
+                {
+                    foreach (Thread t in threads)
+                    {
+                        t.Join();
+                    }
+                });
+                threads.Clear();
             }
 
-            //////////////////// BEGIN GET INFO, ADD/EDIT SERVER ENTRY ///////
-
-            finished = 0;
+            BlockingCollection<Tuple<string, string, string>> comData = new BlockingCollection<Tuple<string, string, string>>();
             foreach (SerialNPMManager serialMan in serialManagers)
             {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                Task.Run(() =>
+                ThreadStart threadDelegate = new ThreadStart(() =>
                 {
                     int att = 0;
 
@@ -631,23 +613,33 @@ namespace UniversalUpdate
                         Thread.Sleep(1000);
                         conn = serialMan.Connect(serialMan.com);
                     }
+                    serialMan.listener.ClearInfo();
                     serialMan.SendCommand("info\r\n");
                     Thread.Sleep(100);
                     att = 0;
-                    while (serialMan.listener.GetInfo().Contains("Unknown") || serialMan.listener.GetInfo().Trim().Length == 0)
+                    while (serialMan.listener.GetSerial().Length == 0)
                     {
-                        if (att == 5) break;
+                        if (att == 10)
+                        {
+                            Debug.WriteLine("Unable to get " + serialMan.com);
+                            break;
+                        };
                         att++;
                         serialMan.listener.Clearinfo();
-                        serialMan.SendCommand("info\r\n");
-                        Thread.Sleep(500);
+                        Thread.Sleep(30);
+                        serialMan.SendCommand("info\r");
+                        Thread.Sleep(30);
+                        serialMan.listener.ParseInfo();
                     }
-                    
+
                     serialMan.listener.ParseInfo();
                     string serial = serialMan.listener.GetSerial();
                     string firmware = serialMan.listener.GetFirmware();
                     string model = serialMan.listener.GetModel();
-                    comData.Add(new Tuple<string, string, string>(serialMan.com, firmware, serialMan.listener.GetInfo()));
+
+                    while (!comData.TryAdd(new Tuple<string, string, string>(serialMan.com, firmware, serialMan.listener.GetInfo())))
+                        Thread.Sleep(30);
+
                     SQLManager.AddRow(serial, type, model, firmware, DateTime.Now);
                     Invoke((MethodInvoker)delegate
                     {
@@ -658,20 +650,25 @@ namespace UniversalUpdate
                     serialMan.Disconnect();
 
                 });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
             }
+
             await Task.Run(() =>
             {
-                while (numUpdating != finished)
+                foreach (Thread t in threads)
                 {
-                    Thread.Sleep(10);
+                    t.Join();
                 }
             });
+            threads.Clear();
+
 
             ///////////////// FINISH
             if (comData.Count > 0)
             {
-                Finished summaryPage = new Finished(comData);
+                Finished summaryPage = new Finished(comData.ToList());
                 summaryPage.Show();
             }
             else
@@ -846,10 +843,11 @@ namespace UniversalUpdate
 
 
                                 prevEx.Text += formatDict[formatString.ToLower()].PadLeft(arg.Length, '0');
-                        } catch
-                        {
+                            }
+                            catch
+                            {
                                 prevEx.Text += "{ERR}";
-                        }
+                            }
                         }
 
                     }
@@ -922,12 +920,13 @@ namespace UniversalUpdate
             // turn off all LEDs
             if (availComs.SelectedIndex == -1) return;
             string selCom = availComs.SelectedItem.ToString().Split(':')[0].Trim();
+            string serial = availComs.SelectedItem.ToString().Split(':')[1].Trim();
             List<SerialNPMManager> serialManagers = new List<SerialNPMManager>();
             foreach (string com in availComs.Items)
             {
                 string comport = com.Split(':')[0].Trim();
                 SerialListener listener = new SerialListener();
-                SerialNPMManager serialMan = new SerialNPMManager(listener, comport);
+                SerialNPMManager serialMan = new SerialNPMManager(serial, comport);
                 serialManagers.Add(serialMan);
             }
             List<Thread> threads = new List<Thread>();

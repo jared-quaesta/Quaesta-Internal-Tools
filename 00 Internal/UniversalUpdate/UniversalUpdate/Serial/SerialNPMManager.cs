@@ -17,10 +17,13 @@ namespace UniversalUpdate.Serial
         private bool connected = false;
         private string curConnected = "";
         private string lastCom = "";
-        public SerialNPMManager(SerialListener listener, string com)
+        private string serial;
+
+        public SerialNPMManager(string serial, string com)
         {
             this.com = com;
-            this.listener = listener;
+            this.serial = serial;
+            listener = new SerialListener();
             _serialPort = new SerialPort
             {
                 ReadTimeout = 200,
@@ -28,11 +31,19 @@ namespace UniversalUpdate.Serial
                 WriteBufferSize = 1024,
                 BaudRate = 115200
             };
-            _serialPort.DataReceived += (sender, e) => listener.NewData(_serialPort.ReadExisting(), lastCom);
+            _serialPort.DataReceived += (sender, e) => { 
+                try
+                {
+                    listener.NewData(_serialPort.ReadExisting(), lastCom);
+                } 
+                catch { } 
+            };
         }
 
-
-
+        public string GetSerial()
+        {
+            return serial;
+        }
 
         public string GetCurConnected()
         {

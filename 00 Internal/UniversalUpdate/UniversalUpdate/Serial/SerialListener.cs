@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 
 namespace UniversalUpdate.Serial
@@ -23,7 +22,7 @@ namespace UniversalUpdate.Serial
         {
             //Debug.WriteLine(data);
 
-                cmdString += data;
+            cmdString += data;
             if (cmdString.Contains('\n'))
             {
                 gotCmd = true;
