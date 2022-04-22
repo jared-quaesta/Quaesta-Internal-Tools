@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TzKiWY0F274EFBTb/kXYxh1ieCIV5gA3SdiL/j57qI14F2vHwTbzt9SEbkXfRa8k7o0e7EUJra+DHncUwkM3gg==",
+  "dgSpecHash": "IrRt67IQFqr7pDx6kMuHCgxNSCz70qWS2eDlVNpprPU3o9ye+iK4f5oMyQbkhRMwH4x9chqimeiHjfI8jtKqSw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\shama\\Documents\\GitHub\\Quaesta-Internal-Tools\\NPM General App (Ethernet Debug Terminal)\\NPM General App\\NPM General App.csproj",
+  "projectFilePath": "C:\\Users\\shama\\Documents\\GitHub\\Quaesta-Internal-Tools\\00 Internal\\NPM General App (Ethernet Debug Terminal)\\NPM General App\\NPM General App.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\shama\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\shama\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",

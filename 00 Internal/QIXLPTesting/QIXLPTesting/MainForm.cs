@@ -884,5 +884,105 @@ namespace QIXLPTesting
                 tempLbl.ForeColor = Color.Orange;
             }
         }
+
+        private void blinkBtn_Click(object sender, EventArgs e)
+        {
+            if (availNpms.SelectedIndex == -1)
+            {
+                MessageBox.Show("No NPM Selected.", "ERROR");
+                return;
+            }
+            string selCom = availNpms.SelectedItem.ToString().Split(':')[1].Trim();
+            string serial = availNpms.SelectedItem.ToString().Split(':')[0].Trim();
+            List<SerialNPMManager> serialManagers = new List<SerialNPMManager>();
+            foreach (string com in availNpms.Items)
+            {
+                string comport = com.Split(':')[1].Trim();
+                SerialListener listener = new SerialListener();
+                SerialNPMManager serialMan = new SerialNPMManager(serial, comport);
+                serialManagers.Add(serialMan);
+            }
+            List<Thread> threads = new List<Thread>();
+
+            // start threads
+            foreach (SerialNPMManager serialMan in serialManagers)
+            {
+                ThreadStart threadDelegate = new ThreadStart(() =>
+                {
+                    // connect
+                    int att = 0;
+                    serialMan.Connect(serialMan.com);
+                    while (!serialMan.IsConnected())
+                    {
+                        if (att == 10)
+                        {
+                            break;
+                        }
+                        att++;
+                        Thread.Sleep(100);
+                        serialMan.Connect(serialMan.com);
+                    }
+                    if (!serialMan.IsConnected())
+                    {
+                        Debug.WriteLine("Could not connect: " + serialMan.com);
+                        return;
+                    }
+
+                    serialMan.ClearInput();
+                    Thread.Sleep(30);
+                    if (!serialMan.com.Equals(selCom))
+                    {
+                        serialMan.SendCommand("pulsesim=0\r\n");
+                        Thread.Sleep(30);
+                        serialMan.SendCommand("ledmode=0\r\n");
+                        serialMan.Disconnect();
+                    }
+                    else
+                    {
+                        serialMan.SendCommand("pulsesim=100\r\n");
+                        Thread.Sleep(30);
+                        serialMan.SendCommand("ledmode=1\r\n");
+                        Debug.WriteLine("Turned on: " + serialMan.com + " : " + serialMan.IsConnected());
+                    }
+
+                });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
+
+            }
+
+            foreach (Thread thread in threads)
+            {
+                thread.Join();
+            }
+
+            if (MessageBox.Show("LED Blinking?", serial, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                SQLManager.UpdateLEDTest(serial, true);
+                AddOutput(serial + ": ", Color.FromArgb(71, 134, 255));
+                AddOutput("Blinks" + Environment.NewLine, Color.FromArgb(0, 200, 156));
+            } else
+            {
+                SQLManager.UpdateLEDTest(serial, false);
+                AddOutput(serial + ": ", Color.FromArgb(71, 134, 255));
+                AddOutput("No Blink" + Environment.NewLine, Color.FromArgb(251, 55, 40));
+            }
+
+            // turn off led now
+            // 
+            foreach (SerialNPMManager serialMan in serialManagers)
+            {
+                if (serialMan.com.Equals(selCom))
+                {
+                    serialMan.SendCommand("pulsesim=0\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand("ledmode=0\r\n");
+                    serialMan.Disconnect();
+                }
+            }
+
+
+        }
     }
 }

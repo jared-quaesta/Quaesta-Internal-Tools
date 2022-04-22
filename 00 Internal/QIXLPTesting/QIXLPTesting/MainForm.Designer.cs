@@ -31,6 +31,15 @@ namespace QIXLPTesting
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label34 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label28 = new System.Windows.Forms.Label();
             this.psNbins = new System.Windows.Forms.ComboBox();
@@ -134,17 +143,10 @@ namespace QIXLPTesting
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.blinkBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.voltOptionsGB.SuspendLayout();
@@ -156,7 +158,6 @@ namespace QIXLPTesting
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -175,6 +176,7 @@ namespace QIXLPTesting
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.blinkBtn);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.panel1);
@@ -200,6 +202,114 @@ namespace QIXLPTesting
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Testing";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label29);
+            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.label30);
+            this.groupBox2.Controls.Add(this.label31);
+            this.groupBox2.Controls.Add(this.label33);
+            this.groupBox2.Controls.Add(this.comboBox2);
+            this.groupBox2.Controls.Add(this.comboBox4);
+            this.groupBox2.Controls.Add(this.label34);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(249, 256);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(335, 83);
+            this.groupBox2.TabIndex = 19;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "SDEV Noise Test Options";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(97, 54);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(31, 13);
+            this.label29.TabIndex = 18;
+            this.label29.Text = "Secs";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "15",
+            "30"});
+            this.comboBox1.Location = new System.Drawing.Point(47, 51);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(49, 21);
+            this.comboBox1.TabIndex = 17;
+            this.comboBox1.Text = "10";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(17, 54);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(29, 13);
+            this.label30.TabIndex = 16;
+            this.label30.Text = "Wait";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(97, 22);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(30, 13);
+            this.label31.TabIndex = 15;
+            this.label31.Text = "Volts";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 22);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(40, 13);
+            this.label33.TabIndex = 14;
+            this.label33.Text = "Test at";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "500",
+            "750",
+            "1000",
+            "1500",
+            "1750",
+            "2000"});
+            this.comboBox2.Location = new System.Drawing.Point(47, 19);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(49, 21);
+            this.comboBox2.TabIndex = 13;
+            this.comboBox2.Text = "500";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.comboBox4.Location = new System.Drawing.Point(265, 19);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(49, 21);
+            this.comboBox4.TabIndex = 11;
+            this.comboBox4.Text = "3";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(184, 22);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(80, 13);
+            this.label34.TabIndex = 10;
+            this.label34.Text = "Valid Under Bin";
             // 
             // groupBox1
             // 
@@ -404,6 +514,7 @@ namespace QIXLPTesting
             // ledRadio
             // 
             this.ledRadio.AutoSize = true;
+            this.ledRadio.Enabled = false;
             this.ledRadio.Location = new System.Drawing.Point(75, 4);
             this.ledRadio.Name = "ledRadio";
             this.ledRadio.Size = new System.Drawing.Size(46, 17);
@@ -427,9 +538,9 @@ namespace QIXLPTesting
             // openTerm
             // 
             this.openTerm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.openTerm.Location = new System.Drawing.Point(89, 544);
+            this.openTerm.Location = new System.Drawing.Point(109, 544);
             this.openTerm.Name = "openTerm";
-            this.openTerm.Size = new System.Drawing.Size(75, 23);
+            this.openTerm.Size = new System.Drawing.Size(55, 23);
             this.openTerm.TabIndex = 18;
             this.openTerm.Text = "Terminal";
             this.openTerm.UseVisualStyleBackColor = true;
@@ -644,11 +755,11 @@ namespace QIXLPTesting
             // selNone
             // 
             this.selNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.selNone.Location = new System.Drawing.Point(168, 544);
+            this.selNone.Location = new System.Drawing.Point(50, 544);
             this.selNone.Name = "selNone";
-            this.selNone.Size = new System.Drawing.Size(75, 23);
+            this.selNone.Size = new System.Drawing.Size(53, 23);
             this.selNone.TabIndex = 6;
-            this.selNone.Text = "Select None";
+            this.selNone.Text = "None";
             this.selNone.UseVisualStyleBackColor = true;
             this.selNone.Click += new System.EventHandler(this.SelNone);
             // 
@@ -657,9 +768,9 @@ namespace QIXLPTesting
             this.selAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.selAll.Location = new System.Drawing.Point(7, 544);
             this.selAll.Name = "selAll";
-            this.selAll.Size = new System.Drawing.Size(78, 23);
+            this.selAll.Size = new System.Drawing.Size(37, 23);
             this.selAll.TabIndex = 5;
-            this.selAll.Text = "Select All";
+            this.selAll.Text = "All";
             this.selAll.UseVisualStyleBackColor = true;
             this.selAll.Click += new System.EventHandler(this.SelAll);
             // 
@@ -1327,113 +1438,16 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
-            // groupBox2
+            // blinkBtn
             // 
-            this.groupBox2.Controls.Add(this.label29);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.label30);
-            this.groupBox2.Controls.Add(this.label31);
-            this.groupBox2.Controls.Add(this.label33);
-            this.groupBox2.Controls.Add(this.comboBox2);
-            this.groupBox2.Controls.Add(this.comboBox4);
-            this.groupBox2.Controls.Add(this.label34);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(249, 256);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(335, 83);
-            this.groupBox2.TabIndex = 19;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "SDEV Noise Test Options";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.comboBox4.Location = new System.Drawing.Point(265, 19);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(49, 21);
-            this.comboBox4.TabIndex = 11;
-            this.comboBox4.Text = "3";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(184, 22);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(80, 13);
-            this.label34.TabIndex = 10;
-            this.label34.Text = "Valid Under Bin";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(97, 54);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(31, 13);
-            this.label29.TabIndex = 18;
-            this.label29.Text = "Secs";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "5",
-            "10",
-            "15",
-            "30"});
-            this.comboBox1.Location = new System.Drawing.Point(47, 51);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(49, 21);
-            this.comboBox1.TabIndex = 17;
-            this.comboBox1.Text = "10";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(17, 54);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(29, 13);
-            this.label30.TabIndex = 16;
-            this.label30.Text = "Wait";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(97, 22);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(30, 13);
-            this.label31.TabIndex = 15;
-            this.label31.Text = "Volts";
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(6, 22);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(40, 13);
-            this.label33.TabIndex = 14;
-            this.label33.Text = "Test at";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "500",
-            "750",
-            "1000",
-            "1500",
-            "1750",
-            "2000"});
-            this.comboBox2.Location = new System.Drawing.Point(47, 19);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(49, 21);
-            this.comboBox2.TabIndex = 13;
-            this.comboBox2.Text = "500";
+            this.blinkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.blinkBtn.Location = new System.Drawing.Point(170, 544);
+            this.blinkBtn.Name = "blinkBtn";
+            this.blinkBtn.Size = new System.Drawing.Size(73, 23);
+            this.blinkBtn.TabIndex = 20;
+            this.blinkBtn.Text = "Blink";
+            this.blinkBtn.UseVisualStyleBackColor = true;
+            this.blinkBtn.Click += new System.EventHandler(this.blinkBtn_Click);
             // 
             // MainForm
             // 
@@ -1450,6 +1464,8 @@ namespace QIXLPTesting
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -1472,8 +1488,6 @@ namespace QIXLPTesting
             this.panel2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1595,6 +1609,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Button blinkBtn;
     }
 }
 
