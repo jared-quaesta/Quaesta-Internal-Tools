@@ -81,7 +81,7 @@ namespace UniversalUpdate
 
                     string serial = serialMan.listener.GetSerial();
                     att = 0;
-                    while (!coms.TryAdd(serialMan.com + " : " + serial))
+                    while (!coms.TryAdd(serial + " : " + serialMan.com))
                     {
                         if (att++ == 10) break;
                         Thread.Sleep(30);
@@ -209,8 +209,6 @@ namespace UniversalUpdate
                 }
             }
 
-
-
             bool serialize = refServerCheck.Checked;
             bool prevID = prevSn.Text.Length > 0;
             updateBtn.Enabled = false;
@@ -227,13 +225,12 @@ namespace UniversalUpdate
             // make serialmans for each com port
             foreach (string com in availComs.CheckedItems)
             {
-                string comport = com.Split(':')[0].Trim();
-                string serial = com.Split(':')[1].Trim();
+                string comport = com.Split(':')[1].Trim();
+                string serial = com.Split(':')[0].Trim();
                 SerialListener listener = new SerialListener();
                 SerialNPMManager serialMan = new SerialNPMManager(serial, comport);
                 serialManagers.Add(serialMan);
             }
-
 
             //perform pre-flight safety checks (can I connect?)
             bool canConnect = true;
@@ -284,7 +281,7 @@ namespace UniversalUpdate
                 byte[] allBytes = File.ReadAllBytes(curFWPath);
                 int blockCount = allBytes.Length / 128;
                 progTxt.Text = "Updating Firmware...";
-                string firstcom = availComs.CheckedItems[0].ToString().Split(':')[0].Trim();
+                string firstcom = availComs.CheckedItems[0].ToString().Split(':')[1].Trim();
                 foreach (SerialNPMManager serialMan in serialManagers)
                 {
 
@@ -472,20 +469,25 @@ namespace UniversalUpdate
                         {
                             serialMan.AllowSecret();
                         }
-
+                        serialMan.ClearInput();
+                        Thread.Sleep(30);
                         foreach (string command in commands)
                         {
                             string fixedCmd = command.Trim('\r', '\n', ' ') + "\r\n";
-                            serialMan.SendCommand(fixedCmd, 5);
+                            serialMan.SendCommand(fixedCmd);
+                            Thread.Sleep(30);
+                            serialMan.SendCommand(fixedCmd);
+                            Thread.Sleep(30);
+                            serialMan.SendCommand(fixedCmd);
+                            Thread.Sleep(30);
 
-                            Thread.Sleep(300);
-
-                            Invoke((MethodInvoker)delegate
-                            {
-                                progTxt.Text = $"Sending Command: {fixedCmd.Trim('\r', '\n', ' ')}";
-                                progTxt.Refresh();
-                            });
+                            //Invoke((MethodInvoker)delegate
+                            //{
+                            //    progTxt.Text = $"Sending Command: {fixedCmd.Trim('\r', '\n', ' ')}";
+                            //    progTxt.Refresh();
+                            //});
                         }
+                        Debug.WriteLine(serialMan.IsConnected() + ": " + serialMan.com);
                     });
                     Thread thread = new Thread(threadDelegate);
                     thread.Start();
@@ -919,12 +921,12 @@ namespace UniversalUpdate
         {
             // turn off all LEDs
             if (availComs.SelectedIndex == -1) return;
-            string selCom = availComs.SelectedItem.ToString().Split(':')[0].Trim();
-            string serial = availComs.SelectedItem.ToString().Split(':')[1].Trim();
+            string selCom = availComs.SelectedItem.ToString().Split(':')[1].Trim();
+            string serial = availComs.SelectedItem.ToString().Split(':')[0].Trim();
             List<SerialNPMManager> serialManagers = new List<SerialNPMManager>();
             foreach (string com in availComs.Items)
             {
-                string comport = com.Split(':')[0].Trim();
+                string comport = com.Split(':')[1].Trim();
                 SerialListener listener = new SerialListener();
                 SerialNPMManager serialMan = new SerialNPMManager(serial, comport);
                 serialManagers.Add(serialMan);
