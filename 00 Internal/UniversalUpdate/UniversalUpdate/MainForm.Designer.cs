@@ -76,6 +76,7 @@ namespace UniversalUpdate
             this.availComs.Name = "availComs";
             this.availComs.Size = new System.Drawing.Size(183, 529);
             this.availComs.TabIndex = 0;
+            this.availComs.SelectedIndexChanged += new System.EventHandler(this.BlinkSelectedLED);
             // 
             // button1
             // 

@@ -23,7 +23,7 @@ namespace UniversalUpdate.Serial
         {
             //Debug.WriteLine(data);
 
-            cmdString += data;
+                cmdString += data;
             if (cmdString.Contains('\n'))
             {
                 gotCmd = true;
@@ -66,7 +66,6 @@ namespace UniversalUpdate.Serial
                 else if (line.Contains("Serial Number"))
                 {
                     serialString = line.Trim().Split(' ')[line.Trim().Split(' ').Length - 1].Trim('\r', ' ');
-                    Debug.Write("");
                 }
                 else if (line.Contains("Model") && !line.Contains("Type"))
                 {
