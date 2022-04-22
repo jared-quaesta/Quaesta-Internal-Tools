@@ -31,14 +31,15 @@ namespace QIXLPTesting
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.blinkBtn = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label29 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.sdevWait = new System.Windows.Forms.ComboBox();
             this.label30 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.sdevVolt = new System.Windows.Forms.ComboBox();
+            this.minBinBox = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label28 = new System.Windows.Forms.Label();
@@ -56,7 +57,7 @@ namespace QIXLPTesting
             this.label26 = new System.Windows.Forms.Label();
             this.gainBox = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.sdevRadio = new System.Windows.Forms.RadioButton();
             this.psRadio = new System.Windows.Forms.RadioButton();
             this.ledRadio = new System.Windows.Forms.RadioButton();
             this.voltageRadio = new System.Windows.Forms.RadioButton();
@@ -143,7 +144,6 @@ namespace QIXLPTesting
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blinkBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -203,15 +203,26 @@ namespace QIXLPTesting
             this.tabPage2.Text = "Testing";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // blinkBtn
+            // 
+            this.blinkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.blinkBtn.Location = new System.Drawing.Point(170, 544);
+            this.blinkBtn.Name = "blinkBtn";
+            this.blinkBtn.Size = new System.Drawing.Size(73, 23);
+            this.blinkBtn.TabIndex = 20;
+            this.blinkBtn.Text = "Blink";
+            this.blinkBtn.UseVisualStyleBackColor = true;
+            this.blinkBtn.Click += new System.EventHandler(this.blinkBtn_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label29);
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.sdevWait);
             this.groupBox2.Controls.Add(this.label30);
             this.groupBox2.Controls.Add(this.label31);
             this.groupBox2.Controls.Add(this.label33);
-            this.groupBox2.Controls.Add(this.comboBox2);
-            this.groupBox2.Controls.Add(this.comboBox4);
+            this.groupBox2.Controls.Add(this.sdevVolt);
+            this.groupBox2.Controls.Add(this.minBinBox);
             this.groupBox2.Controls.Add(this.label34);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(249, 256);
@@ -230,19 +241,19 @@ namespace QIXLPTesting
             this.label29.TabIndex = 18;
             this.label29.Text = "Secs";
             // 
-            // comboBox1
+            // sdevWait
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.sdevWait.FormattingEnabled = true;
+            this.sdevWait.Items.AddRange(new object[] {
             "5",
             "10",
             "15",
             "30"});
-            this.comboBox1.Location = new System.Drawing.Point(47, 51);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(49, 21);
-            this.comboBox1.TabIndex = 17;
-            this.comboBox1.Text = "10";
+            this.sdevWait.Location = new System.Drawing.Point(47, 51);
+            this.sdevWait.Name = "sdevWait";
+            this.sdevWait.Size = new System.Drawing.Size(49, 21);
+            this.sdevWait.TabIndex = 17;
+            this.sdevWait.Text = "10";
             // 
             // label30
             // 
@@ -271,45 +282,45 @@ namespace QIXLPTesting
             this.label33.TabIndex = 14;
             this.label33.Text = "Test at";
             // 
-            // comboBox2
+            // sdevVolt
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.sdevVolt.FormattingEnabled = true;
+            this.sdevVolt.Items.AddRange(new object[] {
             "500",
             "750",
             "1000",
             "1500",
             "1750",
             "2000"});
-            this.comboBox2.Location = new System.Drawing.Point(47, 19);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(49, 21);
-            this.comboBox2.TabIndex = 13;
-            this.comboBox2.Text = "500";
+            this.sdevVolt.Location = new System.Drawing.Point(47, 19);
+            this.sdevVolt.Name = "sdevVolt";
+            this.sdevVolt.Size = new System.Drawing.Size(49, 21);
+            this.sdevVolt.TabIndex = 13;
+            this.sdevVolt.Text = "500";
             // 
-            // comboBox4
+            // minBinBox
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
+            this.minBinBox.FormattingEnabled = true;
+            this.minBinBox.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4",
             "5"});
-            this.comboBox4.Location = new System.Drawing.Point(265, 19);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(49, 21);
-            this.comboBox4.TabIndex = 11;
-            this.comboBox4.Text = "3";
+            this.minBinBox.Location = new System.Drawing.Point(280, 19);
+            this.minBinBox.Name = "minBinBox";
+            this.minBinBox.Size = new System.Drawing.Size(49, 21);
+            this.minBinBox.TabIndex = 11;
+            this.minBinBox.Text = "3";
             // 
             // label34
             // 
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(184, 22);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(80, 13);
+            this.label34.Size = new System.Drawing.Size(92, 13);
             this.label34.TabIndex = 10;
-            this.label34.Text = "Valid Under Bin";
+            this.label34.Text = "Minimum Valid Bin";
             // 
             // groupBox1
             // 
@@ -482,7 +493,7 @@ namespace QIXLPTesting
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.radioButton1);
+            this.panel1.Controls.Add(this.sdevRadio);
             this.panel1.Controls.Add(this.psRadio);
             this.panel1.Controls.Add(this.ledRadio);
             this.panel1.Controls.Add(this.voltageRadio);
@@ -491,15 +502,15 @@ namespace QIXLPTesting
             this.panel1.Size = new System.Drawing.Size(335, 29);
             this.panel1.TabIndex = 19;
             // 
-            // radioButton1
+            // sdevRadio
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(201, 4);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(54, 17);
-            this.radioButton1.TabIndex = 3;
-            this.radioButton1.Text = "SDEV";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.sdevRadio.AutoSize = true;
+            this.sdevRadio.Location = new System.Drawing.Point(201, 4);
+            this.sdevRadio.Name = "sdevRadio";
+            this.sdevRadio.Size = new System.Drawing.Size(54, 17);
+            this.sdevRadio.TabIndex = 3;
+            this.sdevRadio.Text = "SDEV";
+            this.sdevRadio.UseVisualStyleBackColor = true;
             // 
             // psRadio
             // 
@@ -1438,17 +1449,6 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
-            // blinkBtn
-            // 
-            this.blinkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.blinkBtn.Location = new System.Drawing.Point(170, 544);
-            this.blinkBtn.Name = "blinkBtn";
-            this.blinkBtn.Size = new System.Drawing.Size(73, 23);
-            this.blinkBtn.TabIndex = 20;
-            this.blinkBtn.Text = "Blink";
-            this.blinkBtn.UseVisualStyleBackColor = true;
-            this.blinkBtn.Click += new System.EventHandler(this.blinkBtn_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1533,7 +1533,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox searchBySnBox;
         private System.Windows.Forms.ListBox inServer;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton sdevRadio;
         private System.Windows.Forms.Button saveBtn;
         private System.Windows.Forms.TextBox noteBox;
         private System.Windows.Forms.Label label21;
@@ -1602,12 +1602,12 @@ namespace QIXLPTesting
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox sdevWait;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox sdevVolt;
+        private System.Windows.Forms.ComboBox minBinBox;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button blinkBtn;
     }

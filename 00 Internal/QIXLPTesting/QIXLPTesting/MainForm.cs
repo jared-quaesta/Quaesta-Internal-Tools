@@ -198,14 +198,16 @@ namespace QIXLPTesting
             int finished = 0;
             int numUpdating = serialMans.Count;
             List<string> failedConnect = new List<string>();
+            List<Thread> threads = new List<Thread>();
+            BlockingCollection<string> coms = new BlockingCollection<string>();
             foreach (SerialNPMManager serialMan in serialMans)
             {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                Task.Run(() =>
+                ThreadStart threadDelegate = new ThreadStart(() =>
                 {
+                    // connect
                     int att = 0;
 
-                    bool conn = serialMan.Connect(serialMan.com);
+                    serialMan.Connect(serialMan.com);
                     while (!serialMan.IsConnected())
                     {
                         if (att == 10)
@@ -214,22 +216,23 @@ namespace QIXLPTesting
                         }
                         att++;
                         Thread.Sleep(500);
-                        conn = serialMan.Connect(serialMan.com);
+                        serialMan.Connect(serialMan.com);
                     }
                     if (!serialMan.IsConnected())
                     {
-                        failedConnect.Add(serialMan.com);
+                        MessageBox.Show("Unable to connect to ");
                     }
-                    finished++;
                 });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
             }
 
-            // pause, wait for connection.
             await Task.Run(() =>
             {
-                while (numUpdating != finished)
+                foreach (var thread in threads)
                 {
-                    Thread.Sleep(10);
+                    thread.Join();
                 }
             });
 
@@ -261,11 +264,118 @@ namespace QIXLPTesting
             } else if (psRadio.Checked)
             {
                 bool psErr = await RunPulseSimTest(serialMans);
+            } else if (sdevRadio.Checked)
+            {
+                bool sdevErr = await RunSdevTest(serialMans);
             }
 
 
             foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
 
+        }
+
+        private async Task<bool> RunSdevTest(List<SerialNPMManager> serialMans)
+        {
+            AddOutput("--Begin SDEV Test--\n", Color.FromArgb(255, 131, 89));
+            AddOutput("Wait: ", Color.FromArgb(71, 134, 255));
+            AddOutput(sdevWait.Text + " Seconds" + Environment.NewLine, Color.White);
+            AddOutput("Valid Below: ", Color.FromArgb(71, 134, 255));
+            AddOutput("Bin " + minBinBox.Text + Environment.NewLine, Color.White);
+            AddOutput("Voltage: ", Color.FromArgb(71, 134, 255));
+            AddOutput(sdevVolt.Text + "V" + Environment.NewLine, Color.White);
+
+            List<Thread> threads = new List<Thread>();
+
+            int voltage = int.Parse(sdevVolt.Text);
+            int waitSec = int.Parse(sdevWait.Text);
+            int minBin = int.Parse(minBinBox.Text);
+            ConcurrentDictionary<string, Tuple<bool, int>> psDict = new ConcurrentDictionary<string, Tuple<bool, int>>();
+            HGMPlotForm pf = new HGMPlotForm();
+            pf.Show();
+            progressBar.Value = 0;
+            progressBar.Maximum = 1000;
+
+
+            Stopwatch sw = Stopwatch.StartNew();
+            foreach (SerialNPMManager serialMan in serialMans)
+            {
+                ThreadStart threadDelegate = new ThreadStart(() =>
+                {
+                    Tests psTestClass = new Tests();
+                    foreach (LineSeries series in psTestClass.SdevTest(serialMan, waitSec, voltage, minBin))
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            pf.AppendSeries(series, serialMan.GetSerial());
+                        });
+                    }
+                    // NOTE: This will run forever if there are two of the same serial #s in the test,
+                    //       though, this should NEVER happen. Catch this early on and use this  
+                    //       loop as a watchpoint in the future should it even happen.
+                    //
+                    //       Would much prefer an infinite loop than a duplicate serial number reaching 
+                    //       my server somehow.
+                    while (!psDict.TryAdd(
+                        serialMan.GetSerial(),
+                        new Tuple<bool, int>(psTestClass.errOccurred, psTestClass.maxBin)))
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
+            }
+
+            Task.Run(() =>
+            {
+                Stopwatch watch = Stopwatch.StartNew();
+                int time = waitSec;
+                while (watch.ElapsedMilliseconds / 1000 < time)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        int val = (int)(watch.ElapsedMilliseconds / time);
+                        if (val > 1000) val = 1000;
+                        progressBar.Value = val;
+                        progressBar.Refresh();
+                    });
+                    Thread.Sleep(100);
+                }
+
+            });
+
+            await Task.Run(() =>
+            {
+                foreach (var thread in threads)
+                {
+                    thread.Join();
+                }
+            });
+
+            bool errFound = false;
+            foreach (string key in psDict.Keys)
+            {
+                if (psDict[key].Item2 <= minBin)
+                {
+                    AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
+                    AddOutput("Max bin " + psDict[key].Item2 + Environment.NewLine, Color.FromArgb(0, 200, 156));
+                }
+                else
+                {
+                    AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
+                    AddOutput("Max bin " + psDict[key].Item2 + Environment.NewLine, Color.FromArgb(251, 55, 40));
+                }
+                errFound = errFound || psDict[key].Item1;
+                SQLManager.UpdateSdevTest(key, !psDict[key].Item1);
+
+            }
+            pf.canClose = true;
+            progressBar.Value = 0;
+
+
+            return errFound;
         }
 
         private async Task<bool> RunPulseSimTest(List<SerialNPMManager> serialMans)

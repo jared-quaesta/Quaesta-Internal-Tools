@@ -17,6 +17,7 @@ namespace QIXLPTesting
         public bool errOccurred = false;
         public double averageVoltage = -1;
         public int maxSpread = 0;
+        public int maxBin = 0;
 
         public IEnumerable<DataPoint> VoltageTest(SerialNPMManager serialMan, int testVoltage, int range, int wait, bool rampDown)
         {
@@ -54,6 +55,69 @@ namespace QIXLPTesting
             //return new Tuple<LineSeries, bool>(series, err);
         }
 
+        internal IEnumerable<LineSeries> SdevTest(SerialNPMManager serialMan, int waitSec, int voltage, int minBin)
+        {
+            serialMan.ClearInput();
+            serialMan.listener.ClearVoltage();
+            serialMan.SendCommand($"gain = 25.5\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"maxvoltage={voltage}\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"voltage={voltage}\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"nbins=64\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"disclow=2\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"dischigh=63\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"ledmode = 1\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"pulsesim=0\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"hgmmode=1\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"zerohgm\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"zerohgm\r\n");
+            Thread.Sleep(30);
+
+            Stopwatch watch = Stopwatch.StartNew();
+
+            while (watch.ElapsedMilliseconds / 1000 < waitSec)
+            {
+                LineSeries ls = GetHGMSdev(serialMan, minBin);
+                yield return ls;
+            }
+
+        }
+
+        private LineSeries GetHGMSdev(SerialNPMManager serialMan, int minBin)
+        {
+            serialMan.listener.ClearHGM();
+            serialMan.ClearInput();
+            Thread.Sleep(30);
+            serialMan.SendCommand("hgm\r\n");
+            Thread.Sleep(30);
+
+            LineSeries series = new LineSeries() { Title = serialMan.GetSerial() };
+
+            List<int> hgm = serialMan.listener.GetHGM();
+
+            // find max bin with counts
+            
+            for (int i = 0; i < hgm.Count; i++)
+            {
+                if (hgm[i] > 0) maxBin = i;
+            }
+            if (maxBin > minBin) errOccurred = true;
+
+            for (int i = 0; i < hgm.Count; i++)
+            {
+                series.Points.Add(new DataPoint(i, hgm[i]));
+            }
+            return series;
+        }
 
         internal IEnumerable<LineSeries> PulseSimTest(SerialNPMManager serialMan, double gain, int waitSec, int range, int discLow, int discHigh, int nbins)
         {
@@ -77,19 +141,21 @@ namespace QIXLPTesting
             Thread.Sleep(30);
             serialMan.SendCommand($"zerohgm\r\n");
             Thread.Sleep(30);
+            serialMan.SendCommand($"zerohgm\r\n");
+            Thread.Sleep(30);
 
             Stopwatch watch = Stopwatch.StartNew();
 
             while (watch.ElapsedMilliseconds / 1000 < waitSec)
             {
-                LineSeries ls = GetHGM(serialMan, range);
+                LineSeries ls = GetHGMPS(serialMan, range);
                 yield return ls;
             }
 
 
         }
 
-        private LineSeries GetHGM(SerialNPMManager serialMan, int range)
+        private LineSeries GetHGMPS(SerialNPMManager serialMan, int range)
         {
             serialMan.listener.ClearHGM();
             serialMan.ClearInput();
@@ -181,7 +247,6 @@ namespace QIXLPTesting
 
             return ret;
         }
-
 
     }
 }
