@@ -144,6 +144,7 @@ namespace QIXLPTesting
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.remBtn = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -844,6 +845,7 @@ namespace QIXLPTesting
             // 
             // serverDetailsPanel
             // 
+            this.serverDetailsPanel.Controls.Add(this.remBtn);
             this.serverDetailsPanel.Controls.Add(this.button1);
             this.serverDetailsPanel.Controls.Add(this.button2);
             this.serverDetailsPanel.Controls.Add(this.textBox2);
@@ -1286,9 +1288,9 @@ namespace QIXLPTesting
             // 
             // editSnBtn
             // 
-            this.editSnBtn.Location = new System.Drawing.Point(169, 3);
+            this.editSnBtn.Location = new System.Drawing.Point(161, 3);
             this.editSnBtn.Name = "editSnBtn";
-            this.editSnBtn.Size = new System.Drawing.Size(119, 23);
+            this.editSnBtn.Size = new System.Drawing.Size(65, 23);
             this.editSnBtn.TabIndex = 12;
             this.editSnBtn.Text = "Edit";
             this.editSnBtn.UseVisualStyleBackColor = true;
@@ -1448,6 +1450,16 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // remBtn
+            // 
+            this.remBtn.Location = new System.Drawing.Point(232, 3);
+            this.remBtn.Name = "remBtn";
+            this.remBtn.Size = new System.Drawing.Size(65, 23);
+            this.remBtn.TabIndex = 50;
+            this.remBtn.Text = "Remove";
+            this.remBtn.UseVisualStyleBackColor = true;
+            this.remBtn.Click += new System.EventHandler(this.remBtn_Click);
             // 
             // MainForm
             // 
@@ -1610,6 +1622,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.ComboBox minBinBox;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Button blinkBtn;
+        private System.Windows.Forms.Button remBtn;
     }
 }
 

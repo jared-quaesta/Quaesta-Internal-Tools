@@ -24,12 +24,25 @@ namespace QIXLPTesting.SerialTools
         string voltageString = "";
         string hgmString = "";
 
+        string termBuffer = "";
         List<int> hgm = new List<int>();
 
         SerialNPMManager serialMan = null;
         internal void NewData(string data, string lastCom)
         {
-            if (serialMan != null) serialMan.NewData(data);
+            if (serialMan != null)
+            {
+                if (data.EndsWith("\n"))
+                {
+                    serialMan.NewData(termBuffer + data);
+                    termBuffer = "";
+                } else
+                {
+                    termBuffer += data;
+                }
+            }
+
+
             cmdString += data;
             if (cmdString.Contains('\n'))
             {

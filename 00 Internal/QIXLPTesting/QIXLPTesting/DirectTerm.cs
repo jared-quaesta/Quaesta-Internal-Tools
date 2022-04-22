@@ -32,9 +32,24 @@ namespace QIXLPTesting
                 Thread.Sleep(200);
                 att++;
             }
+            descLbl.Text = $"{man.GetSerial()} | {man.com}";
+            CheckConnection();
+        }
 
-
-            termOut.Text = "Connected: " + man.IsConnected();
+        private void CheckConnection()
+        {
+            if (man.IsConnected())
+            {
+                connectedLbl.Text = "Connected";
+                connectedLbl.ForeColor = Color.Green;
+                connectBtn.Text = "Disconnect";
+            }
+            else
+            {
+                connectedLbl.Text = "Disconnected";
+                connectedLbl.ForeColor = Color.Red;
+                connectBtn.Text = "Connect";
+            }
         }
 
         private void SendCmd(object sender, KeyEventArgs e)
@@ -48,7 +63,6 @@ namespace QIXLPTesting
         {
             Invoke((MethodInvoker)delegate
             {
-
                 string dataRep = data.Replace("\n", "/n\n").Replace("\r", "/r");
 
                 termOut.AppendText(dataRep);
@@ -61,6 +75,102 @@ namespace QIXLPTesting
         private void DisconnectDereference(object sender, FormClosingEventArgs e)
         {
             man.Disconnect();
+        }
+
+        private async void runDebugBtn_ClickAsync(object sender, EventArgs e)
+        {
+
+            if (debugWorker.IsBusy)
+            {
+                debugWorker.CancelAsync();
+                runDebugBtn.Text = "Run Debug Commands";
+
+                runDebugBtn.Enabled = false;
+                await Task.Run(() => 
+                {
+                    while (debugWorker.IsBusy)
+                    {
+                        Thread.Sleep(100);
+                    }
+                });
+                runDebugBtn.Enabled = true;
+
+            } else
+            {
+                runDebugBtn.Text = "Stop Debug";
+                debugWorker.RunWorkerAsync();
+            }
+
+        }
+
+        private void debugWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+            string[] cmds = commandsBox.Text.Split('\n');
+            int lineDelay = int.Parse(lineDelayBox.Text);
+            int byteDelay = int.Parse(byteDelayBox.Text);
+            string crlfOption = "\r\n";
+            if (crRadio.Checked) crlfOption = "\r";
+            else if (lfRadio.Checked) crlfOption = "\n";
+
+            bool indef = indefiniteCheck.Checked;
+            while (!debugWorker.CancellationPending)
+            {
+                
+                foreach (string cmd in cmds)
+                {
+                    man.SendCommand(cmd.Trim(' ', '\n', '\r') + crlfOption, byteDelay);
+                    Thread.Sleep(lineDelay);
+                }
+                if (!indef)
+                    return;
+                
+            }
+
+        }
+
+        private void debugWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            runDebugBtn.Text = "Run Debug Commands";
+            Refresh();
+        }
+
+        private void sendCrBtn_Click(object sender, EventArgs e)
+        {
+            man.SendCommand("\r");
+        }
+
+        private void sendLfBtn_Click(object sender, EventArgs e)
+        {
+            man.SendCommand("\n");
+
+        }
+
+        private void flushOutBuffer_Click(object sender, EventArgs e)
+        {
+            man.ClearInput();
+        }
+
+        private void flushIncBuffer_Click(object sender, EventArgs e)
+        {
+            man.ClearInput();
+        }
+
+        private void clrOut_Click(object sender, EventArgs e)
+        {
+            termOut.Text = "";
+        }
+
+        private void connectBtn_Click(object sender, EventArgs e)
+        {
+            if (!man.IsConnected())
+            {
+                man.Connect(man.com);
+            } else
+            {
+                man.Disconnect();
+            }
+            CheckConnection();
         }
     }
 }

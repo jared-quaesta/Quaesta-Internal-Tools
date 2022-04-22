@@ -269,6 +269,23 @@ namespace QIXLPTesting.SQL
             }
         }
 
+        internal static void RemoveNPM(string serial)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Remove_NPM", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = serial;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
         internal static void UpdatePSTest(string serial, bool val)
         {
             using (SqlConnection con = new SqlConnection(connectionString))

@@ -31,35 +31,34 @@ namespace QIXLPTesting
         {
             this.termOut = new System.Windows.Forms.RichTextBox();
             this.termIn = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.sendCrBtn = new System.Windows.Forms.Button();
+            this.sendLfBtn = new System.Windows.Forms.Button();
+            this.sendImmediatelyCheck = new System.Windows.Forms.CheckBox();
+            this.flushOutBuffer = new System.Windows.Forms.Button();
+            this.showCrLfCheck = new System.Windows.Forms.CheckBox();
+            this.commandsBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.descLbl = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.runDebugBtn = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.lineDelayBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.indefiniteCheck = new System.Windows.Forms.CheckBox();
+            this.byteDelayBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.label12 = new System.Windows.Forms.Label();
+            this.crRadio = new System.Windows.Forms.RadioButton();
+            this.lfRadio = new System.Windows.Forms.RadioButton();
+            this.crlfRadio = new System.Windows.Forms.RadioButton();
+            this.connectedLbl = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
+            this.connectBtn = new System.Windows.Forms.Button();
+            this.debugWorker = new System.ComponentModel.BackgroundWorker();
+            this.clrOut = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // termOut
@@ -89,78 +88,71 @@ namespace QIXLPTesting
             this.termIn.TabIndex = 6;
             this.termIn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SendCmd);
             // 
-            // button1
+            // sendCrBtn
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(697, 386);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(42, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "CR";
-            this.button1.UseVisualStyleBackColor = true;
+            this.sendCrBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.sendCrBtn.Location = new System.Drawing.Point(697, 386);
+            this.sendCrBtn.Name = "sendCrBtn";
+            this.sendCrBtn.Size = new System.Drawing.Size(42, 23);
+            this.sendCrBtn.TabIndex = 7;
+            this.sendCrBtn.Text = "CR";
+            this.sendCrBtn.UseVisualStyleBackColor = true;
+            this.sendCrBtn.Click += new System.EventHandler(this.sendCrBtn_Click);
             // 
-            // button2
+            // sendLfBtn
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(697, 415);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(42, 23);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "LF";
-            this.button2.UseVisualStyleBackColor = true;
+            this.sendLfBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.sendLfBtn.Location = new System.Drawing.Point(697, 415);
+            this.sendLfBtn.Name = "sendLfBtn";
+            this.sendLfBtn.Size = new System.Drawing.Size(42, 23);
+            this.sendLfBtn.TabIndex = 8;
+            this.sendLfBtn.Text = "LF";
+            this.sendLfBtn.UseVisualStyleBackColor = true;
+            this.sendLfBtn.Click += new System.EventHandler(this.sendLfBtn_Click);
             // 
-            // checkBox1
+            // sendImmediatelyCheck
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(697, 363);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(109, 17);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Send Immediately";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.sendImmediatelyCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.sendImmediatelyCheck.AutoSize = true;
+            this.sendImmediatelyCheck.Location = new System.Drawing.Point(697, 363);
+            this.sendImmediatelyCheck.Name = "sendImmediatelyCheck";
+            this.sendImmediatelyCheck.Size = new System.Drawing.Size(109, 17);
+            this.sendImmediatelyCheck.TabIndex = 9;
+            this.sendImmediatelyCheck.Text = "Send Immediately";
+            this.sendImmediatelyCheck.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // flushOutBuffer
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(746, 386);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 52);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "Flush Outgoing Buffer";
-            this.button3.UseVisualStyleBackColor = true;
+            this.flushOutBuffer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.flushOutBuffer.Location = new System.Drawing.Point(746, 386);
+            this.flushOutBuffer.Name = "flushOutBuffer";
+            this.flushOutBuffer.Size = new System.Drawing.Size(75, 52);
+            this.flushOutBuffer.TabIndex = 10;
+            this.flushOutBuffer.Text = "Flush Buffer";
+            this.flushOutBuffer.UseVisualStyleBackColor = true;
+            this.flushOutBuffer.Click += new System.EventHandler(this.flushOutBuffer_Click);
             // 
-            // button4
+            // showCrLfCheck
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(827, 386);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 52);
-            this.button4.TabIndex = 11;
-            this.button4.Text = "Flush Incoming Buffer";
-            this.button4.UseVisualStyleBackColor = true;
+            this.showCrLfCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.showCrLfCheck.AutoSize = true;
+            this.showCrLfCheck.Checked = true;
+            this.showCrLfCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showCrLfCheck.Location = new System.Drawing.Point(814, 363);
+            this.showCrLfCheck.Name = "showCrLfCheck";
+            this.showCrLfCheck.Size = new System.Drawing.Size(88, 17);
+            this.showCrLfCheck.TabIndex = 12;
+            this.showCrLfCheck.Text = "Show CR/LF";
+            this.showCrLfCheck.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // commandsBox
             // 
-            this.checkBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(814, 363);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(88, 17);
-            this.checkBox2.TabIndex = 12;
-            this.checkBox2.Text = "Show CR/LF";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(697, 130);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 158);
-            this.textBox1.TabIndex = 13;
+            this.commandsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.commandsBox.Location = new System.Drawing.Point(697, 130);
+            this.commandsBox.Multiline = true;
+            this.commandsBox.Name = "commandsBox";
+            this.commandsBox.Size = new System.Drawing.Size(100, 158);
+            this.commandsBox.TabIndex = 13;
             // 
             // label1
             // 
@@ -172,16 +164,16 @@ namespace QIXLPTesting
             this.label1.TabIndex = 14;
             this.label1.Text = "label1";
             // 
-            // label2
+            // descLbl
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(697, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(208, 18);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "COM ___ || Serial Number";
+            this.descLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.descLbl.AutoSize = true;
+            this.descLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descLbl.Location = new System.Drawing.Point(697, 16);
+            this.descLbl.Name = "descLbl";
+            this.descLbl.Size = new System.Drawing.Size(208, 18);
+            this.descLbl.TabIndex = 15;
+            this.descLbl.Text = "COM ___ || Serial Number";
             // 
             // label3
             // 
@@ -194,24 +186,16 @@ namespace QIXLPTesting
             this.label3.TabIndex = 16;
             this.label3.Text = "Commands:";
             // 
-            // button5
+            // runDebugBtn
             // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.Location = new System.Drawing.Point(697, 316);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(208, 23);
-            this.button5.TabIndex = 17;
-            this.button5.Text = "Run Debug Commands";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(730, 294);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(62, 20);
-            this.textBox2.TabIndex = 18;
-            this.textBox2.Text = "10";
+            this.runDebugBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.runDebugBtn.Location = new System.Drawing.Point(697, 316);
+            this.runDebugBtn.Name = "runDebugBtn";
+            this.runDebugBtn.Size = new System.Drawing.Size(208, 23);
+            this.runDebugBtn.TabIndex = 17;
+            this.runDebugBtn.Text = "Run Debug Commands";
+            this.runDebugBtn.UseVisualStyleBackColor = true;
+            this.runDebugBtn.Click += new System.EventHandler(this.runDebugBtn_ClickAsync);
             // 
             // label4
             // 
@@ -223,16 +207,6 @@ namespace QIXLPTesting
             this.label4.TabIndex = 19;
             this.label4.Text = "Run";
             // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(794, 297);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(31, 13);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "times";
-            // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -243,14 +217,14 @@ namespace QIXLPTesting
             this.label6.TabIndex = 22;
             this.label6.Text = "Line:";
             // 
-            // textBox3
+            // lineDelayBox
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(833, 132);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(44, 20);
-            this.textBox3.TabIndex = 21;
-            this.textBox3.Text = "20";
+            this.lineDelayBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lineDelayBox.Location = new System.Drawing.Point(833, 132);
+            this.lineDelayBox.Name = "lineDelayBox";
+            this.lineDelayBox.Size = new System.Drawing.Size(44, 20);
+            this.lineDelayBox.TabIndex = 21;
+            this.lineDelayBox.Text = "20";
             // 
             // label7
             // 
@@ -273,25 +247,25 @@ namespace QIXLPTesting
             this.label8.TabIndex = 24;
             this.label8.Text = "Delays:";
             // 
-            // checkBox3
+            // indefiniteCheck
             // 
-            this.checkBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(832, 296);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(76, 17);
-            this.checkBox3.TabIndex = 25;
-            this.checkBox3.Text = "Indefinitely";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.indefiniteCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.indefiniteCheck.AutoSize = true;
+            this.indefiniteCheck.Location = new System.Drawing.Point(730, 296);
+            this.indefiniteCheck.Name = "indefiniteCheck";
+            this.indefiniteCheck.Size = new System.Drawing.Size(76, 17);
+            this.indefiniteCheck.TabIndex = 25;
+            this.indefiniteCheck.Text = "Indefinitely";
+            this.indefiniteCheck.UseVisualStyleBackColor = true;
             // 
-            // textBox4
+            // byteDelayBox
             // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(833, 158);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(44, 20);
-            this.textBox4.TabIndex = 26;
-            this.textBox4.Text = "0";
+            this.byteDelayBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.byteDelayBox.Location = new System.Drawing.Point(833, 158);
+            this.byteDelayBox.Name = "byteDelayBox";
+            this.byteDelayBox.Size = new System.Drawing.Size(44, 20);
+            this.byteDelayBox.TabIndex = 26;
+            this.byteDelayBox.Text = "0";
             // 
             // label9
             // 
@@ -324,52 +298,52 @@ namespace QIXLPTesting
             this.label11.TabIndex = 29;
             this.label11.Text = "Send With:";
             // 
-            // radioButton1
+            // crRadio
             // 
-            this.radioButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(818, 209);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(40, 17);
-            this.radioButton1.TabIndex = 30;
-            this.radioButton1.Text = "CR";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.crRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.crRadio.AutoSize = true;
+            this.crRadio.Location = new System.Drawing.Point(818, 209);
+            this.crRadio.Name = "crRadio";
+            this.crRadio.Size = new System.Drawing.Size(40, 17);
+            this.crRadio.TabIndex = 30;
+            this.crRadio.Text = "CR";
+            this.crRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // lfRadio
             // 
-            this.radioButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(818, 232);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(37, 17);
-            this.radioButton2.TabIndex = 31;
-            this.radioButton2.Text = "LF";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.lfRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lfRadio.AutoSize = true;
+            this.lfRadio.Location = new System.Drawing.Point(818, 232);
+            this.lfRadio.Name = "lfRadio";
+            this.lfRadio.Size = new System.Drawing.Size(37, 17);
+            this.lfRadio.TabIndex = 31;
+            this.lfRadio.Text = "LF";
+            this.lfRadio.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // crlfRadio
             // 
-            this.radioButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Checked = true;
-            this.radioButton3.Location = new System.Drawing.Point(818, 255);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(64, 17);
-            this.radioButton3.TabIndex = 32;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "CR + LF";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.crlfRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.crlfRadio.AutoSize = true;
+            this.crlfRadio.Checked = true;
+            this.crlfRadio.Location = new System.Drawing.Point(818, 255);
+            this.crlfRadio.Name = "crlfRadio";
+            this.crlfRadio.Size = new System.Drawing.Size(64, 17);
+            this.crlfRadio.TabIndex = 32;
+            this.crlfRadio.TabStop = true;
+            this.crlfRadio.Text = "CR + LF";
+            this.crlfRadio.UseVisualStyleBackColor = true;
             // 
-            // label12
+            // connectedLbl
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(746, 40);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(161, 32);
-            this.label12.TabIndex = 33;
-            this.label12.Text = "NOT CONNECTED";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.connectedLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.connectedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.connectedLbl.ForeColor = System.Drawing.Color.Red;
+            this.connectedLbl.Location = new System.Drawing.Point(746, 40);
+            this.connectedLbl.Name = "connectedLbl";
+            this.connectedLbl.Size = new System.Drawing.Size(161, 32);
+            this.connectedLbl.TabIndex = 33;
+            this.connectedLbl.Text = "NOT CONNECTED";
+            this.connectedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label13
             // 
@@ -381,50 +355,66 @@ namespace QIXLPTesting
             this.label13.TabIndex = 34;
             this.label13.Text = "label13";
             // 
-            // button6
+            // connectBtn
             // 
-            this.button6.Location = new System.Drawing.Point(837, 75);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(71, 29);
-            this.button6.TabIndex = 35;
-            this.button6.Text = "Disconnect";
-            this.button6.UseVisualStyleBackColor = true;
+            this.connectBtn.Location = new System.Drawing.Point(837, 75);
+            this.connectBtn.Name = "connectBtn";
+            this.connectBtn.Size = new System.Drawing.Size(71, 29);
+            this.connectBtn.TabIndex = 35;
+            this.connectBtn.Text = "Disconnect";
+            this.connectBtn.UseVisualStyleBackColor = true;
+            this.connectBtn.Click += new System.EventHandler(this.connectBtn_Click);
+            // 
+            // debugWorker
+            // 
+            this.debugWorker.WorkerReportsProgress = true;
+            this.debugWorker.WorkerSupportsCancellation = true;
+            this.debugWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.debugWorker_DoWork);
+            this.debugWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.debugWorker_RunWorkerCompleted);
+            // 
+            // clrOut
+            // 
+            this.clrOut.Location = new System.Drawing.Point(827, 386);
+            this.clrOut.Name = "clrOut";
+            this.clrOut.Size = new System.Drawing.Size(78, 52);
+            this.clrOut.TabIndex = 36;
+            this.clrOut.Text = "Clear";
+            this.clrOut.UseVisualStyleBackColor = true;
+            this.clrOut.Click += new System.EventHandler(this.clrOut_Click);
             // 
             // DirectTerm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 446);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.clrOut);
+            this.Controls.Add(this.connectBtn);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.label12);
-            this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.connectedLbl);
+            this.Controls.Add(this.crlfRadio);
+            this.Controls.Add(this.lfRadio);
+            this.Controls.Add(this.crRadio);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.byteDelayBox);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.indefiniteCheck);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.lineDelayBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.runDebugBtn);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.descLbl);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.commandsBox);
+            this.Controls.Add(this.showCrLfCheck);
+            this.Controls.Add(this.flushOutBuffer);
+            this.Controls.Add(this.sendImmediatelyCheck);
+            this.Controls.Add(this.sendLfBtn);
+            this.Controls.Add(this.sendCrBtn);
             this.Controls.Add(this.termIn);
             this.Controls.Add(this.termOut);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
             this.MinimumSize = new System.Drawing.Size(600, 412);
             this.Name = "DirectTerm";
@@ -440,34 +430,33 @@ namespace QIXLPTesting
 
         private System.Windows.Forms.RichTextBox termOut;
         private System.Windows.Forms.TextBox termIn;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button sendCrBtn;
+        private System.Windows.Forms.Button sendLfBtn;
+        private System.Windows.Forms.CheckBox sendImmediatelyCheck;
+        private System.Windows.Forms.Button flushOutBuffer;
+        private System.Windows.Forms.CheckBox showCrLfCheck;
+        private System.Windows.Forms.TextBox commandsBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label descLbl;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button runDebugBtn;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox lineDelayBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.CheckBox indefiniteCheck;
+        private System.Windows.Forms.TextBox byteDelayBox;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.RadioButton crRadio;
+        private System.Windows.Forms.RadioButton lfRadio;
+        private System.Windows.Forms.RadioButton crlfRadio;
+        private System.Windows.Forms.Label connectedLbl;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button connectBtn;
+        private System.ComponentModel.BackgroundWorker debugWorker;
+        private System.Windows.Forms.Button clrOut;
     }
 }

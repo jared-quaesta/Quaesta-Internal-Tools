@@ -44,6 +44,7 @@ namespace QIXLPTesting.SerialTools
         {
             if (term == null) return;
             term.AddData(data);
+
         }
 
         internal void SetTerm(DirectTerm directTerm)

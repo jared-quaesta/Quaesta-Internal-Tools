@@ -1094,5 +1094,24 @@ namespace QIXLPTesting
 
 
         }
+
+        private void remBtn_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure? Do not delete this serial number unless you know what you're doing.", "Warning", MessageBoxButtons.YesNo)
+                == DialogResult.Yes &&
+                MessageBox.Show("Are you ABSOLUTELY sure? This will rmeove all data stored with this serial number.", "Warning", MessageBoxButtons.YesNo)
+                == DialogResult.Yes)
+            {
+
+                SQLManager.RemoveNPM(snLbl.Text);
+            }
+
+
+
+            refreshConnectedToolStripMenuItem_Click(null, null);
+
+
+
+        }
     }
 }
