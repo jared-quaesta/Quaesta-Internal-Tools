@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CRNS BP", "CRNS BP.csproj", "{9E1437A6-072F-4D1F-866E-C5A6E915E006}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E1437A6-072F-4D1F-866E-C5A6E915E006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E1437A6-072F-4D1F-866E-C5A6E915E006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E1437A6-072F-4D1F-866E-C5A6E915E006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E1437A6-072F-4D1F-866E-C5A6E915E006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FDF4A69-35CC-406B-AA4D-442AEC81498A}.Debug|Any CPU.ActiveCfg = Debug
+		{7FDF4A69-35CC-406B-AA4D-442AEC81498A}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E30FE06-E47C-4E3B-8A90-2079B2E9622C}
+	EndGlobalSection
+EndGlobal
