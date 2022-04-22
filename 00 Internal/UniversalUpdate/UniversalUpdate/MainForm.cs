@@ -1087,5 +1087,50 @@ namespace UniversalUpdate
             ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
             optionsToolStripMenuItem.ShowDropDown();
         }
+
+        private async void showMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (availComs.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select an NPM first.");
+                return;
+            }
+            string selCom = availComs.SelectedItem.ToString().Split(':')[1].Trim();
+            string serial = availComs.SelectedItem.ToString().Split(':')[0].Trim();
+
+            SerialNPMManager serialMan = new SerialNPMManager(serial, selCom);
+            await Task.Run(() =>
+            {
+                int att = 0;
+                serialMan.Connect(serialMan.com);
+                while (!serialMan.IsConnected())
+                {
+                    if (att == 10)
+                    {
+                        break;
+                    }
+                    att++;
+                    Thread.Sleep(100);
+                    serialMan.Connect(serialMan.com);
+                }
+                if (!serialMan.IsConnected())
+                {
+                    Debug.WriteLine("Could not connect: " + serialMan.com);
+                    return;
+                }
+
+                serialMan.ClearInput();
+                Thread.Sleep(30);
+
+                serialMan.SendCommand("menu\r\n");
+                Thread.Sleep(100);
+                
+                Thread.Sleep(100);
+                serialMan.Disconnect();
+            });
+
+            new MenuForm(serialMan.listener.GetMenu()).ShowDialog();
+
+        }
     }
 }

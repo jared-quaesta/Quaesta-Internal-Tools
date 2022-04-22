@@ -19,11 +19,13 @@ namespace UniversalUpdate.Serial
         string serialString = "";
         string modelString = "";
         string firmwareString = "";
+        string menuString = "";
         internal void NewData(string data, string lastCom)
         {
             //Debug.WriteLine(data);
 
             cmdString += data;
+            if (lastCom.Equals("menu")) menuString += data;
             if (cmdString.Contains('\n'))
             {
                 gotCmd = true;
@@ -44,6 +46,10 @@ namespace UniversalUpdate.Serial
             }
         }
 
+        internal string GetMenu()
+        {
+            return menuString;
+        }
         internal void ClearInfo()
         {
             infoString = "";

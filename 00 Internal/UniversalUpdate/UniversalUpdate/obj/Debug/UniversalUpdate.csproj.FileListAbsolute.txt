@@ -28,3 +28,4 @@ C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\UniversalUpda
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.csproj.CopyComplete
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.exe
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.pdb
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\UniversalUpdate\UniversalUpdate\obj\Debug\UniversalUpdate.MenuForm.resources

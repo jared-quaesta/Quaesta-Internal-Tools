@@ -38,6 +38,7 @@ namespace UniversalUpdate
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showWarningsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blinkOnSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sTLinkFlashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crpDrag = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,7 +62,7 @@ namespace UniversalUpdate
             this.label10 = new System.Windows.Forms.Label();
             this.serverPanel = new System.Windows.Forms.Panel();
             this.progTxt = new System.Windows.Forms.Label();
-            this.blinkOnSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.serverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -133,7 +134,8 @@ namespace UniversalUpdate
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showWarningsToolStripMenuItem,
-            this.blinkOnSelectionToolStripMenuItem});
+            this.blinkOnSelectionToolStripMenuItem,
+            this.showMenuToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -144,6 +146,13 @@ namespace UniversalUpdate
             this.showWarningsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showWarningsToolStripMenuItem.Text = "Show Warnings";
             this.showWarningsToolStripMenuItem.Click += new System.EventHandler(this.showWarningsToolStripMenuItem_Click);
+            // 
+            // blinkOnSelectionToolStripMenuItem
+            // 
+            this.blinkOnSelectionToolStripMenuItem.Name = "blinkOnSelectionToolStripMenuItem";
+            this.blinkOnSelectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blinkOnSelectionToolStripMenuItem.Text = "Blink on Selection";
+            this.blinkOnSelectionToolStripMenuItem.Click += new System.EventHandler(this.blinkOnSelectionToolStripMenuItem_Click);
             // 
             // sTLinkFlashToolStripMenuItem
             // 
@@ -382,12 +391,12 @@ namespace UniversalUpdate
             this.progTxt.TabIndex = 26;
             this.progTxt.Text = "Waiting....";
             // 
-            // blinkOnSelectionToolStripMenuItem
+            // showMenuToolStripMenuItem
             // 
-            this.blinkOnSelectionToolStripMenuItem.Name = "blinkOnSelectionToolStripMenuItem";
-            this.blinkOnSelectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.blinkOnSelectionToolStripMenuItem.Text = "Blink on Selection";
-            this.blinkOnSelectionToolStripMenuItem.Click += new System.EventHandler(this.blinkOnSelectionToolStripMenuItem_Click);
+            this.showMenuToolStripMenuItem.Name = "showMenuToolStripMenuItem";
+            this.showMenuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showMenuToolStripMenuItem.Text = "Show Menu";
+            this.showMenuToolStripMenuItem.Click += new System.EventHandler(this.showMenuToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -462,6 +471,7 @@ namespace UniversalUpdate
         private System.Windows.Forms.ToolStripMenuItem sTLinkFlashToolStripMenuItem;
         private System.Windows.Forms.Label progTxt;
         private System.Windows.Forms.ToolStripMenuItem blinkOnSelectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showMenuToolStripMenuItem;
     }
 }
 
