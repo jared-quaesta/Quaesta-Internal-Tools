@@ -32,7 +32,16 @@ namespace QIXLPTesting
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.psNbins = new System.Windows.Forms.ComboBox();
+            this.psDiscLow = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.psDiscHigh = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.psValid = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.waitPs = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
@@ -125,15 +134,15 @@ namespace QIXLPTesting
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label18 = new System.Windows.Forms.Label();
-            this.psValid = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.psDiscHigh = new System.Windows.Forms.ComboBox();
-            this.label27 = new System.Windows.Forms.Label();
-            this.psDiscLow = new System.Windows.Forms.ComboBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.psNbins = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -147,6 +156,7 @@ namespace QIXLPTesting
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -159,12 +169,13 @@ namespace QIXLPTesting
             this.tabControl1.Location = new System.Drawing.Point(12, 27);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(903, 560);
+            this.tabControl1.Size = new System.Drawing.Size(903, 596);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.RefreshAvailable);
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.panel1);
             this.tabPage2.Controls.Add(this.openTerm);
@@ -185,7 +196,7 @@ namespace QIXLPTesting
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(895, 534);
+            this.tabPage2.Size = new System.Drawing.Size(895, 570);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Testing";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -213,6 +224,73 @@ namespace QIXLPTesting
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PulseSim Test Options";
             // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(198, 24);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(35, 13);
+            this.label28.TabIndex = 18;
+            this.label28.Text = "NBins";
+            // 
+            // psNbins
+            // 
+            this.psNbins.FormattingEnabled = true;
+            this.psNbins.Items.AddRange(new object[] {
+            "32",
+            "64",
+            "128"});
+            this.psNbins.Location = new System.Drawing.Point(234, 21);
+            this.psNbins.Name = "psNbins";
+            this.psNbins.Size = new System.Drawing.Size(49, 21);
+            this.psNbins.TabIndex = 17;
+            this.psNbins.Text = "64";
+            // 
+            // psDiscLow
+            // 
+            this.psDiscLow.FormattingEnabled = true;
+            this.psDiscLow.Location = new System.Drawing.Point(67, 75);
+            this.psDiscLow.Name = "psDiscLow";
+            this.psDiscLow.Size = new System.Drawing.Size(49, 21);
+            this.psDiscLow.TabIndex = 16;
+            this.psDiscLow.Text = "3";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(18, 78);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(48, 13);
+            this.label24.TabIndex = 15;
+            this.label24.Text = "DiscLow";
+            // 
+            // psDiscHigh
+            // 
+            this.psDiscHigh.FormattingEnabled = true;
+            this.psDiscHigh.Location = new System.Drawing.Point(67, 48);
+            this.psDiscHigh.Name = "psDiscHigh";
+            this.psDiscHigh.Size = new System.Drawing.Size(49, 21);
+            this.psDiscHigh.TabIndex = 14;
+            this.psDiscHigh.Text = "63";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(18, 51);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(50, 13);
+            this.label27.TabIndex = 13;
+            this.label27.Text = "DiscHigh";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(284, 78);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(27, 13);
+            this.label18.TabIndex = 12;
+            this.label18.Text = "Bins";
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -221,6 +299,30 @@ namespace QIXLPTesting
             this.label12.Size = new System.Drawing.Size(31, 13);
             this.label12.TabIndex = 8;
             this.label12.Text = "Secs";
+            // 
+            // psValid
+            // 
+            this.psValid.FormattingEnabled = true;
+            this.psValid.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.psValid.Location = new System.Drawing.Point(234, 75);
+            this.psValid.Name = "psValid";
+            this.psValid.Size = new System.Drawing.Size(49, 21);
+            this.psValid.TabIndex = 11;
+            this.psValid.Text = "3";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(170, 78);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(63, 13);
+            this.label19.TabIndex = 10;
+            this.label19.Text = "Valid Within";
             // 
             // waitPs
             // 
@@ -325,7 +427,7 @@ namespace QIXLPTesting
             // openTerm
             // 
             this.openTerm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.openTerm.Location = new System.Drawing.Point(89, 508);
+            this.openTerm.Location = new System.Drawing.Point(89, 544);
             this.openTerm.Name = "openTerm";
             this.openTerm.Size = new System.Drawing.Size(75, 23);
             this.openTerm.TabIndex = 18;
@@ -337,7 +439,7 @@ namespace QIXLPTesting
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(249, 416);
+            this.label8.Location = new System.Drawing.Point(249, 452);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(114, 13);
             this.label8.TabIndex = 17;
@@ -347,7 +449,7 @@ namespace QIXLPTesting
             // 
             this.everyPauseCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.everyPauseCheck.AutoSize = true;
-            this.everyPauseCheck.Location = new System.Drawing.Point(404, 435);
+            this.everyPauseCheck.Location = new System.Drawing.Point(404, 471);
             this.everyPauseCheck.Name = "everyPauseCheck";
             this.everyPauseCheck.Size = new System.Drawing.Size(78, 17);
             this.everyPauseCheck.TabIndex = 16;
@@ -359,7 +461,7 @@ namespace QIXLPTesting
             this.failuresPauseCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.failuresPauseCheck.AutoSize = true;
             this.failuresPauseCheck.Checked = true;
-            this.failuresPauseCheck.Location = new System.Drawing.Point(249, 435);
+            this.failuresPauseCheck.Location = new System.Drawing.Point(249, 471);
             this.failuresPauseCheck.Name = "failuresPauseCheck";
             this.failuresPauseCheck.Size = new System.Drawing.Size(149, 17);
             this.failuresPauseCheck.TabIndex = 15;
@@ -502,7 +604,7 @@ namespace QIXLPTesting
             this.runBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.runBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.runBtn.ForeColor = System.Drawing.Color.Green;
-            this.runBtn.Location = new System.Drawing.Point(249, 458);
+            this.runBtn.Location = new System.Drawing.Point(249, 494);
             this.runBtn.Name = "runBtn";
             this.runBtn.Size = new System.Drawing.Size(335, 44);
             this.runBtn.TabIndex = 12;
@@ -513,7 +615,7 @@ namespace QIXLPTesting
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar.Location = new System.Drawing.Point(249, 508);
+            this.progressBar.Location = new System.Drawing.Point(249, 544);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(335, 23);
             this.progressBar.TabIndex = 11;
@@ -531,7 +633,7 @@ namespace QIXLPTesting
             // 
             this.clearOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearOut.Location = new System.Drawing.Point(590, 508);
+            this.clearOut.Location = new System.Drawing.Point(590, 544);
             this.clearOut.Name = "clearOut";
             this.clearOut.Size = new System.Drawing.Size(299, 23);
             this.clearOut.TabIndex = 7;
@@ -542,7 +644,7 @@ namespace QIXLPTesting
             // selNone
             // 
             this.selNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.selNone.Location = new System.Drawing.Point(168, 508);
+            this.selNone.Location = new System.Drawing.Point(168, 544);
             this.selNone.Name = "selNone";
             this.selNone.Size = new System.Drawing.Size(75, 23);
             this.selNone.TabIndex = 6;
@@ -553,7 +655,7 @@ namespace QIXLPTesting
             // selAll
             // 
             this.selAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.selAll.Location = new System.Drawing.Point(7, 508);
+            this.selAll.Location = new System.Drawing.Point(7, 544);
             this.selAll.Name = "selAll";
             this.selAll.Size = new System.Drawing.Size(78, 23);
             this.selAll.TabIndex = 5;
@@ -571,7 +673,7 @@ namespace QIXLPTesting
             this.outputBox.ForeColor = System.Drawing.Color.White;
             this.outputBox.Location = new System.Drawing.Point(590, 22);
             this.outputBox.Name = "outputBox";
-            this.outputBox.Size = new System.Drawing.Size(299, 486);
+            this.outputBox.Size = new System.Drawing.Size(299, 522);
             this.outputBox.TabIndex = 4;
             this.outputBox.Text = "";
             // 
@@ -601,7 +703,7 @@ namespace QIXLPTesting
             this.availNpms.FormattingEnabled = true;
             this.availNpms.Location = new System.Drawing.Point(7, 22);
             this.availNpms.Name = "availNpms";
-            this.availNpms.Size = new System.Drawing.Size(236, 484);
+            this.availNpms.Size = new System.Drawing.Size(236, 514);
             this.availNpms.TabIndex = 0;
             // 
             // serverTab
@@ -613,7 +715,7 @@ namespace QIXLPTesting
             this.serverTab.Location = new System.Drawing.Point(4, 22);
             this.serverTab.Name = "serverTab";
             this.serverTab.Padding = new System.Windows.Forms.Padding(3);
-            this.serverTab.Size = new System.Drawing.Size(895, 534);
+            this.serverTab.Size = new System.Drawing.Size(895, 570);
             this.serverTab.TabIndex = 2;
             this.serverTab.Text = "Server View";
             this.serverTab.UseVisualStyleBackColor = true;
@@ -657,7 +759,7 @@ namespace QIXLPTesting
             this.serverDetailsPanel.Controls.Add(this.voltLbl);
             this.serverDetailsPanel.Location = new System.Drawing.Point(223, 17);
             this.serverDetailsPanel.Name = "serverDetailsPanel";
-            this.serverDetailsPanel.Size = new System.Drawing.Size(666, 517);
+            this.serverDetailsPanel.Size = new System.Drawing.Size(666, 547);
             this.serverDetailsPanel.TabIndex = 27;
             this.serverDetailsPanel.Visible = false;
             // 
@@ -932,7 +1034,7 @@ namespace QIXLPTesting
             // 
             // resetBtn
             // 
-            this.resetBtn.Location = new System.Drawing.Point(8, 465);
+            this.resetBtn.Location = new System.Drawing.Point(8, 497);
             this.resetBtn.Name = "resetBtn";
             this.resetBtn.Size = new System.Drawing.Size(108, 46);
             this.resetBtn.TabIndex = 42;
@@ -1024,7 +1126,7 @@ namespace QIXLPTesting
             // saveBtn
             // 
             this.saveBtn.ForeColor = System.Drawing.Color.Green;
-            this.saveBtn.Location = new System.Drawing.Point(120, 465);
+            this.saveBtn.Location = new System.Drawing.Point(120, 497);
             this.saveBtn.Name = "saveBtn";
             this.saveBtn.Size = new System.Drawing.Size(166, 46);
             this.saveBtn.TabIndex = 21;
@@ -1038,7 +1140,7 @@ namespace QIXLPTesting
             this.noteBox.Location = new System.Drawing.Point(8, 196);
             this.noteBox.Multiline = true;
             this.noteBox.Name = "noteBox";
-            this.noteBox.Size = new System.Drawing.Size(280, 264);
+            this.noteBox.Size = new System.Drawing.Size(280, 295);
             this.noteBox.TabIndex = 20;
             this.noteBox.TextChanged += new System.EventHandler(this.EditText);
             // 
@@ -1062,9 +1164,9 @@ namespace QIXLPTesting
             // 
             // editSnBtn
             // 
-            this.editSnBtn.Location = new System.Drawing.Point(98, 3);
+            this.editSnBtn.Location = new System.Drawing.Point(169, 3);
             this.editSnBtn.Name = "editSnBtn";
-            this.editSnBtn.Size = new System.Drawing.Size(190, 23);
+            this.editSnBtn.Size = new System.Drawing.Size(119, 23);
             this.editSnBtn.TabIndex = 12;
             this.editSnBtn.Text = "Edit";
             this.editSnBtn.UseVisualStyleBackColor = true;
@@ -1197,7 +1299,7 @@ namespace QIXLPTesting
             this.inServer.ItemHeight = 16;
             this.inServer.Location = new System.Drawing.Point(7, 44);
             this.inServer.Name = "inServer";
-            this.inServer.Size = new System.Drawing.Size(210, 484);
+            this.inServer.Size = new System.Drawing.Size(210, 516);
             this.inServer.TabIndex = 0;
             this.inServer.SelectedIndexChanged += new System.EventHandler(this.DisplayInfo);
             // 
@@ -1225,102 +1327,119 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
-            // label18
+            // groupBox2
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(284, 78);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(27, 13);
-            this.label18.TabIndex = 12;
-            this.label18.Text = "Bins";
+            this.groupBox2.Controls.Add(this.label29);
+            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.label30);
+            this.groupBox2.Controls.Add(this.label31);
+            this.groupBox2.Controls.Add(this.label33);
+            this.groupBox2.Controls.Add(this.comboBox2);
+            this.groupBox2.Controls.Add(this.comboBox4);
+            this.groupBox2.Controls.Add(this.label34);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(249, 256);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(335, 83);
+            this.groupBox2.TabIndex = 19;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "SDEV Noise Test Options";
             // 
-            // psValid
+            // comboBox4
             // 
-            this.psValid.FormattingEnabled = true;
-            this.psValid.Items.AddRange(new object[] {
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
             "1",
             "2",
             "3",
             "4",
             "5"});
-            this.psValid.Location = new System.Drawing.Point(234, 75);
-            this.psValid.Name = "psValid";
-            this.psValid.Size = new System.Drawing.Size(49, 21);
-            this.psValid.TabIndex = 11;
-            this.psValid.Text = "3";
+            this.comboBox4.Location = new System.Drawing.Point(265, 19);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(49, 21);
+            this.comboBox4.TabIndex = 11;
+            this.comboBox4.Text = "3";
             // 
-            // label19
+            // label34
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(170, 78);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(63, 13);
-            this.label19.TabIndex = 10;
-            this.label19.Text = "Valid Within";
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(184, 22);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(80, 13);
+            this.label34.TabIndex = 10;
+            this.label34.Text = "Valid Under Bin";
             // 
-            // psDiscHigh
+            // label29
             // 
-            this.psDiscHigh.FormattingEnabled = true;
-            this.psDiscHigh.Location = new System.Drawing.Point(67, 48);
-            this.psDiscHigh.Name = "psDiscHigh";
-            this.psDiscHigh.Size = new System.Drawing.Size(49, 21);
-            this.psDiscHigh.TabIndex = 14;
-            this.psDiscHigh.Text = "63";
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(97, 54);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(31, 13);
+            this.label29.TabIndex = 18;
+            this.label29.Text = "Secs";
             // 
-            // label27
+            // comboBox1
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(18, 51);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(50, 13);
-            this.label27.TabIndex = 13;
-            this.label27.Text = "DiscHigh";
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "15",
+            "30"});
+            this.comboBox1.Location = new System.Drawing.Point(47, 51);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(49, 21);
+            this.comboBox1.TabIndex = 17;
+            this.comboBox1.Text = "10";
             // 
-            // psDiscLow
+            // label30
             // 
-            this.psDiscLow.FormattingEnabled = true;
-            this.psDiscLow.Location = new System.Drawing.Point(67, 75);
-            this.psDiscLow.Name = "psDiscLow";
-            this.psDiscLow.Size = new System.Drawing.Size(49, 21);
-            this.psDiscLow.TabIndex = 16;
-            this.psDiscLow.Text = "3";
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(17, 54);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(29, 13);
+            this.label30.TabIndex = 16;
+            this.label30.Text = "Wait";
             // 
-            // label24
+            // label31
             // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(18, 78);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(48, 13);
-            this.label24.TabIndex = 15;
-            this.label24.Text = "DiscLow";
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(97, 22);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(30, 13);
+            this.label31.TabIndex = 15;
+            this.label31.Text = "Volts";
             // 
-            // label28
+            // label33
             // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(198, 24);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(35, 13);
-            this.label28.TabIndex = 18;
-            this.label28.Text = "NBins";
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 22);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(40, 13);
+            this.label33.TabIndex = 14;
+            this.label33.Text = "Test at";
             // 
-            // psNbins
+            // comboBox2
             // 
-            this.psNbins.FormattingEnabled = true;
-            this.psNbins.Items.AddRange(new object[] {
-            "32",
-            "64",
-            "128"});
-            this.psNbins.Location = new System.Drawing.Point(234, 21);
-            this.psNbins.Name = "psNbins";
-            this.psNbins.Size = new System.Drawing.Size(49, 21);
-            this.psNbins.TabIndex = 17;
-            this.psNbins.Text = "64";
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "500",
+            "750",
+            "1000",
+            "1500",
+            "1750",
+            "2000"});
+            this.comboBox2.Location = new System.Drawing.Point(47, 19);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(49, 21);
+            this.comboBox2.TabIndex = 13;
+            this.comboBox2.Text = "500";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 599);
+            this.ClientSize = new System.Drawing.Size(927, 635);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -1353,6 +1472,8 @@ namespace QIXLPTesting
             this.panel2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1465,6 +1586,15 @@ namespace QIXLPTesting
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ComboBox psValid;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.Label label34;
     }
 }
 

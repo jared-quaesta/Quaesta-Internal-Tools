@@ -40,9 +40,7 @@ namespace QIXLPTesting
                 refreshConnectedToolStripMenuItem.Enabled = false;
                 availNpms.Items.Clear();
                 outputBox.Clear();
-                int finished = 0;
-                List<string> validNPMs = new List<string>();
-                List<string> invalidNPMs = new List<string>();
+
                 List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
                 foreach (Tuple<string, string> com in SerialNPMManager.GetComs("STMicroelectronics"))
                 {
@@ -50,74 +48,88 @@ namespace QIXLPTesting
                     serialMans.Add(new SerialNPMManager("unk", com.Item1));
                     //
                 }
-                int numUpdating = serialMans.Count;
+                List<Thread> threads = new List<Thread>();
+                BlockingCollection<string> coms = new BlockingCollection<string>();
                 foreach (SerialNPMManager serialMan in serialMans)
                 {
-#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
-                    Task.Run(() =>
+                    ThreadStart threadDelegate = new ThreadStart(() =>
                     {
+                        // connect
                         int att = 0;
 
-                        bool conn = serialMan.Connect(serialMan.com);
+                        serialMan.Connect(serialMan.com);
                         while (!serialMan.IsConnected())
                         {
                             if (att == 10)
                             {
-                                finished++;
                                 break;
                             }
                             att++;
                             Thread.Sleep(500);
-                            conn = serialMan.Connect(serialMan.com);
+                            serialMan.Connect(serialMan.com);
                         }
                         if (!serialMan.IsConnected())
                         {
-                            invalidNPMs.Add(serialMan.com);
+                            return;
                         }
+                        // get info
                         serialMan.ClearInput();
                         serialMan.SendCommand("info\r");
                         Thread.Sleep(100);
                         att = 0;
-                        while (serialMan.listener.GetInfo().Contains("Unknown") || serialMan.listener.GetInfo().Trim().Length == 0)
+                        while (serialMan.listener.GetSerial().Length == 0)
                         {
-                            if (att == 5) break;
+                            if (att == 10)
+                            {
+                                Debug.WriteLine("Unable to get " + serialMan.com);
+                                break;
+                            };
                             att++;
                             serialMan.listener.Clearinfo();
+                            Thread.Sleep(30);
                             serialMan.SendCommand("info\r");
-                            Thread.Sleep(500);
+                            Thread.Sleep(30);
+                            serialMan.SendCommand("info\r");
+                            Thread.Sleep(30);
+                            serialMan.listener.ParseInfo();
                         }
 
-                        serialMan.listener.ParseInfo();
                         string serial = serialMan.listener.GetSerial();
-
-                        finished++;
-                        validNPMs.Add($"{serialMan.com} : {serial}");
+                        att = 0;
+                        while (!coms.TryAdd(serial + " : " + serialMan.com))
+                        {
+                            if (att++ == 10) break;
+                            Thread.Sleep(30);
+                        }
                         serialMan.Disconnect();
                     });
-#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    Thread thread = new Thread(threadDelegate);
+                    thread.Start();
+                    threads.Add(thread);
                 }
+
                 await Task.Run(() =>
                 {
-                    while (numUpdating != finished)
+                    foreach (var thread in threads)
                     {
-                        Thread.Sleep(10);
+                        thread.Join();
                     }
                 });
-                validNPMs.Sort();
-                foreach (string npm in validNPMs)
-                {
-                    availNpms.Items.Add(npm);
 
-                    AddOutput("Connected: ", Color.FromArgb(0, 200, 156));
-                    AddOutput(npm.Split(':')[1].Trim() + Environment.NewLine, Color.White);
-                }
-                foreach (string npm in invalidNPMs)
+                List<string> sortMe = new List<string>();
+                foreach (string npm in coms)
                 {
-                    AddOutput("Failed: ", Color.FromArgb(251, 55, 40));
-                    AddOutput(npm + Environment.NewLine, Color.White);
+                    sortMe.Add(npm);
+                }
+                sortMe.Sort();
+                foreach (string i in sortMe)
+                {
+                    availNpms.Items.Add(i);
                 }
                 refreshConnectedToolStripMenuItem.Enabled = true;
                 avail.Text = $"Available NPMs ({availNpms.Items.Count} Connected)";
+
+
             }
         }
 
@@ -181,7 +193,7 @@ namespace QIXLPTesting
             List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
             foreach (string checkedCom in availNpms.CheckedItems)
             {
-                serialMans.Add(new SerialNPMManager(checkedCom.Split(':')[1].Trim(), checkedCom.Split(':')[0].Trim()));
+                serialMans.Add(new SerialNPMManager(checkedCom.Split(':')[0].Trim(), checkedCom.Split(':')[1].Trim()));
             }
             int finished = 0;
             int numUpdating = serialMans.Count;
@@ -527,8 +539,8 @@ namespace QIXLPTesting
         {
             if (availNpms.SelectedIndex == -1) return;
 
-            string com = availNpms.SelectedItem.ToString().Split(':')[0].Trim();
-            string serial = availNpms.SelectedItem.ToString().Split(':')[1].Trim();
+            string com = availNpms.SelectedItem.ToString().Split(':')[1].Trim();
+            string serial = availNpms.SelectedItem.ToString().Split(':')[0].Trim();
             new DirectTerm(com, serial).ShowDialog();
 
         }
@@ -572,62 +584,72 @@ namespace QIXLPTesting
             noteBox.BackColor = SystemColors.ScrollBar;
             tubeLbl.BackColor = SystemColors.ScrollBar;
 
-            //SQLManager.GetTestInfo(ref data);
+            SQLManager.GetTestInfo(ref data);
 
-            //if (data.Volt == null)
-            //{
-            //    ndV.Checked = true;
-            //} else if (data.Volt == true)
-            //{
-            //    passV.Checked = true;
-            //} else if (data.Volt == false)
-            //{
-            //    failV.Checked = true;
-            //}
+            if (data.Volt == null)
+            {
+                ndV.Checked = true;
+            }
+            else if (data.Volt == true)
+            {
+                passV.Checked = true;
+            }
+            else if (data.Volt == false)
+            {
+                failV.Checked = true;
+            }
 
-            //if (data.Led == null)
-            //{
-            //    ndL.Checked = true;
-            //} else if (data.Led == true)
-            //{
-            //    passL.Checked = true;
-            //} else if (data.Led == false)
-            //{
-            //    failL.Checked = true;
-            //}
+            if (data.Led == null)
+            {
+                ndL.Checked = true;
+            }
+            else if (data.Led == true)
+            {
+                passL.Checked = true;
+            }
+            else if (data.Led == false)
+            {
+                failL.Checked = true;
+            }
 
-            //if (data.Sdev == null)
-            //{
-            //    ndS.Checked = true;
-            //} else if (data.Sdev == true)
-            //{
-            //    passS.Checked = true;
-            //} else if (data.Sdev == false)
-            //{
-            //    failS.Checked = true;
-            //}
+            if (data.Sdev == null)
+            {
+                ndS.Checked = true;
+            }
+            else if (data.Sdev == true)
+            {
+                passS.Checked = true;
+            }
+            else if (data.Sdev == false)
+            {
+                failS.Checked = true;
+            }
 
-            //if (data.Pulsesim == null)
-            //{
-            //    ndP.Checked = true;
-            //} else if (data.Pulsesim == true)
-            //{
-            //    passP.Checked = true;
-            //} else if (data.Pulsesim == false)
-            //{
-            //    failP.Checked = true;
-            //}
+            if (data.Pulsesim == null)
+            {
+                ndP.Checked = true;
+            }
+            else if (data.Pulsesim == true)
+            {
+                passP.Checked = true;
+            }
+            else if (data.Pulsesim == false)
+            {
+                failP.Checked = true;
+            }
 
-            //if (data.Temp == null)
-            //{
-            //    ndT.Checked = true;
-            //} else if (data.Temp == true)
-            //{
-            //    passT.Checked = true;
-            //} else if (data.Temp == false)
-            //{
-            //    failT.Checked = true;
-            //}
+            if (data.Temp == null)
+            {
+                ndT.Checked = true;
+            }
+            else if (data.Temp == true)
+            {
+                passT.Checked = true;
+            }
+            else if (data.Temp == false)
+            {
+                failT.Checked = true;
+            }
 
 
 
