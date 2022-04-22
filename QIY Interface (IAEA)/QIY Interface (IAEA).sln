@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32106.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QIY Interface (IAEA)", "QIY Interface (IAEA)\QIY Interface (IAEA).csproj", "{10FA0913-ECDC-4A97-AC05-57C578C7454F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{10FA0913-ECDC-4A97-AC05-57C578C7454F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10FA0913-ECDC-4A97-AC05-57C578C7454F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10FA0913-ECDC-4A97-AC05-57C578C7454F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10FA0913-ECDC-4A97-AC05-57C578C7454F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C91C35-E226-483E-B8D6-FFEBD3C881DF}.Debug|Any CPU.ActiveCfg = Debug
+		{A8C91C35-E226-483E-B8D6-FFEBD3C881DF}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {074219B0-EE5B-42AD-B803-DB1B705B580C}
+	EndGlobalSection
+EndGlobal

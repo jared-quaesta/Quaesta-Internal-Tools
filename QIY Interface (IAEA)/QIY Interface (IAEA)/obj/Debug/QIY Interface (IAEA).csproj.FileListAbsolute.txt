@@ -1,0 +1,24 @@
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Debug\QIY Interface (IAEA).exe.config
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Debug\QIY Interface (IAEA).exe
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Debug\QIY Interface (IAEA).pdb
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Debug\OxyPlot.dll
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Debug\OxyPlot.WindowsForms.dll
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Debug\OxyPlot.xml
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Debug\OxyPlot.WindowsForms.xml
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.DataRetrievalForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.DirectoriesForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.FWUpgradeTCP.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.IpListForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.MainForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.OfflineHGMForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.OfflinePlotForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.OnlineHGMForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.OnlinePlotForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.TerminalForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.TransferFileForm.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY_Interface__IAEA_.Properties.Resources.resources
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY Interface (IAEA).csproj.GenerateResource.cache
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY Interface (IAEA).csproj.CoreCompileInputs.cache
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY Interface (IAEA).csproj.CopyComplete
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY Interface (IAEA).exe
+C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Debug\QIY Interface (IAEA).pdb
