@@ -61,6 +61,7 @@ namespace UniversalUpdate
             this.label10 = new System.Windows.Forms.Label();
             this.serverPanel = new System.Windows.Forms.Panel();
             this.progTxt = new System.Windows.Forms.Label();
+            this.blinkOnSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.serverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -131,7 +132,8 @@ namespace UniversalUpdate
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showWarningsToolStripMenuItem});
+            this.showWarningsToolStripMenuItem,
+            this.blinkOnSelectionToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -139,7 +141,7 @@ namespace UniversalUpdate
             // showWarningsToolStripMenuItem
             // 
             this.showWarningsToolStripMenuItem.Name = "showWarningsToolStripMenuItem";
-            this.showWarningsToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.showWarningsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showWarningsToolStripMenuItem.Text = "Show Warnings";
             this.showWarningsToolStripMenuItem.Click += new System.EventHandler(this.showWarningsToolStripMenuItem_Click);
             // 
@@ -380,6 +382,13 @@ namespace UniversalUpdate
             this.progTxt.TabIndex = 26;
             this.progTxt.Text = "Waiting....";
             // 
+            // blinkOnSelectionToolStripMenuItem
+            // 
+            this.blinkOnSelectionToolStripMenuItem.Name = "blinkOnSelectionToolStripMenuItem";
+            this.blinkOnSelectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.blinkOnSelectionToolStripMenuItem.Text = "Blink on Selection";
+            this.blinkOnSelectionToolStripMenuItem.Click += new System.EventHandler(this.blinkOnSelectionToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -452,6 +461,7 @@ namespace UniversalUpdate
         private System.Windows.Forms.Panel serverPanel;
         private System.Windows.Forms.ToolStripMenuItem sTLinkFlashToolStripMenuItem;
         private System.Windows.Forms.Label progTxt;
+        private System.Windows.Forms.ToolStripMenuItem blinkOnSelectionToolStripMenuItem;
     }
 }
 

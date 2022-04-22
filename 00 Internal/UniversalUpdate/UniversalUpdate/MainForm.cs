@@ -15,7 +15,7 @@ namespace UniversalUpdate
     public partial class MainForm : Form
     {
         string curFWPath = "";
-        Dictionary<string, string> formatDict = new Dictionary<string, string>();
+        Dictionary<char, string> formatDict = new Dictionary<char, string>();
         public MainForm()
         {
             InitializeComponent();
@@ -714,22 +714,17 @@ namespace UniversalUpdate
                             i += endIndex;
                             formatString = formatString.Substring(1, endIndex - 1);
 
-                            string[] splitDelim = formatString.Split(':');
-
-                            string arg = "0";
-                            if (splitDelim.Length > 1)
+                            if (formatString.ToLower()[0] == 'n')
                             {
-                                arg = splitDelim[1];
-                                formatString = splitDelim[0];
+                                ret += next.ToString().PadLeft(formatString.Length, '0');
                             }
-
-                            if (formatString.ToLower().Equals("next"))
+                            else if (formatString.ToLower()[0] == 'y')
                             {
-                                ret += $"{next.ToString().PadLeft(arg.Length, '0')}";
+                                ret += DateTime.Now.ToString(formatString);
                             }
-                            else
+                            else if (formatString.ToLower()[0] == 'm')
                             {
-                                ret += $"{formatDict[formatString.ToLower()].PadLeft(arg.Length, '0')}";
+                                ret += DateTime.Now.ToString("MM").PadLeft(formatString.Length, '0');
                             }
                         }
                     }
@@ -748,19 +743,113 @@ namespace UniversalUpdate
             }
             else
             {
-                // test-0041
-                int oldIndex = prevSerialFormat.IndexOf("old");
-                int colIndex = prevSerialFormat.IndexOf(":");
-                int endBracketIndex = prevSerialFormat.IndexOf("}");
-                int argSub = prevSerialFormat.Substring(oldIndex, endBracketIndex - colIndex - 1).Length;
-                if (int.TryParse(curSerial.Substring(oldIndex - 1, argSub), out int oldNum))
+                // test21-0041
+                // test{yy}-{nnnn}
+                int oldIndex = 0;
+                int length = 0;
+                string oldYear = "";
+
+                // find relative start of "old" serial number
+                string newSerial = "";
+                int realIndex = 0;
+                bool err = false;
+
+                string year = "";
+                string month = "";
+                string num = "";
+
+
+                for (int i = 0; i < prevSerialFormat.Length; i++)
                 {
-                    return ParseSerial(prevSerialFormat, desiredSerialFormat, allSerials, "", oldNum);
+                    if (prevSerialFormat[i].Equals('{'))
+                    {
+                        // find closing bracket
+                        string formSub = prevSerialFormat.Substring(i+1);
+                        int closing = formSub.IndexOf('}');
+                        string format = prevSerialFormat.Substring(i + 1, closing);
+
+                        string curSub = curSerial.Substring(realIndex, format.Length);
+                        if (!int.TryParse(curSub, out int res))
+                        {
+                            err = true;
+                            break;
+                        }
+                        if (format.ToLower()[0] == 'n')
+                        {
+                            num = curSub;
+                        }
+                        else if (format.ToLower()[0] == 'y')
+                        {
+                            year = curSub;
+                        }
+                        else if (format.ToLower()[0] == 'm')
+                        {
+                            month = curSub;
+                        }
+
+                        i += closing + 1;
+                        realIndex += curSub.Length;
+                    }
+                    else
+                    {
+                        if (prevSerialFormat[i] != curSerial[realIndex])
+                        {
+                            err = true;
+                            break;
+                        }
+                        realIndex++;
+                    }
+
+                }
+
+                ret = "";
+                for (int i = 0; i < desiredSerialFormat.Length; i++)
+                {
+                    if (desiredSerialFormat[i] != '{')
+                    {
+                        ret += desiredSerialFormat[i];
+                    }
+                    else
+                    {
+                        // check where next } is
+                        string formatString = desSn.Text.Substring(i);
+
+                        int endIndex = formatString.IndexOf('}');
+                        i += endIndex;
+                        formatString = formatString.Substring(1, endIndex - 1);
+
+                        if (formatString.ToLower()[0] == 'n')
+                        {
+                            ret += num.ToString().PadLeft(formatString.Length, '0');
+                        }
+                        else if (formatString.ToLower()[0] == 'y')
+                        {
+                            ret += year;
+                        }
+                        else if (formatString.ToLower()[0] == 'm')
+                        {
+                            ret += month;
+                        }
+                    }
+                }
+
+                if (allSerials.Contains(ret))
+                {
+                    MessageBox.Show($"Desired serial number already exists in the DB. Try again:\n{prevSerialFormat}\n{curSerial}", "ERROR");
+                    return "";
+                }
+
+                if (!err)
+                {
+                    SQLManager.EditSerial(curSerial, ret);
+                    return ret;
                 }
                 else
                 {
-                    return (ParseSerial("", desiredSerialFormat, allSerials));
+                    MessageBox.Show($"Incorrect prev format. Try again:\n{prevSerialFormat}\n{curSerial}", "ERROR");
+                    return "";
                 }
+                    
             }
         }
 
@@ -773,17 +862,7 @@ namespace UniversalUpdate
         private void MainForm_Load(object sender, EventArgs e)
         {
             refreshToolStripMenuItem_Click(null, null);
-            formatDict.Add("next", "17");
-            formatDict.Add("old", "17");
-            formatDict.Add("yy", DateTime.Now.ToString("yy"));
-            formatDict.Add("old_yy", DateTime.Now.ToString("yy"));
-            formatDict.Add("yyyy", DateTime.Now.ToString("yyyy"));
-            formatDict.Add("old_yyyy", DateTime.Now.ToString("yyyy"));
-            formatDict.Add("dd", DateTime.Now.ToString("dd"));
-            formatDict.Add("old_dd", DateTime.Now.ToString("dd"));
-            formatDict.Add("mm", DateTime.Now.ToString("MM"));
-            formatDict.Add("old_mm", DateTime.Now.ToString("MM"));
-            formatDict.Add("easter", DateTime.Now.ToString(":)"));
+            formatDict.Add('n', "17");
 
         }
 
@@ -825,33 +904,36 @@ namespace UniversalUpdate
                         i += endIndex;
                         formatString = formatString.Substring(1, endIndex - 1);
 
-                        string[] splitDelim = formatString.Split(':');
-
                         string arg = "0";
-                        if (splitDelim.Length > 1)
+                        if (formatString.Length < 2)
                         {
-                            arg = splitDelim[1];
-                            formatString = splitDelim[0];
-                        }
-
-                        if (formatString.ToLower().Equals("old"))
-                        {
-                            prevEx.Text += $"{formatDict[formatString.ToLower()].PadLeft(arg.Length, '0')}";
-                        }
+                            prevEx.Text += "{ERR}";
+                        } 
                         else
                         {
                             try
+                        {
+
+                            if (formatString.ToLower()[0] == 'n')
                             {
-
-
-                                prevEx.Text += formatDict[formatString.ToLower()].PadLeft(arg.Length, '0');
+                                prevEx.Text += 17.ToString().PadLeft(formatString.Length, '0');
                             }
-                            catch
+                            else if (formatString.ToLower()[0] == 'y')
+                            {
+                                prevEx.Text += DateTime.Now.ToString(formatString);
+                            }
+                            else if (formatString.ToLower()[0] == 'm')
+                            {
+                                prevEx.Text += DateTime.Now.ToString("MM").PadLeft(formatString.Length, '0') ;
+                            }
+
+                            else
                             {
                                 prevEx.Text += "{ERR}";
                             }
                         }
-
+                        catch { prevEx.Text += "{ERR}"; }
+                        }
                     }
                 }
             }
@@ -881,25 +963,36 @@ namespace UniversalUpdate
                         i += endIndex;
                         formatString = formatString.Substring(1, endIndex - 1);
 
-                        string[] splitDelim = formatString.Split(':');
-
                         string arg = "0";
-                        if (splitDelim.Length > 1)
-                        {
-                            arg = splitDelim[1];
-                            formatString = splitDelim[0];
-                        }
-
-                        try
-                        {
-                            desEx.Text += $"{formatDict[formatString.ToLower()].PadLeft(arg.Length, '0')}";
-                        }
-                        catch (Exception ex)
+                        if (formatString.Length < 2)
                         {
                             desEx.Text += "{ERR}";
-                            Debug.WriteLine(ex.Message);
                         }
+                        else
+                        {
+                            try
+                            {
 
+                                if (formatString.ToLower()[0] == 'n')
+                                {
+                                    desEx.Text += 17.ToString().PadLeft(formatString.Length, '0');
+                                }
+                                else if (formatString.ToLower()[0] == 'y')
+                                {
+                                    desEx.Text += DateTime.Now.ToString(formatString);
+                                }
+                                else if (formatString.ToLower()[0] == 'm')
+                                {
+                                    desEx.Text += DateTime.Now.ToString("MM").PadLeft(formatString.Length, '0');
+                                }
+
+                                else
+                                {
+                                    desEx.Text += "{ERR}";
+                                }
+                            }
+                            catch { desEx.Text += "{ERR}"; }
+                        }
                     }
                 }
             }
@@ -920,6 +1013,7 @@ namespace UniversalUpdate
         private void BlinkSelectedLED(object sender, EventArgs e)
         {
             // turn off all LEDs
+            if (!blinkOnSelectionToolStripMenuItem.Checked) return;
             if (availComs.SelectedIndex == -1) return;
             string selCom = availComs.SelectedItem.ToString().Split(':')[1].Trim();
             string serial = availComs.SelectedItem.ToString().Split(':')[0].Trim();
@@ -986,6 +1080,12 @@ namespace UniversalUpdate
             {
                 thread.Join();
             }
+        }
+
+        private void blinkOnSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
+            optionsToolStripMenuItem.ShowDropDown();
         }
     }
 }

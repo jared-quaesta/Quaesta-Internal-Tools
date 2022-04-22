@@ -35,7 +35,6 @@ namespace UniversalUpdate.Serial
                 cString += data;
                 if (cString.Contains("CC"))
                 {
-                    //Debug.WriteLine(cString);
                     c = true;
                     cString = "";
                 }
