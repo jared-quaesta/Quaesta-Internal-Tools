@@ -55,7 +55,7 @@ namespace QIXLPTesting
             //return new Tuple<LineSeries, bool>(series, err);
         }
 
-        internal IEnumerable<LineSeries> SdevTest(SerialNPMManager serialMan, int waitSec, int voltage, int minBin)
+        internal IEnumerable<int[]> SdevTest(SerialNPMManager serialMan, int waitSec, int voltage, int minBin)
         {
             serialMan.ClearInput();
             serialMan.listener.ClearVoltage();
@@ -86,13 +86,13 @@ namespace QIXLPTesting
 
             while (watch.ElapsedMilliseconds / 1000 < waitSec)
             {
-                LineSeries ls = GetHGMSdev(serialMan, minBin);
+                int[] ls = GetHGMSdev(serialMan, minBin);
                 yield return ls;
             }
 
         }
 
-        private LineSeries GetHGMSdev(SerialNPMManager serialMan, int minBin)
+        private int[] GetHGMSdev(SerialNPMManager serialMan, int minBin)
         {
             serialMan.listener.ClearHGM();
             serialMan.ClearInput();
@@ -100,10 +100,8 @@ namespace QIXLPTesting
             serialMan.SendCommand("hgm\r\n");
             Thread.Sleep(30);
 
-            LineSeries series = new LineSeries() { Title = serialMan.GetSerial() };
-
             List<int> hgm = serialMan.listener.GetHGM();
-
+            
             // find max bin with counts
             
             for (int i = 0; i < hgm.Count; i++)
@@ -111,15 +109,11 @@ namespace QIXLPTesting
                 if (hgm[i] > 0) maxBin = i;
             }
             if (maxBin > minBin) errOccurred = true;
-
-            for (int i = 0; i < hgm.Count; i++)
-            {
-                series.Points.Add(new DataPoint(i, hgm[i]));
-            }
-            return series;
+            return hgm.ToArray();
+            
         }
 
-        internal IEnumerable<LineSeries> PulseSimTest(SerialNPMManager serialMan, double gain, int waitSec, int range, int discLow, int discHigh, int nbins)
+        internal IEnumerable<int[]> PulseSimTest(SerialNPMManager serialMan, double gain, int waitSec, int range, int discLow, int discHigh, int nbins)
         {
             // set initial parameters
 
@@ -148,14 +142,14 @@ namespace QIXLPTesting
 
             while (watch.ElapsedMilliseconds / 1000 < waitSec)
             {
-                LineSeries ls = GetHGMPS(serialMan, range);
+                int[] ls = GetHGMPS(serialMan, range);
                 yield return ls;
             }
 
 
         }
 
-        private LineSeries GetHGMPS(SerialNPMManager serialMan, int range)
+        private int[] GetHGMPS(SerialNPMManager serialMan, int range)
         {
             serialMan.listener.ClearHGM();
             serialMan.ClearInput();
@@ -169,11 +163,7 @@ namespace QIXLPTesting
             int spread = DetermineSpread(hgm);
             if (spread > range) errOccurred = true;
             if (spread > maxSpread) maxSpread = spread;
-            for (int i = 0; i < hgm.Count; i++)
-            {
-                series.Points.Add(new DataPoint(i, hgm[i]));
-            }
-            return series;
+            return hgm.ToArray();
 
         }
 

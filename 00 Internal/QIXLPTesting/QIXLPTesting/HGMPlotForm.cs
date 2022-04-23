@@ -16,9 +16,10 @@ namespace QIXLPTesting
 {
     public partial class HGMPlotForm : Form
     {
-        PlotModel model = new PlotModel();
+        PlotModel rawModel = new PlotModel();
+        PlotModel cumuModel = new PlotModel();
         int volt;
-        Dictionary<string, LineSeries> seriesDict = new Dictionary<string, LineSeries>();
+        Dictionary<string, Tuple<LineSeries, LineSeries>> seriesDict = new Dictionary<string, Tuple<LineSeries, LineSeries>>();
         internal bool canClose = false;
         int range;
         public HGMPlotForm()
@@ -28,17 +29,17 @@ namespace QIXLPTesting
 
         private void HGMPlotForm_Load(object sender, EventArgs e)
         {
-            plotView.Model = model;
-            model.SelectionColor = model.SubtitleColor = model.TextColor = model.TitleColor = OxyColors.White;
-            model.Title = "Overlayed Histograms  by NPM";
-            model.Legends.Add(new Legend()
+            plotView.Model = rawModel;
+            rawModel.SelectionColor = rawModel.SubtitleColor = rawModel.TextColor = rawModel.TitleColor = OxyColors.White;
+            rawModel.Title = "Histograms by NPM";
+            rawModel.Legends.Add(new Legend()
             {
                 LegendPosition = LegendPosition.BottomRight,
                 IsLegendVisible = true,
                 TextColor = OxyColors.White,
                 LegendTextColor = OxyColors.White
             });
-            model.Axes.Clear();
+            rawModel.Axes.Clear();
             LinearAxis yAx = new LinearAxis()
             {
                 Title = "Counts",
@@ -55,30 +56,111 @@ namespace QIXLPTesting
                 AxislineColor = OxyColors.White,
                 TicklineColor = OxyColors.White
             };
-            model.Axes.Add(yAx);
-            model.Axes.Add(xAx);
+            rawModel.Axes.Add(yAx);
+            rawModel.Axes.Add(xAx);
+
+
+
+
+
+            cumuModel.SelectionColor = cumuModel.SubtitleColor = cumuModel.TextColor = cumuModel.TitleColor = OxyColors.White;
+            cumuModel.Title = "Histograms by NPM (Cumulative)";
+            cumuModel.Legends.Add(new Legend()
+            {
+                LegendPosition = LegendPosition.BottomRight,
+                IsLegendVisible = true,
+                TextColor = OxyColors.White,
+                LegendTextColor = OxyColors.White
+            });
+            cumuModel.Axes.Clear();
+            LinearAxis cyAx = new LinearAxis()
+            {
+                Title = "Counts",
+                Position = AxisPosition.Left,
+                TextColor = OxyColors.White,
+                AxislineColor = OxyColors.White,
+                TicklineColor = OxyColors.White
+            };
+            LinearAxis cxAx = new LinearAxis()
+            {
+                Title = "Bin",
+                Position = AxisPosition.Bottom,
+                TextColor = OxyColors.White,
+                AxislineColor = OxyColors.White,
+                TicklineColor = OxyColors.White
+            };
+            cumuModel.Axes.Add(cyAx);
+            cumuModel.Axes.Add(cxAx);
 
         }
 
-        public void AppendSeries(LineSeries series, string serial)
+        public void UpdateSeries(int[] series, string serial)
         {
+            List<DataPoint> rawHGM = new List<DataPoint>();
+            List<DataPoint> cumHGM = new List<DataPoint>();
+
+            for (int i = 0; i < series.Length; i++)
+            {
+                rawHGM.Add(new DataPoint(i, series[i]));
+
+                if (i != 0)
+                {
+                    double prev = series[i - 1];
+                    double cur = series[i];
+                    cumHGM.Add(new DataPoint(i, prev + cur));
+                    series[i] = (int)(prev + cur);
+                }
+
+            }
+
             if (seriesDict.ContainsKey(serial))
             {
-                model.Series.Remove(seriesDict[serial]);
-                seriesDict[serial] = series;
-                model.Series.Add(seriesDict[serial]);
+                seriesDict[serial].Item1.Points.Clear();
+                seriesDict[serial].Item2.Points.Clear();
+                seriesDict[serial].Item1.Points.AddRange(rawHGM);
+                seriesDict[serial].Item2.Points.AddRange(cumHGM);
             }
             else
             {
-                seriesDict.Add(serial, series);
-                model.Series.Add(seriesDict[serial]);
+                LineSeries newRaw = new LineSeries() { Title=serial };
+                LineSeries newCumu = new LineSeries() { Title=serial };
+                newRaw.Points.AddRange(rawHGM);
+                newCumu.Points.AddRange(cumHGM);
+                
+                seriesDict.Add(serial, new Tuple<LineSeries, LineSeries> (newRaw, newCumu));
+                cumuModel.Series.Add(newCumu);
+                rawModel.Series.Add(newRaw);
+
+
             }
-            model.InvalidatePlot(true);
+            CorrectCumulative();
         }
+
+        private void CorrectCumulative()
+        {
+            if (cumuCheck.Checked)
+            {
+                plotView.Model = cumuModel;
+                cumuModel.InvalidatePlot(true);
+            }
+            else
+            {
+                plotView.Model = rawModel;
+                rawModel.InvalidatePlot(true);
+            }
+
+        }
+
+       
 
         private void CancelClose(object sender, FormClosingEventArgs e)
         {
             e.Cancel = !canClose;
+        }
+
+        private void cumuCheck_CheckedChanged(object sender, EventArgs e)
+        {
+            CorrectCumulative();
         }
     }
 }

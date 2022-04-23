@@ -302,11 +302,11 @@ namespace QIXLPTesting
                 ThreadStart threadDelegate = new ThreadStart(() =>
                 {
                     Tests psTestClass = new Tests();
-                    foreach (LineSeries series in psTestClass.SdevTest(serialMan, waitSec, voltage, minBin))
+                    foreach (int[] series in psTestClass.SdevTest(serialMan, waitSec, voltage, minBin))
                     {
                         Invoke((MethodInvoker)delegate
                         {
-                            pf.AppendSeries(series, serialMan.GetSerial());
+                            pf.UpdateSeries(series, serialMan.GetSerial());
                         });
                     }
                     // NOTE: This will run forever if there are two of the same serial #s in the test,
@@ -330,6 +330,7 @@ namespace QIXLPTesting
 
             Task.Run(() =>
             {
+                Thread.Sleep(1000);
                 Stopwatch watch = Stopwatch.StartNew();
                 int time = waitSec;
                 while (watch.ElapsedMilliseconds / 1000 < time)
@@ -415,11 +416,11 @@ namespace QIXLPTesting
                 ThreadStart threadDelegate = new ThreadStart(() =>
                 {
                     Tests psTestClass = new Tests();
-                    foreach (LineSeries series in psTestClass.PulseSimTest(serialMan, gain, waitSec, range, discLow, discHigh, nbins))
+                    foreach (int[] series in psTestClass.PulseSimTest(serialMan, gain, waitSec, range, discLow, discHigh, nbins))
                     {
                         Invoke((MethodInvoker)delegate
                         {
-                            pf.AppendSeries(series, serialMan.GetSerial());
+                            pf.UpdateSeries(series, serialMan.GetSerial());
                         });
                     }
                     // NOTE: This will run forever if there are two of the same serial #s in the test,
