@@ -15,6 +15,30 @@ namespace QIXLPTesting
 {
     public partial class MainForm : Form
     {
+        private const string voltDesc =
+            "Given a desired voltage and range, query each npm as fast as possible. " +
+            "Optionally ramp down to 0v at the end of the test.\n\n" +
+            "Pass/fail is determined by whether the average voltage reported by the NPM is within the range " +
+            "set by the operator over the time set by the operator.";
+
+
+        private const string pulseSimDesc =
+            "User sets Gain,. DiscLow, DiscHigh, and NBins. Test sets PulseSim=1 and LedMode=1. " +
+            "This test repeatedly queries and plots each NPMs histogram." +
+            "\n\n" +
+            "Pass/fail is determined by whether the histogram spreads bins over a range greater than " +
+            "the user determines neccesary.";
+
+        private const string sdevDesc =
+            "Enclose NPMs in a shielded environment. To determine noise, voltage is set by the user, and gain is set to 25.5 (Max). " +
+            "The histograms from each NPM are queried and plotted.\n\n" +
+            "Pass/fail is determined by whether the maximum bin with counts is less than the user set minimum.";
+
+        private const string tempDesc =
+            "Repeatedly query tempterature for each device and plot it.\n\n" +
+            "Pass/Fail is determined by whether the average temperature falls between the set minimum and maximum.";
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -154,6 +178,7 @@ namespace QIXLPTesting
         private void MainForm_Load(object sender, EventArgs e)
         {
             refreshConnectedToolStripMenuItem_Click(null, null);
+            TestChange(null, null);
         }
 
         private void SelAll(object sender, EventArgs e)
@@ -267,10 +292,114 @@ namespace QIXLPTesting
             } else if (sdevRadio.Checked)
             {
                 bool sdevErr = await RunSdevTest(serialMans);
+            } else if (tempRadio.Checked)
+            {
+                bool tempErr = await RunTempTest(serialMans);
             }
 
 
             foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
+
+        }
+
+        private async Task<bool> RunTempTest(List<SerialNPMManager> serialMans)
+        {
+            AddOutput("--Begin SDEV Test--\n", Color.FromArgb(255, 131, 89));
+            AddOutput("Waiting: ", Color.FromArgb(71, 134, 255));
+            AddOutput(sdevWait.Text + " Seconds" + Environment.NewLine, Color.White);
+
+            List<Thread> threads = new List<Thread>();
+
+            int waitSec = int.Parse(tempWait.Text);
+            double minT = int.Parse(tempMinBox.Text);
+            double maxT = int.Parse(tempMaxBox.Text);
+
+
+            ConcurrentDictionary<string, Tuple<bool, double>> tempDict = new ConcurrentDictionary<string, Tuple<bool, double>>();
+            progressBar.Value = 0;
+            progressBar.Maximum = 1000;
+            LinePlotForm pf = new LinePlotForm(1, 1, "Temperature Reported", "Temp (C)");
+            pf.Show();
+            Stopwatch sw = Stopwatch.StartNew();
+            foreach (SerialNPMManager serialMan in serialMans)
+            {
+                ThreadStart threadDelegate = new ThreadStart(() =>
+                {
+                    Tests voltTestClass = new Tests();
+                    foreach (DataPoint point in voltTestClass.TemperatureTest(serialMan, minT, maxT, waitSec))
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            pf.AddData(serialMan.GetSerial(), point);
+                        });
+                    }
+                    // NOTE: This will run forever if there are two of the same serial #s in the test,
+                    //       though, this should NEVER happen. Catch this early on and use this  
+                    //       loop as a watchpoint in the future should it even happen.
+                    //
+                    //       Would much prefer an infinite loop than a duplicate serial number reaching 
+                    //       my server somehow.
+                    while (!tempDict.TryAdd(
+                        serialMan.GetSerial(),
+                        new Tuple<bool, double>(voltTestClass.errOccurred, voltTestClass.averageT)))
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
+            }
+
+            Task.Run(() =>
+            {
+                Stopwatch watch = Stopwatch.StartNew();
+                int time = waitSec;
+                while (watch.ElapsedMilliseconds / 1000 < time)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        int val = (int)(watch.ElapsedMilliseconds / time);
+                        if (val > 1000) val = 1000;
+                        progressBar.Value = val;
+                        progressBar.Refresh();
+                    });
+                    Thread.Sleep(100);
+                }
+
+            });
+
+            await Task.Run(() =>
+            {
+                foreach (var thread in threads)
+                {
+                    thread.Join();
+                }
+            });
+            bool errFound = false;
+            foreach (string key in tempDict.Keys)
+            {
+                if (tempDict[key].Item2 <= maxT && tempDict[key].Item2 >= minT)
+                {
+                    AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
+                    AddOutput($"{tempDict[key].Item2:0.00}" + "C (Ave)" + Environment.NewLine, Color.FromArgb(0, 200, 156));
+                    SQLManager.UpdateTempTest(key, true);
+                }
+                else
+                {
+                    AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
+                    AddOutput($"{tempDict[key].Item2:0.00}" + "C (Ave)" + Environment.NewLine, Color.FromArgb(251, 55, 40));
+
+                    SQLManager.UpdateTempTest(key, false);
+                    errFound = true;
+                }
+
+            }
+            pf.canClose = true;
+            progressBar.Value = 0;
+            return errFound;
+
 
         }
 
@@ -561,7 +690,7 @@ namespace QIXLPTesting
             ConcurrentDictionary<string, Tuple<bool, int>> voltDict = new ConcurrentDictionary<string, Tuple<bool, int>>();
             progressBar.Value = 0;
             progressBar.Maximum = 1000;
-            VoltagePlotForm pf = new VoltagePlotForm(testVoltage, range);
+            LinePlotForm pf = new LinePlotForm(testVoltage, range, "Voltage Reported", "Voltage");
             pf.Show();
             Stopwatch sw = Stopwatch.StartNew();
             foreach (SerialNPMManager serialMan in serialMans)
@@ -658,7 +787,10 @@ namespace QIXLPTesting
 
         private void TestChange(object sender, EventArgs e)
         {
-
+            if (voltageRadio.Checked) testDesc.Text = voltDesc;
+            else if (sdevRadio.Checked) testDesc.Text = sdevDesc;
+            else if (psRadio.Checked) testDesc.Text = pulseSimDesc;
+            else if (tempRadio.Checked) testDesc.Text = tempDesc;
         }
 
         private void RefreshAvailable(object sender, EventArgs e)

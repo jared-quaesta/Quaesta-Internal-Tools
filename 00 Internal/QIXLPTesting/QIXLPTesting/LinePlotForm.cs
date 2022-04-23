@@ -14,16 +14,20 @@ using System.Windows.Forms;
 
 namespace QIXLPTesting
 {
-    public partial class VoltagePlotForm : Form
+    public partial class LinePlotForm : Form
     {
         PlotModel model = new PlotModel();
         int volt;
         Dictionary<string, LineSeries> seriestDict = new Dictionary<string, LineSeries>();
         internal bool canClose = false;
         int range;
+        string title;
+        string yTitle;
 
-        public VoltagePlotForm(int volt, int range)
+        public LinePlotForm(int volt, int range, string title, string yTitle)
         {
+            this.title = title;
+            this.yTitle = yTitle;
             this.range = range;
             this.volt = volt;
             InitializeComponent();
@@ -33,7 +37,7 @@ namespace QIXLPTesting
         {
             plotView.Model = model;
             model.SelectionColor = model.SubtitleColor = model.TextColor = model.TitleColor = OxyColors.White;
-            model.Title = "Voltage By NPM";
+            model.Title = title;
             model.Legends.Add(new Legend()
             {
                 LegendPosition = LegendPosition.BottomRight,
@@ -44,7 +48,7 @@ namespace QIXLPTesting
             model.Axes.Clear();
             LinearAxis yAx = new LinearAxis()
             {
-                Title = "Voltage",
+                Title = yTitle,
                 Position = AxisPosition.Left,
                 TextColor = OxyColors.White,
                 AxislineColor = OxyColors.White,
@@ -61,20 +65,25 @@ namespace QIXLPTesting
             model.Axes.Add(yAx);
             model.Axes.Add(xAx);
 
-            seriestDict.Add("RANGE_MIN", new LineSeries()
-            {
-                Color = OxyColors.White,
-                Title = "RANGE MINIMUM"
-            });
-            seriestDict.Add("RANGE_MAX", new LineSeries()
-            {
-                Color = OxyColors.White,
-                Title = "RANGE MAXIMUM"
-            });
 
-            model.Series.Add(seriestDict["RANGE_MIN"]);
-            model.Series.Add(seriestDict["RANGE_MAX"]);
 
+            if (title.Contains("Volt"))
+            {
+
+                seriestDict.Add("RANGE_MIN", new LineSeries()
+                {
+                    Color = OxyColors.White,
+                    Title = "RANGE MINIMUM"
+                });
+                seriestDict.Add("RANGE_MAX", new LineSeries()
+                {
+                    Color = OxyColors.White,
+                    Title = "RANGE MAXIMUM"
+                });
+
+                model.Series.Add(seriestDict["RANGE_MIN"]);
+                model.Series.Add(seriestDict["RANGE_MAX"]);
+            }
 
         }
 
@@ -96,8 +105,13 @@ namespace QIXLPTesting
                 seriestDict[com].Points.Add(point);
                 model.Series.Add(seriestDict[com]);
             }
-            seriestDict["RANGE_MIN"].Points.Add(new DataPoint(point.X, volt - range));
-            seriestDict["RANGE_MAX"].Points.Add(new DataPoint(point.X, volt + range));
+
+            if (title.Contains("Volt"))
+            {
+                seriestDict["RANGE_MIN"].Points.Add(new DataPoint(point.X, volt - range));
+                seriestDict["RANGE_MAX"].Points.Add(new DataPoint(point.X, volt + range)); 
+            }
+                
             UpdatePlot();
         }
 

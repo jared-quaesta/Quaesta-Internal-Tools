@@ -84,11 +84,11 @@
     <Compile Include="SerialTools\SerialNPMManager.cs" />
     <Compile Include="SQL\SQLManager.cs" />
     <Compile Include="Tests\Tests.cs" />
-    <Compile Include="VoltagePlotForm.cs">
+    <Compile Include="LinePlotForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VoltagePlotForm.Designer.cs">
-      <DependentUpon>VoltagePlotForm.cs</DependentUpon>
+    <Compile Include="LinePlotForm.Designer.cs">
+      <DependentUpon>LinePlotForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ChangeSerialForm.resx">
       <DependentUpon>ChangeSerialForm.cs</DependentUpon>
@@ -111,8 +111,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="VoltagePlotForm.resx">
-      <DependentUpon>VoltagePlotForm.cs</DependentUpon>
+    <EmbeddedResource Include="LinePlotForm.resx">
+      <DependentUpon>LinePlotForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

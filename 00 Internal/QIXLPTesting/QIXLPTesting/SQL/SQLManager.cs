@@ -321,5 +321,23 @@ namespace QIXLPTesting.SQL
                 }
             }
         }
+
+        internal static void UpdateTempTest(string serial, bool val)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Alter_Gen_Tests", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+                    cmd.Parameters.Add("@temp", SqlDbType.Bit).Value = val;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
     }
 }

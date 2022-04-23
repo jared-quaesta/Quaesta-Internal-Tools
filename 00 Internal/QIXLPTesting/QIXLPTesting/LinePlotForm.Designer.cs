@@ -1,7 +1,7 @@
 ﻿
 namespace QIXLPTesting
 {
-    partial class VoltagePlotForm
+    partial class LinePlotForm
     {
         /// <summary>
         /// Required designer variable.
@@ -52,7 +52,6 @@ namespace QIXLPTesting
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.plotView);
             this.Name = "VoltagePlotForm";
-            this.Text = "VoltagePlotForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CancelClose);
             this.Load += new System.EventHandler(this.VoltagePlotForm_Load);
             this.ResumeLayout(false);

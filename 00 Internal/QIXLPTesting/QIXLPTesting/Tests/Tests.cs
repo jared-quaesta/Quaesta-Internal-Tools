@@ -16,6 +16,7 @@ namespace QIXLPTesting
     {
         public bool errOccurred = false;
         public double averageVoltage = -1;
+        public double averageT = -1;
         public int maxSpread = 0;
         public int maxBin = 0;
 
@@ -238,5 +239,29 @@ namespace QIXLPTesting
             return ret;
         }
 
+        internal IEnumerable<DataPoint> TemperatureTest(SerialNPMManager serialMan, double minT, double maxT, int waitSec)
+        {
+
+            Stopwatch watch = Stopwatch.StartNew();
+            int aveCount = 0;
+            while (watch.ElapsedMilliseconds / 1000 < waitSec)
+            {
+                double temp = GetTemp(serialMan);
+                averageT += temp;
+                aveCount++;
+                yield return new DataPoint(watch.ElapsedMilliseconds / 1000, temp);
+            }
+            averageT /= aveCount;
+
+        }
+
+        private double GetTemp(SerialNPMManager serialMan)
+        {
+            serialMan.listener.ClearTemperature();
+            serialMan.ClearInput();
+            serialMan.SendCommand($"temperature\r\n");
+            Thread.Sleep(50);
+            return serialMan.listener.GetTemperature();
+        }
     }
 }

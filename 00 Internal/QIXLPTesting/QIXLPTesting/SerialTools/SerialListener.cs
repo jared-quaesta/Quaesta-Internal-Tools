@@ -23,7 +23,7 @@ namespace QIXLPTesting.SerialTools
         string firmwareString = "";
         string voltageString = "";
         string hgmString = "";
-
+        string tempString = "";
         string termBuffer = "";
         List<int> hgm = new List<int>();
 
@@ -52,6 +52,10 @@ namespace QIXLPTesting.SerialTools
             if (lastCom.Equals("info"))
             {
                 infoString += data;
+            }
+            if (lastCom.Equals("temperature"))
+            {
+                tempString += data;
             }
             if (lastCom.Equals("updatefirmware"))
             {
@@ -215,6 +219,21 @@ namespace QIXLPTesting.SerialTools
         internal void ClearVoltage()
         {
             voltageString = "";
+        }
+
+        internal void ClearTemperature()
+        {
+            tempString = "";
+        }
+
+        internal double GetTemperature()
+        {
+            double ret = -1;
+            foreach (string line in tempString.Split('\n'))
+            {
+                if (double.TryParse(line.Split(',')[0], out double temp)) return temp;
+            }
+            return ret;
         }
     }
 }

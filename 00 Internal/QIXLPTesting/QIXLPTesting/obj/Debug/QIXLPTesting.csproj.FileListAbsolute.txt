@@ -30,9 +30,9 @@ C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.HGMPlotForm.resources
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.MainForm.resources
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.Properties.Resources.resources
-C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.VoltagePlotForm.resources
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.csproj.GenerateResource.cache
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.csproj.CoreCompileInputs.cache
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.csproj.CopyComplete
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.exe
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.pdb
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\QIXLPTesting\QIXLPTesting\obj\Debug\QIXLPTesting.LinePlotForm.resources
