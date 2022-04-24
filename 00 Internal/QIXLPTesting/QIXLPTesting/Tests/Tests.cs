@@ -1,13 +1,9 @@
 ﻿using OxyPlot;
 using OxyPlot.Series;
 using QIXLPTesting.SerialTools;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QIXLPTesting
@@ -102,16 +98,16 @@ namespace QIXLPTesting
             Thread.Sleep(30);
 
             List<int> hgm = serialMan.listener.GetHGM();
-            
+
             // find max bin with counts
-            
+
             for (int i = 0; i < hgm.Count; i++)
             {
                 if (hgm[i] > 0) maxBin = i;
             }
             if (maxBin > minBin) errOccurred = true;
             return hgm.ToArray();
-            
+
         }
 
         internal IEnumerable<int[]> PulseSimTest(SerialNPMManager serialMan, double gain, int waitSec, int range, int discLow, int discHigh, int nbins)
@@ -158,7 +154,7 @@ namespace QIXLPTesting
             serialMan.SendCommand("hgm\r\n");
             Thread.Sleep(30);
 
-            LineSeries series = new LineSeries() {Title = serialMan.GetSerial() };
+            LineSeries series = new LineSeries() { Title = serialMan.GetSerial() };
 
             List<int> hgm = serialMan.listener.GetHGM();
             int spread = DetermineSpread(hgm);
@@ -231,7 +227,7 @@ namespace QIXLPTesting
             serialMan.SendCommand($"ledmode = 1\r\n");
             Thread.Sleep(30);
 
-            bool ret =  MessageBox.Show("Blinking?", serialMan.GetSerial(), MessageBoxButtons.YesNo) == DialogResult.Yes;
+            bool ret = MessageBox.Show("Blinking?", serialMan.GetSerial(), MessageBoxButtons.YesNo) == DialogResult.Yes;
 
             SetupLEDTest(serialMan);
 

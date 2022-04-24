@@ -4,12 +4,6 @@ using OxyPlot.Legends;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QIXLPTesting
@@ -101,7 +95,7 @@ namespace QIXLPTesting
             }
             else
             {
-                seriestDict.Add(com, new LineSeries() {Title = com });
+                seriestDict.Add(com, new LineSeries() { Title = com });
                 seriestDict[com].Points.Add(point);
                 model.Series.Add(seriestDict[com]);
             }
@@ -109,9 +103,9 @@ namespace QIXLPTesting
             if (title.Contains("Volt"))
             {
                 seriestDict["RANGE_MIN"].Points.Add(new DataPoint(point.X, volt - range));
-                seriestDict["RANGE_MAX"].Points.Add(new DataPoint(point.X, volt + range)); 
+                seriestDict["RANGE_MAX"].Points.Add(new DataPoint(point.X, volt + range));
             }
-                
+
             UpdatePlot();
         }
 

@@ -4,12 +4,6 @@ using OxyPlot.Legends;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QIXLPTesting
@@ -122,12 +116,12 @@ namespace QIXLPTesting
             }
             else
             {
-                LineSeries newRaw = new LineSeries() { Title=serial };
-                LineSeries newCumu = new LineSeries() { Title=serial };
+                LineSeries newRaw = new LineSeries() { Title = serial };
+                LineSeries newCumu = new LineSeries() { Title = serial };
                 newRaw.Points.AddRange(rawHGM);
                 newCumu.Points.AddRange(cumHGM);
-                
-                seriesDict.Add(serial, new Tuple<LineSeries, LineSeries> (newRaw, newCumu));
+
+                seriesDict.Add(serial, new Tuple<LineSeries, LineSeries>(newRaw, newCumu));
                 cumuModel.Series.Add(newCumu);
                 rawModel.Series.Add(newRaw);
 
@@ -151,7 +145,7 @@ namespace QIXLPTesting
 
         }
 
-       
+
 
         private void CancelClose(object sender, FormClosingEventArgs e)
         {

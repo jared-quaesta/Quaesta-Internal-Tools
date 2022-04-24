@@ -1,5 +1,4 @@
 ﻿using OxyPlot;
-using OxyPlot.Series;
 using QIXLPTesting.SerialTools;
 using QIXLPTesting.SQL;
 using System;
@@ -204,7 +203,7 @@ namespace QIXLPTesting
 
         private async void runBtn_Click(object sender, EventArgs e)
         {
-            
+
             if (availNpms.CheckedItems.Count == 0)
             {
                 MessageBox.Show("No NPMs Selected.", "Error");
@@ -273,26 +272,30 @@ namespace QIXLPTesting
                 AddOutput("Terminating Test\n", Color.FromArgb(251, 55, 40));
                 foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
                 return;
-            } else
+            }
+            else
             {
                 AddOutput("Connection Success\n", Color.FromArgb(0, 200, 156));
             }
 
 
-            if (voltageRadio.Checked) 
-            { 
+            if (voltageRadio.Checked)
+            {
                 bool voltErr = await RunVoltageTest(serialMans);
             }
             else if (ledRadio.Checked)
             {
-                bool ledErr = await RunLEDTest(serialMans); 
-            } else if (psRadio.Checked)
+                bool ledErr = await RunLEDTest(serialMans);
+            }
+            else if (psRadio.Checked)
             {
                 bool psErr = await RunPulseSimTest(serialMans);
-            } else if (sdevRadio.Checked)
+            }
+            else if (sdevRadio.Checked)
             {
                 bool sdevErr = await RunSdevTest(serialMans);
-            } else if (tempRadio.Checked)
+            }
+            else if (tempRadio.Checked)
             {
                 bool tempErr = await RunTempTest(serialMans);
             }
@@ -653,7 +656,7 @@ namespace QIXLPTesting
             {
                 bool res = Tests.BlinkTest(serialMan);
                 SQLManager.UpdateLEDTest(serialMan.GetSerial(), res);
-                errFound = errFound || res;         
+                errFound = errFound || res;
                 if (res)
                 {
                     AddOutput(serialMan.GetSerial() + ": ", Color.FromArgb(71, 134, 255));
@@ -712,7 +715,7 @@ namespace QIXLPTesting
                     //       Would much prefer an infinite loop than a duplicate serial number reaching 
                     //       my server somehow.
                     while (!voltDict.TryAdd(
-                        serialMan.GetSerial(), 
+                        serialMan.GetSerial(),
                         new Tuple<bool, int>(voltTestClass.errOccurred, (int)voltTestClass.averageVoltage)))
                     {
                         Thread.Sleep(100);
@@ -758,7 +761,8 @@ namespace QIXLPTesting
                 {
                     AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
                     AddOutput(voltDict[key].Item2 + "V (Ave)" + Environment.NewLine, Color.FromArgb(0, 200, 156));
-                } else
+                }
+                else
                 {
                     AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
                     AddOutput(voltDict[key].Item2 + "V (Ave)" + Environment.NewLine, Color.FromArgb(251, 55, 40));
@@ -781,7 +785,8 @@ namespace QIXLPTesting
 
             string com = availNpms.SelectedItem.ToString().Split(':')[1].Trim();
             string serial = availNpms.SelectedItem.ToString().Split(':')[0].Trim();
-            new DirectTerm(com, serial).ShowDialog();
+            SerialNPMManager man = new SerialNPMManager(serial, com);
+            man.ShowTerm();
 
         }
 
@@ -954,7 +959,7 @@ namespace QIXLPTesting
                 {
                     MessageBox.Show("Could not find this serial number connected. Please plug it in.");
                 }
-            
+
             }
             refreshConnectedToolStripMenuItem_Click(null, null);
         }
@@ -967,7 +972,7 @@ namespace QIXLPTesting
             foreach (Tuple<string, string> com in SerialNPMManager.GetComs("STMicroelectronics"))
             {
                 serialMans.Add(new SerialNPMManager("unk", com.Item1));
-               
+
             }
 
             List<Thread> threads = new List<Thread>();
@@ -1041,11 +1046,13 @@ namespace QIXLPTesting
             {
                 voltLbl.Text = "Passed";
                 voltLbl.ForeColor = Color.Green;
-            } else if (failV.Checked)
+            }
+            else if (failV.Checked)
             {
                 voltLbl.Text = "Failed";
                 voltLbl.ForeColor = Color.Red;
-            } else
+            }
+            else
             {
                 voltLbl.Text = "Not Done";
                 voltLbl.ForeColor = Color.Orange;
@@ -1141,7 +1148,6 @@ namespace QIXLPTesting
             foreach (string com in availNpms.Items)
             {
                 string comport = com.Split(':')[1].Trim();
-                SerialListener listener = new SerialListener();
                 SerialNPMManager serialMan = new SerialNPMManager(serial, comport);
                 serialManagers.Add(serialMan);
             }
@@ -1205,7 +1211,8 @@ namespace QIXLPTesting
                 SQLManager.UpdateLEDTest(serial, true);
                 AddOutput(serial + ": ", Color.FromArgb(71, 134, 255));
                 AddOutput("Blinks" + Environment.NewLine, Color.FromArgb(0, 200, 156));
-            } else
+            }
+            else
             {
                 SQLManager.UpdateLEDTest(serial, false);
                 AddOutput(serial + ": ", Color.FromArgb(71, 134, 255));

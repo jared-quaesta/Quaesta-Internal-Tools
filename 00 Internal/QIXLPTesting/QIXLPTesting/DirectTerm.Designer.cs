@@ -33,7 +33,6 @@ namespace QIXLPTesting
             this.termIn = new System.Windows.Forms.TextBox();
             this.sendCrBtn = new System.Windows.Forms.Button();
             this.sendLfBtn = new System.Windows.Forms.Button();
-            this.sendImmediatelyCheck = new System.Windows.Forms.CheckBox();
             this.flushOutBuffer = new System.Windows.Forms.Button();
             this.showCrLfCheck = new System.Windows.Forms.CheckBox();
             this.commandsBox = new System.Windows.Forms.TextBox();
@@ -59,6 +58,8 @@ namespace QIXLPTesting
             this.connectBtn = new System.Windows.Forms.Button();
             this.debugWorker = new System.ComponentModel.BackgroundWorker();
             this.clrOut = new System.Windows.Forms.Button();
+            this.numTimesBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // termOut
@@ -86,6 +87,7 @@ namespace QIXLPTesting
             this.termIn.Name = "termIn";
             this.termIn.Size = new System.Drawing.Size(679, 22);
             this.termIn.TabIndex = 6;
+            this.termIn.TextChanged += new System.EventHandler(this.termIn_TextChanged);
             this.termIn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SendCmd);
             // 
             // sendCrBtn
@@ -109,17 +111,6 @@ namespace QIXLPTesting
             this.sendLfBtn.Text = "LF";
             this.sendLfBtn.UseVisualStyleBackColor = true;
             this.sendLfBtn.Click += new System.EventHandler(this.sendLfBtn_Click);
-            // 
-            // sendImmediatelyCheck
-            // 
-            this.sendImmediatelyCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendImmediatelyCheck.AutoSize = true;
-            this.sendImmediatelyCheck.Location = new System.Drawing.Point(697, 363);
-            this.sendImmediatelyCheck.Name = "sendImmediatelyCheck";
-            this.sendImmediatelyCheck.Size = new System.Drawing.Size(109, 17);
-            this.sendImmediatelyCheck.TabIndex = 9;
-            this.sendImmediatelyCheck.Text = "Send Immediately";
-            this.sendImmediatelyCheck.UseVisualStyleBackColor = true;
             // 
             // flushOutBuffer
             // 
@@ -201,7 +192,7 @@ namespace QIXLPTesting
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(702, 297);
+            this.label4.Location = new System.Drawing.Point(704, 297);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 13);
             this.label4.TabIndex = 19;
@@ -251,7 +242,7 @@ namespace QIXLPTesting
             // 
             this.indefiniteCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.indefiniteCheck.AutoSize = true;
-            this.indefiniteCheck.Location = new System.Drawing.Point(730, 296);
+            this.indefiniteCheck.Location = new System.Drawing.Point(827, 296);
             this.indefiniteCheck.Name = "indefiniteCheck";
             this.indefiniteCheck.Size = new System.Drawing.Size(76, 17);
             this.indefiniteCheck.TabIndex = 25;
@@ -265,7 +256,7 @@ namespace QIXLPTesting
             this.byteDelayBox.Name = "byteDelayBox";
             this.byteDelayBox.Size = new System.Drawing.Size(44, 20);
             this.byteDelayBox.TabIndex = 26;
-            this.byteDelayBox.Text = "0";
+            this.byteDelayBox.Text = "3";
             // 
             // label9
             // 
@@ -382,11 +373,30 @@ namespace QIXLPTesting
             this.clrOut.UseVisualStyleBackColor = true;
             this.clrOut.Click += new System.EventHandler(this.clrOut_Click);
             // 
+            // numTimesBox
+            // 
+            this.numTimesBox.Location = new System.Drawing.Point(733, 294);
+            this.numTimesBox.Name = "numTimesBox";
+            this.numTimesBox.Size = new System.Drawing.Size(47, 20);
+            this.numTimesBox.TabIndex = 37;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(782, 297);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 38;
+            this.label2.Text = "Times";
+            // 
             // DirectTerm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 446);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.numTimesBox);
             this.Controls.Add(this.clrOut);
             this.Controls.Add(this.connectBtn);
             this.Controls.Add(this.label13);
@@ -410,7 +420,6 @@ namespace QIXLPTesting
             this.Controls.Add(this.commandsBox);
             this.Controls.Add(this.showCrLfCheck);
             this.Controls.Add(this.flushOutBuffer);
-            this.Controls.Add(this.sendImmediatelyCheck);
             this.Controls.Add(this.sendLfBtn);
             this.Controls.Add(this.sendCrBtn);
             this.Controls.Add(this.termIn);
@@ -432,7 +441,6 @@ namespace QIXLPTesting
         private System.Windows.Forms.TextBox termIn;
         private System.Windows.Forms.Button sendCrBtn;
         private System.Windows.Forms.Button sendLfBtn;
-        private System.Windows.Forms.CheckBox sendImmediatelyCheck;
         private System.Windows.Forms.Button flushOutBuffer;
         private System.Windows.Forms.CheckBox showCrLfCheck;
         private System.Windows.Forms.TextBox commandsBox;
@@ -458,5 +466,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.Button connectBtn;
         private System.ComponentModel.BackgroundWorker debugWorker;
         private System.Windows.Forms.Button clrOut;
+        private System.Windows.Forms.TextBox numTimesBox;
+        private System.Windows.Forms.Label label2;
     }
 }

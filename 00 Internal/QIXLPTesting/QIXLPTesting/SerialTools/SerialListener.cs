@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -27,21 +26,16 @@ namespace QIXLPTesting.SerialTools
         string termBuffer = "";
         List<int> hgm = new List<int>();
 
-        SerialNPMManager serialMan = null;
+        SerialNPMManager serialMan;
+
+        public SerialListener(SerialNPMManager serialMan)
+        {
+            this.serialMan = serialMan;
+        }
+
         internal void NewData(string data, string lastCom)
         {
-            if (serialMan != null)
-            {
-                if (data.EndsWith("\n"))
-                {
-                    serialMan.NewData(termBuffer + data);
-                    termBuffer = "";
-                } else
-                {
-                    termBuffer += data;
-                }
-            }
-
+            serialMan.NewData(data);
 
             cmdString += data;
             if (cmdString.Contains('\n'))

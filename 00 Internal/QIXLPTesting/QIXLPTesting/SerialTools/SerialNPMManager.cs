@@ -6,6 +6,7 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace QIXLPTesting.SerialTools
 {
@@ -17,20 +18,21 @@ namespace QIXLPTesting.SerialTools
         private bool connected = false;
         private string curConnected = "";
         private string lastCom = "";
-        internal DirectTerm term = null;
+        internal DirectTerm term;
         string serial;
         public SerialNPMManager(string serial, string com)
         {
             this.serial = serial;
             this.com = com;
-            this.listener = new SerialListener();
-            listener.RefMan(this);
+            listener = new SerialListener(this);
+            term = new DirectTerm(this);
             _serialPort = new SerialPort
             {
                 ReadTimeout = 200,
                 WriteTimeout = 200,
                 WriteBufferSize = 1024,
-                BaudRate = 115200
+                BaudRate = 115200,
+                DtrEnable = true
             };
             _serialPort.DataReceived += (sender, e) => listener.NewData(_serialPort.ReadExisting(), lastCom);
         }
@@ -42,9 +44,14 @@ namespace QIXLPTesting.SerialTools
 
         internal void NewData(string data)
         {
-            if (term == null) return;
-            term.AddData(data);
+            if (term.IsHandleCreated)
+            {
+                term.Invoke((MethodInvoker)delegate
+                {
+                    term.AddData(data);
+                });
 
+            }
         }
 
         internal void SetTerm(DirectTerm directTerm)
@@ -276,5 +283,9 @@ namespace QIXLPTesting.SerialTools
             Thread.Sleep(10);
         }
 
+        internal void ShowTerm()
+        {
+            term.ShowDialog();
+        }
     }
 }
