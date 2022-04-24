@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralFirstPhase", "QIXLPTesting\GeneralFirstPhase.csproj", "{87FEC8EA-C288-4DDC-8913-C8E077682E92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralFirstPhase", "GeneralFirstPhase\GeneralFirstPhase.csproj", "{87FEC8EA-C288-4DDC-8913-C8E077682E92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
