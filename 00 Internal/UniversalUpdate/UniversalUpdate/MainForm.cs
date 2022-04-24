@@ -23,96 +23,7 @@ namespace UniversalUpdate
 
         private async void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            refreshToolStripMenuItem.Enabled = false;
-            availComs.Items.Clear();
-            List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
-            foreach (Tuple<string, string> com in SerialNPMManager.GetComs("STMicroelectronics"))
-            {
-                // get sn, app to com number
-                serialMans.Add(new SerialNPMManager("unk", com.Item1));
-                //
-            }
-
-            List<Thread> threads = new List<Thread>();
-            BlockingCollection<string> coms = new BlockingCollection<string>();
-            foreach (SerialNPMManager serialMan in serialMans)
-            {
-                ThreadStart threadDelegate = new ThreadStart(() =>
-                {
-                    // connect
-                    int att = 0;
-
-                    serialMan.Connect(serialMan.com);
-                    while (!serialMan.IsConnected())
-                    {
-                        if (att == 10)
-                        {
-                            break;
-                        }
-                        att++;
-                        Thread.Sleep(500);
-                        serialMan.Connect(serialMan.com);
-                    }
-                    if (!serialMan.IsConnected())
-                    {
-                        return;
-                    }
-                    // get info
-                    serialMan.ClearInput();
-                    serialMan.SendCommand("info\r");
-                    Thread.Sleep(100);
-                    att = 0;
-                    while (serialMan.listener.GetSerial().Length == 0)
-                    {
-                        if (att == 10)
-                        {
-                            Debug.WriteLine("Unable to get " + serialMan.com);
-                            break;
-                        };
-                        att++;
-                        serialMan.listener.Clearinfo();
-                        Thread.Sleep(30);
-                        serialMan.SendCommand("info\r");
-                        Thread.Sleep(30);
-                        serialMan.SendCommand("info\r");
-                        Thread.Sleep(30);
-                        serialMan.listener.ParseInfo();
-                    }
-
-                    string serial = serialMan.listener.GetSerial();
-                    att = 0;
-                    while (!coms.TryAdd(serial + " : " + serialMan.com))
-                    {
-                        if (att++ == 10) break;
-                        Thread.Sleep(30);
-                    }
-                    serialMan.Disconnect();
-                });
-                Thread thread = new Thread(threadDelegate);
-                thread.Start();
-                threads.Add(thread);
-            }
-
-            await Task.Run(() =>
-            {
-                foreach (var thread in threads)
-                {
-                    thread.Join();
-                }
-            });
-
-            List<string> sortMe = new List<string>();
-            foreach (string npm in coms)
-            {
-                sortMe.Add(npm);
-            }
-            sortMe.Sort();
-            foreach (string i in sortMe)
-            {
-                availComs.Items.Add(i);
-            }
-            refreshToolStripMenuItem.Enabled = true;
-            avail.Text = $"Available NPMs ({availComs.Items.Count} Connected)";
+            
 
         }
 
@@ -1013,7 +924,62 @@ namespace UniversalUpdate
         private void BlinkSelectedLED(object sender, EventArgs e)
         {
             // turn off all LEDs
-            if (!blinkOnSelectionToolStripMenuItem.Checked) return;
+           
+        }
+
+        private void blinkOnSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
+            optionsToolStripMenuItem.ShowDropDown();
+        }
+
+        private async void showMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (availComs.SelectedIndex == -1)
+            {
+                MessageBox.Show("Select an NPM first.");
+                return;
+            }
+            string selCom = availComs.SelectedItem.ToString().Split(':')[1].Trim();
+            string serial = availComs.SelectedItem.ToString().Split(':')[0].Trim();
+
+            SerialNPMManager serialMan = new SerialNPMManager(serial, selCom);
+            await Task.Run(() =>
+            {
+                int att = 0;
+                serialMan.Connect(serialMan.com);
+                while (!serialMan.IsConnected())
+                {
+                    if (att == 10)
+                    {
+                        break;
+                    }
+                    att++;
+                    Thread.Sleep(100);
+                    serialMan.Connect(serialMan.com);
+                }
+                if (!serialMan.IsConnected())
+                {
+                    Debug.WriteLine("Could not connect: " + serialMan.com);
+                    return;
+                }
+
+                serialMan.ClearInput();
+                Thread.Sleep(30);
+
+                serialMan.SendCommand("menu\r\n");
+                Thread.Sleep(100);
+                
+                Thread.Sleep(100);
+                serialMan.Disconnect();
+            });
+
+            new MenuForm(serialMan.listener.GetMenu()).ShowDialog();
+
+        }
+
+        private void blinkBtn_Click(object sender, EventArgs e)
+        {
             if (availComs.SelectedIndex == -1) return;
             string selCom = availComs.SelectedItem.ToString().Split(':')[1].Trim();
             string serial = availComs.SelectedItem.ToString().Split(':')[0].Trim();
@@ -1082,55 +1048,157 @@ namespace UniversalUpdate
             }
         }
 
-        private void blinkOnSelectionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void turnOffAllLEDsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked;
-            optionsToolStripMenuItem.ShowDropDown();
+            List<SerialNPMManager> serialManagers = new List<SerialNPMManager>();
+            foreach (string com in availComs.Items)
+            {
+                string comport = com.Split(':')[1].Trim();
+                SerialListener listener = new SerialListener();
+                SerialNPMManager serialMan = new SerialNPMManager("UNK", comport);
+                serialManagers.Add(serialMan);
+            }
+            List<Thread> threads = new List<Thread>();
+
+            // start threads
+            foreach (SerialNPMManager serialMan in serialManagers)
+            {
+                ThreadStart threadDelegate = new ThreadStart(() =>
+                {
+                    // connect
+                    int att = 0;
+                    serialMan.Connect(serialMan.com);
+                    while (!serialMan.IsConnected())
+                    {
+                        if (att == 10)
+                        {
+                            break;
+                        }
+                        att++;
+                        Thread.Sleep(100);
+                        serialMan.Connect(serialMan.com);
+                    }
+                    if (!serialMan.IsConnected())
+                    {
+                        Debug.WriteLine("Could not connect: " + serialMan.com);
+                        return;
+                    }
+
+                    serialMan.ClearInput();
+                    Thread.Sleep(30);
+
+                    serialMan.SendCommand("pulsesim=0\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand("ledmode=0\r\n");
+
+                   
+                    Thread.Sleep(100);
+                    serialMan.Disconnect();
+                });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
+
+            }
+
+            foreach (Thread thread in threads)
+            {
+                thread.Join();
+            }
         }
 
-        private async void showMenuToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void serialDevicesToolStripMenuItem_ClickAsync(object sender, EventArgs e)
         {
-            if (availComs.SelectedIndex == -1)
+            refreshToolStripMenuItem.Enabled = false;
+            availComs.Items.Clear();
+            List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
+            foreach (Tuple<string, string> com in SerialNPMManager.GetComs("STMicroelectronics"))
             {
-                MessageBox.Show("Select an NPM first.");
-                return;
+                // get sn, app to com number
+                serialMans.Add(new SerialNPMManager("unk", com.Item1));
+                //
             }
-            string selCom = availComs.SelectedItem.ToString().Split(':')[1].Trim();
-            string serial = availComs.SelectedItem.ToString().Split(':')[0].Trim();
 
-            SerialNPMManager serialMan = new SerialNPMManager(serial, selCom);
+            List<Thread> threads = new List<Thread>();
+            BlockingCollection<string> coms = new BlockingCollection<string>();
+            foreach (SerialNPMManager serialMan in serialMans)
+            {
+                ThreadStart threadDelegate = new ThreadStart(() =>
+                {
+                    // connect
+                    int att = 0;
+
+                    serialMan.Connect(serialMan.com);
+                    while (!serialMan.IsConnected())
+                    {
+                        if (att == 10)
+                        {
+                            break;
+                        }
+                        att++;
+                        Thread.Sleep(500);
+                        serialMan.Connect(serialMan.com);
+                    }
+                    if (!serialMan.IsConnected())
+                    {
+                        return;
+                    }
+                    // get info
+                    serialMan.ClearInput();
+                    serialMan.SendCommand("info\r");
+                    Thread.Sleep(100);
+                    att = 0;
+                    while (serialMan.listener.GetSerial().Length == 0)
+                    {
+                        if (att == 10)
+                        {
+                            Debug.WriteLine("Unable to get " + serialMan.com);
+                            break;
+                        };
+                        att++;
+                        serialMan.listener.Clearinfo();
+                        Thread.Sleep(30);
+                        serialMan.SendCommand("info\r");
+                        Thread.Sleep(30);
+                        serialMan.SendCommand("info\r");
+                        Thread.Sleep(30);
+                        serialMan.listener.ParseInfo();
+                    }
+
+                    string serial = serialMan.listener.GetSerial();
+                    att = 0;
+                    while (!coms.TryAdd(serial + " : " + serialMan.com))
+                    {
+                        if (att++ == 10) break;
+                        Thread.Sleep(30);
+                    }
+                    serialMan.Disconnect();
+                });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
+            }
+
             await Task.Run(() =>
             {
-                int att = 0;
-                serialMan.Connect(serialMan.com);
-                while (!serialMan.IsConnected())
+                foreach (var thread in threads)
                 {
-                    if (att == 10)
-                    {
-                        break;
-                    }
-                    att++;
-                    Thread.Sleep(100);
-                    serialMan.Connect(serialMan.com);
+                    thread.Join();
                 }
-                if (!serialMan.IsConnected())
-                {
-                    Debug.WriteLine("Could not connect: " + serialMan.com);
-                    return;
-                }
-
-                serialMan.ClearInput();
-                Thread.Sleep(30);
-
-                serialMan.SendCommand("menu\r\n");
-                Thread.Sleep(100);
-                
-                Thread.Sleep(100);
-                serialMan.Disconnect();
             });
 
-            new MenuForm(serialMan.listener.GetMenu()).ShowDialog();
-
+            List<string> sortMe = new List<string>();
+            foreach (string npm in coms)
+            {
+                sortMe.Add(npm);
+            }
+            sortMe.Sort();
+            foreach (string i in sortMe)
+            {
+                availComs.Items.Add(i);
+            }
+            refreshToolStripMenuItem.Enabled = true;
+            avail.Text = $"Available NPMs ({availComs.Items.Count} Connected)";
         }
     }
 }

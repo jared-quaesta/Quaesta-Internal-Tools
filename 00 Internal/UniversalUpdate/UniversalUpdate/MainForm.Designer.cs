@@ -36,9 +36,11 @@ namespace UniversalUpdate
             this.avail = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serialDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showWarningsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blinkOnSelectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.turnOffAllLEDsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sTLinkFlashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.crpDrag = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,7 +64,8 @@ namespace UniversalUpdate
             this.label10 = new System.Windows.Forms.Label();
             this.serverPanel = new System.Windows.Forms.Panel();
             this.progTxt = new System.Windows.Forms.Label();
-            this.showMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blinkBtn = new System.Windows.Forms.Button();
+            this.tCPDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.serverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -85,20 +88,20 @@ namespace UniversalUpdate
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(12, 577);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(44, 23);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Select All";
+            this.button1.Text = "All";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.SelAll);
             // 
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(120, 577);
+            this.button2.Location = new System.Drawing.Point(62, 577);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(51, 23);
             this.button2.TabIndex = 2;
-            this.button2.Text = "Select None";
+            this.button2.Text = "None";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.SelNone);
             // 
@@ -125,17 +128,27 @@ namespace UniversalUpdate
             // 
             // refreshToolStripMenuItem
             // 
+            this.refreshToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.serialDevicesToolStripMenuItem,
+            this.tCPDevicesToolStripMenuItem});
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
+            // serialDevicesToolStripMenuItem
+            // 
+            this.serialDevicesToolStripMenuItem.Name = "serialDevicesToolStripMenuItem";
+            this.serialDevicesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.serialDevicesToolStripMenuItem.Text = "Serial Devices";
+            this.serialDevicesToolStripMenuItem.Click += new System.EventHandler(this.serialDevicesToolStripMenuItem_ClickAsync);
+            // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showWarningsToolStripMenuItem,
-            this.blinkOnSelectionToolStripMenuItem,
-            this.showMenuToolStripMenuItem});
+            this.showMenuToolStripMenuItem,
+            this.turnOffAllLEDsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -143,16 +156,23 @@ namespace UniversalUpdate
             // showWarningsToolStripMenuItem
             // 
             this.showWarningsToolStripMenuItem.Name = "showWarningsToolStripMenuItem";
-            this.showWarningsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showWarningsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.showWarningsToolStripMenuItem.Text = "Show Warnings";
             this.showWarningsToolStripMenuItem.Click += new System.EventHandler(this.showWarningsToolStripMenuItem_Click);
             // 
-            // blinkOnSelectionToolStripMenuItem
+            // showMenuToolStripMenuItem
             // 
-            this.blinkOnSelectionToolStripMenuItem.Name = "blinkOnSelectionToolStripMenuItem";
-            this.blinkOnSelectionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.blinkOnSelectionToolStripMenuItem.Text = "Blink on Selection";
-            this.blinkOnSelectionToolStripMenuItem.Click += new System.EventHandler(this.blinkOnSelectionToolStripMenuItem_Click);
+            this.showMenuToolStripMenuItem.Name = "showMenuToolStripMenuItem";
+            this.showMenuToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.showMenuToolStripMenuItem.Text = "Show Menu";
+            this.showMenuToolStripMenuItem.Click += new System.EventHandler(this.showMenuToolStripMenuItem_Click);
+            // 
+            // turnOffAllLEDsToolStripMenuItem
+            // 
+            this.turnOffAllLEDsToolStripMenuItem.Name = "turnOffAllLEDsToolStripMenuItem";
+            this.turnOffAllLEDsToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.turnOffAllLEDsToolStripMenuItem.Text = "Turn off all LEDs";
+            this.turnOffAllLEDsToolStripMenuItem.Click += new System.EventHandler(this.turnOffAllLEDsToolStripMenuItem_Click);
             // 
             // sTLinkFlashToolStripMenuItem
             // 
@@ -391,18 +411,29 @@ namespace UniversalUpdate
             this.progTxt.TabIndex = 26;
             this.progTxt.Text = "Waiting....";
             // 
-            // showMenuToolStripMenuItem
+            // blinkBtn
             // 
-            this.showMenuToolStripMenuItem.Name = "showMenuToolStripMenuItem";
-            this.showMenuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.showMenuToolStripMenuItem.Text = "Show Menu";
-            this.showMenuToolStripMenuItem.Click += new System.EventHandler(this.showMenuToolStripMenuItem_Click);
+            this.blinkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.blinkBtn.Location = new System.Drawing.Point(119, 577);
+            this.blinkBtn.Name = "blinkBtn";
+            this.blinkBtn.Size = new System.Drawing.Size(76, 23);
+            this.blinkBtn.TabIndex = 27;
+            this.blinkBtn.Text = "Blink";
+            this.blinkBtn.UseVisualStyleBackColor = true;
+            this.blinkBtn.Click += new System.EventHandler(this.blinkBtn_Click);
+            // 
+            // tCPDevicesToolStripMenuItem
+            // 
+            this.tCPDevicesToolStripMenuItem.Name = "tCPDevicesToolStripMenuItem";
+            this.tCPDevicesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tCPDevicesToolStripMenuItem.Text = "TCP Devices";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 631);
+            this.Controls.Add(this.blinkBtn);
             this.Controls.Add(this.progTxt);
             this.Controls.Add(this.serverPanel);
             this.Controls.Add(this.refServerCheck);
@@ -470,8 +501,11 @@ namespace UniversalUpdate
         private System.Windows.Forms.Panel serverPanel;
         private System.Windows.Forms.ToolStripMenuItem sTLinkFlashToolStripMenuItem;
         private System.Windows.Forms.Label progTxt;
-        private System.Windows.Forms.ToolStripMenuItem blinkOnSelectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showMenuToolStripMenuItem;
+        private System.Windows.Forms.Button blinkBtn;
+        private System.Windows.Forms.ToolStripMenuItem turnOffAllLEDsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem serialDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tCPDevicesToolStripMenuItem;
     }
 }
 
