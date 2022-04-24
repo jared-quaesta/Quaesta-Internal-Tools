@@ -37,6 +37,7 @@ namespace UniversalUpdate
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serialDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tCPDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showWarningsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showMenuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +66,6 @@ namespace UniversalUpdate
             this.serverPanel = new System.Windows.Forms.Panel();
             this.progTxt = new System.Windows.Forms.Label();
             this.blinkBtn = new System.Windows.Forms.Button();
-            this.tCPDevicesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.serverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -142,6 +142,13 @@ namespace UniversalUpdate
             this.serialDevicesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.serialDevicesToolStripMenuItem.Text = "Serial Devices";
             this.serialDevicesToolStripMenuItem.Click += new System.EventHandler(this.serialDevicesToolStripMenuItem_ClickAsync);
+            // 
+            // tCPDevicesToolStripMenuItem
+            // 
+            this.tCPDevicesToolStripMenuItem.Name = "tCPDevicesToolStripMenuItem";
+            this.tCPDevicesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tCPDevicesToolStripMenuItem.Text = "TCP Devices";
+            this.tCPDevicesToolStripMenuItem.Click += new System.EventHandler(this.tCPDevicesToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -421,12 +428,6 @@ namespace UniversalUpdate
             this.blinkBtn.Text = "Blink";
             this.blinkBtn.UseVisualStyleBackColor = true;
             this.blinkBtn.Click += new System.EventHandler(this.blinkBtn_Click);
-            // 
-            // tCPDevicesToolStripMenuItem
-            // 
-            this.tCPDevicesToolStripMenuItem.Name = "tCPDevicesToolStripMenuItem";
-            this.tCPDevicesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.tCPDevicesToolStripMenuItem.Text = "TCP Devices";
             // 
             // MainForm
             // 

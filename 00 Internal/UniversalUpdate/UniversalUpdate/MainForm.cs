@@ -2,13 +2,16 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using UniversalUpdate.Serial;
 using UniversalUpdate.SQL;
+using UniversalUpdate.TCP_UDP;
 
 namespace UniversalUpdate
 {
@@ -16,6 +19,7 @@ namespace UniversalUpdate
     {
         string curFWPath = "";
         Dictionary<char, string> formatDict = new Dictionary<char, string>();
+        UDPManager udpMan;
         public MainForm()
         {
             InitializeComponent();
@@ -595,6 +599,52 @@ namespace UniversalUpdate
             refreshToolStripMenuItem_Click(null, null);
         }
 
+        internal void ParseUDP(string data)
+        {
+            Debug.WriteLine(data);
+            string[] incomingData = data.Split('\n');
+            // no new data
+            if (data.Length == 0) return;
+
+
+            foreach (string incoming in incomingData)
+            {
+                if (incoming.Split(',').Length == 1) continue;
+                // 70B3D588F0D5,C0A80FD5,FFFFFF00,C0A80F01,10001,QIY_A_100,NE0D5
+                Debug.WriteLine(incoming);
+                string ip, port, mac, serial;
+                /////////////////// IP ///////////////////
+                ip = "";
+                if (incoming.Split(',').Length > 1)
+                {
+                    IPAddress parsedIP = new IPAddress(long.Parse(incoming.Split(',')[1], NumberStyles.AllowHexSpecifier));
+                    string[] arr = parsedIP.ToString().Split('.');
+                    foreach (string sect in arr)
+                    {
+                        ip = sect + "." + ip;
+                    }
+                    ip = ip.Trim('.');
+                }
+
+                ///////////////// FW /////////////////////
+                string fw = incoming.Split(',')[5];
+
+                ///////////////// SERIAL //////////////////
+                serial = incoming.Split(',')[5];
+
+                ///////////////// MAC ////////////////////
+                string macIndex = incoming.Split(',')[0];
+                mac = "";
+                for (int i = 0; i < macIndex.Length; i += 2)
+                {
+                    mac += macIndex.Substring(i, 2) + " : ";
+                }
+                mac = mac.Trim(':', ' ');
+
+                availComs.Items.Add($"{ip.Split('.')[ip.Split('.').Length-1]} : {serial}");
+            }
+        }
+
         private string ParseSerial(string prevSerialFormat, string desiredSerialFormat, List<string> allSerials, string curSerial = "", int overrideNext = -1)
         {
             bool reserialize = prevSerialFormat.Length > 0;
@@ -774,6 +824,7 @@ namespace UniversalUpdate
         {
             refreshToolStripMenuItem_Click(null, null);
             formatDict.Add('n', "17");
+            udpMan = new UDPManager(this);
 
         }
 
@@ -1199,6 +1250,11 @@ namespace UniversalUpdate
             }
             refreshToolStripMenuItem.Enabled = true;
             avail.Text = $"Available NPMs ({availComs.Items.Count} Connected)";
+        }
+
+        private void tCPDevicesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            udpMan.SearchNeuchQIY();
         }
     }
 }

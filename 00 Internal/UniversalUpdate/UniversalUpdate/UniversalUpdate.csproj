@@ -79,6 +79,8 @@
     <Compile Include="STLinkForm.Designer.cs">
       <DependentUpon>STLinkForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TCP_UDP\TCPNPMManager.cs" />
+    <Compile Include="TCP_UDP\UDPManager.cs" />
     <EmbeddedResource Include="EndForm.resx">
       <DependentUpon>EndForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -120,8 +122,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TCP\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
