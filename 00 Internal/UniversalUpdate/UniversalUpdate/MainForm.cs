@@ -1259,8 +1259,9 @@ namespace UniversalUpdate
 
         private void manualToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string loc = Path.Combine(Environment.CurrentDirectory, @"Manual\Update and Serialize Manual.pdf");
-            Process.Start(loc);
+            string loc = Path.Combine(Environment.CurrentDirectory, @"Manual\Manual.pdf");
+            Process.Start("chrome.exe", string.Format("\"{0}\"", loc));
+
         }
     }
 }
