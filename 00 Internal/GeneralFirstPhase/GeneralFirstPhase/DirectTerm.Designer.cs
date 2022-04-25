@@ -379,6 +379,7 @@ namespace QIXLPTesting
             this.numTimesBox.Name = "numTimesBox";
             this.numTimesBox.Size = new System.Drawing.Size(47, 20);
             this.numTimesBox.TabIndex = 37;
+            this.numTimesBox.Text = "10";
             // 
             // label2
             // 

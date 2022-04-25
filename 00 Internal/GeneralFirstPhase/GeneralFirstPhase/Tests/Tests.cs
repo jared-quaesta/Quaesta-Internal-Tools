@@ -218,7 +218,7 @@ namespace QIXLPTesting
             Thread.Sleep(30);
         }
 
-        internal static bool BlinkTest(SerialNPMManager serialMan)
+        internal static bool? BlinkTest(SerialNPMManager serialMan)
         {
             serialMan.ClearInput();
             serialMan.listener.ClearVoltage();
@@ -226,13 +226,16 @@ namespace QIXLPTesting
             Thread.Sleep(30);
             serialMan.SendCommand($"ledmode = 1\r\n");
             Thread.Sleep(30);
-
-            bool ret = MessageBox.Show("Blinking?", serialMan.GetSerial(), MessageBoxButtons.YesNo) == DialogResult.Yes;
+            DialogResult res = MessageBox.Show("Blinking?", serialMan.GetSerial(), MessageBoxButtons.YesNoCancel);
+            Debug.WriteLine(res.ToString());
 
             SetupLEDTest(serialMan);
+            if (res == DialogResult.Cancel)
+            {
+                return null;
+            }
+            else return res == DialogResult.Yes;
 
-
-            return ret;
         }
 
         internal IEnumerable<DataPoint> TemperatureTest(SerialNPMManager serialMan, double minT, double maxT, int waitSec)

@@ -165,12 +165,20 @@ namespace QIXLPTesting.SerialTools
             {
                 try
                 {
-                    foreach (byte b in bytes)
+                    if (buffer == 0)
                     {
-                        byte[] by = new byte[] { b };
-                        _serialPort.Write(by, 0, by.Length);
-                        Thread.Sleep(buffer);
+                        _serialPort.Write(bytes, 0, bytes.Length);
                     }
+                    else
+                    {
+                        foreach (byte b in bytes)
+                        {
+                            byte[] by = new byte[] { b };
+                            _serialPort.Write(by, 0, by.Length);
+                            Thread.Sleep(buffer);
+                        }
+                    }
+
                 }
                 catch
                 {

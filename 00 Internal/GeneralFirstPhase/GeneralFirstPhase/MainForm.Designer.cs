@@ -29,8 +29,8 @@ namespace QIXLPTesting
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.testTabControl = new System.Windows.Forms.TabControl();
+            this.testTab = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label37 = new System.Windows.Forms.Label();
             this.tempMaxBox = new System.Windows.Forms.ComboBox();
@@ -94,6 +94,8 @@ namespace QIXLPTesting
             this.label2 = new System.Windows.Forms.Label();
             this.avail = new System.Windows.Forms.Label();
             this.availNpms = new System.Windows.Forms.CheckedListBox();
+            this.dlTab = new System.Windows.Forms.TabPage();
+            this.availDataloggers = new System.Windows.Forms.CheckedListBox();
             this.serverTab = new System.Windows.Forms.TabPage();
             this.serverDetailsPanel = new System.Windows.Forms.Panel();
             this.remBtn = new System.Windows.Forms.Button();
@@ -153,13 +155,14 @@ namespace QIXLPTesting
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.testTabControl.SuspendLayout();
+            this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.voltOptionsGB.SuspendLayout();
+            this.dlTab.SuspendLayout();
             this.serverTab.SuspendLayout();
             this.serverDetailsPanel.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -170,47 +173,48 @@ namespace QIXLPTesting
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // testTabControl
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.testTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.serverTab);
-            this.tabControl1.Location = new System.Drawing.Point(12, 27);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(903, 596);
-            this.tabControl1.TabIndex = 0;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.RefreshAvailable);
+            this.testTabControl.Controls.Add(this.testTab);
+            this.testTabControl.Controls.Add(this.dlTab);
+            this.testTabControl.Controls.Add(this.serverTab);
+            this.testTabControl.Location = new System.Drawing.Point(12, 27);
+            this.testTabControl.Name = "testTabControl";
+            this.testTabControl.SelectedIndex = 0;
+            this.testTabControl.Size = new System.Drawing.Size(903, 596);
+            this.testTabControl.TabIndex = 0;
+            this.testTabControl.SelectedIndexChanged += new System.EventHandler(this.RefreshAvailable);
             // 
-            // tabPage2
+            // testTab
             // 
-            this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.testDesc);
-            this.tabPage2.Controls.Add(this.blinkBtn);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Controls.Add(this.openTerm);
-            this.tabPage2.Controls.Add(this.voltOptionsGB);
-            this.tabPage2.Controls.Add(this.runBtn);
-            this.tabPage2.Controls.Add(this.progressBar);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.clearOut);
-            this.tabPage2.Controls.Add(this.selNone);
-            this.tabPage2.Controls.Add(this.selAll);
-            this.tabPage2.Controls.Add(this.outputBox);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.avail);
-            this.tabPage2.Controls.Add(this.availNpms);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(895, 570);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Testing";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.testTab.Controls.Add(this.groupBox3);
+            this.testTab.Controls.Add(this.testDesc);
+            this.testTab.Controls.Add(this.blinkBtn);
+            this.testTab.Controls.Add(this.groupBox2);
+            this.testTab.Controls.Add(this.groupBox1);
+            this.testTab.Controls.Add(this.panel1);
+            this.testTab.Controls.Add(this.openTerm);
+            this.testTab.Controls.Add(this.voltOptionsGB);
+            this.testTab.Controls.Add(this.runBtn);
+            this.testTab.Controls.Add(this.progressBar);
+            this.testTab.Controls.Add(this.label1);
+            this.testTab.Controls.Add(this.clearOut);
+            this.testTab.Controls.Add(this.selNone);
+            this.testTab.Controls.Add(this.selAll);
+            this.testTab.Controls.Add(this.outputBox);
+            this.testTab.Controls.Add(this.label2);
+            this.testTab.Controls.Add(this.avail);
+            this.testTab.Controls.Add(this.availNpms);
+            this.testTab.Location = new System.Drawing.Point(4, 22);
+            this.testTab.Name = "testTab";
+            this.testTab.Padding = new System.Windows.Forms.Padding(3);
+            this.testTab.Size = new System.Drawing.Size(895, 570);
+            this.testTab.TabIndex = 1;
+            this.testTab.Text = "Testing";
+            this.testTab.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -247,6 +251,7 @@ namespace QIXLPTesting
             this.tempMaxBox.Size = new System.Drawing.Size(44, 21);
             this.tempMaxBox.TabIndex = 22;
             this.tempMaxBox.Text = "30";
+            this.tempMaxBox.TextChanged += new System.EventHandler(this.ValidateDecimalInput);
             // 
             // label35
             // 
@@ -274,6 +279,7 @@ namespace QIXLPTesting
             this.tempMinBox.Size = new System.Drawing.Size(44, 21);
             this.tempMinBox.TabIndex = 20;
             this.tempMinBox.Text = "25";
+            this.tempMinBox.TextChanged += new System.EventHandler(this.ValidateDecimalInput);
             // 
             // label36
             // 
@@ -297,6 +303,7 @@ namespace QIXLPTesting
             this.tempWait.Size = new System.Drawing.Size(49, 21);
             this.tempWait.TabIndex = 11;
             this.tempWait.Text = "10";
+            this.tempWait.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // label32
             // 
@@ -368,6 +375,7 @@ namespace QIXLPTesting
             this.sdevWait.Size = new System.Drawing.Size(49, 21);
             this.sdevWait.TabIndex = 17;
             this.sdevWait.Text = "10";
+            this.sdevWait.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // label30
             // 
@@ -411,6 +419,7 @@ namespace QIXLPTesting
             this.sdevVolt.Size = new System.Drawing.Size(49, 21);
             this.sdevVolt.TabIndex = 13;
             this.sdevVolt.Text = "500";
+            this.sdevVolt.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // minBinBox
             // 
@@ -426,6 +435,7 @@ namespace QIXLPTesting
             this.minBinBox.Size = new System.Drawing.Size(49, 21);
             this.minBinBox.TabIndex = 11;
             this.minBinBox.Text = "3";
+            this.minBinBox.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // label34
             // 
@@ -480,6 +490,7 @@ namespace QIXLPTesting
             this.psNbins.Size = new System.Drawing.Size(49, 21);
             this.psNbins.TabIndex = 17;
             this.psNbins.Text = "64";
+            this.psNbins.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // psDiscLow
             // 
@@ -489,6 +500,7 @@ namespace QIXLPTesting
             this.psDiscLow.Size = new System.Drawing.Size(49, 21);
             this.psDiscLow.TabIndex = 16;
             this.psDiscLow.Text = "3";
+            this.psDiscLow.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // label24
             // 
@@ -507,6 +519,7 @@ namespace QIXLPTesting
             this.psDiscHigh.Size = new System.Drawing.Size(49, 21);
             this.psDiscHigh.TabIndex = 14;
             this.psDiscHigh.Text = "63";
+            this.psDiscHigh.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // label27
             // 
@@ -549,6 +562,7 @@ namespace QIXLPTesting
             this.psValid.Size = new System.Drawing.Size(49, 21);
             this.psValid.TabIndex = 11;
             this.psValid.Text = "3";
+            this.psValid.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // label19
             // 
@@ -572,6 +586,7 @@ namespace QIXLPTesting
             this.waitPs.Size = new System.Drawing.Size(49, 21);
             this.waitPs.TabIndex = 7;
             this.waitPs.Text = "10";
+            this.waitPs.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // label14
             // 
@@ -603,6 +618,7 @@ namespace QIXLPTesting
             this.gainBox.Size = new System.Drawing.Size(49, 21);
             this.gainBox.TabIndex = 0;
             this.gainBox.Text = "7";
+            this.gainBox.TextChanged += new System.EventHandler(this.ValidateDecimalInput);
             // 
             // panel1
             // 
@@ -653,7 +669,6 @@ namespace QIXLPTesting
             // ledRadio
             // 
             this.ledRadio.AutoSize = true;
-            this.ledRadio.Enabled = false;
             this.ledRadio.Location = new System.Drawing.Point(75, 4);
             this.ledRadio.Name = "ledRadio";
             this.ledRadio.Size = new System.Drawing.Size(46, 17);
@@ -739,6 +754,7 @@ namespace QIXLPTesting
             this.waitVolt.Size = new System.Drawing.Size(49, 21);
             this.waitVolt.TabIndex = 7;
             this.waitVolt.Text = "10";
+            this.waitVolt.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // Lbl
             // 
@@ -772,6 +788,7 @@ namespace QIXLPTesting
             this.validVoltRange.Size = new System.Drawing.Size(49, 21);
             this.validVoltRange.TabIndex = 4;
             this.validVoltRange.Text = "15";
+            this.validVoltRange.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // label5
             // 
@@ -815,6 +832,7 @@ namespace QIXLPTesting
             this.voltLevel.Size = new System.Drawing.Size(49, 21);
             this.voltLevel.TabIndex = 0;
             this.voltLevel.Text = "500";
+            this.voltLevel.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             // 
             // runBtn
             // 
@@ -922,6 +940,25 @@ namespace QIXLPTesting
             this.availNpms.Name = "availNpms";
             this.availNpms.Size = new System.Drawing.Size(236, 514);
             this.availNpms.TabIndex = 0;
+            // 
+            // dlTab
+            // 
+            this.dlTab.Controls.Add(this.availDataloggers);
+            this.dlTab.Location = new System.Drawing.Point(4, 22);
+            this.dlTab.Name = "dlTab";
+            this.dlTab.Padding = new System.Windows.Forms.Padding(3);
+            this.dlTab.Size = new System.Drawing.Size(895, 570);
+            this.dlTab.TabIndex = 3;
+            this.dlTab.Text = "Datalogger";
+            this.dlTab.UseVisualStyleBackColor = true;
+            // 
+            // availDataloggers
+            // 
+            this.availDataloggers.FormattingEnabled = true;
+            this.availDataloggers.Location = new System.Drawing.Point(7, 22);
+            this.availDataloggers.Name = "availDataloggers";
+            this.availDataloggers.Size = new System.Drawing.Size(215, 109);
+            this.availDataloggers.TabIndex = 0;
             // 
             // serverTab
             // 
@@ -1560,16 +1597,16 @@ namespace QIXLPTesting
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(927, 635);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.testTabControl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(635, 405);
             this.Name = "MainForm";
             this.Text = "General First Phase Testing";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.testTabControl.ResumeLayout(false);
+            this.testTab.ResumeLayout(false);
+            this.testTab.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1580,6 +1617,7 @@ namespace QIXLPTesting
             this.panel1.PerformLayout();
             this.voltOptionsGB.ResumeLayout(false);
             this.voltOptionsGB.PerformLayout();
+            this.dlTab.ResumeLayout(false);
             this.serverTab.ResumeLayout(false);
             this.serverTab.PerformLayout();
             this.serverDetailsPanel.ResumeLayout(false);
@@ -1603,8 +1641,8 @@ namespace QIXLPTesting
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl testTabControl;
+        private System.Windows.Forms.TabPage testTab;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.RichTextBox outputBox;
@@ -1727,6 +1765,8 @@ namespace QIXLPTesting
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.ComboBox tempWait;
         private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TabPage dlTab;
+        private System.Windows.Forms.CheckedListBox availDataloggers;
     }
 }
 

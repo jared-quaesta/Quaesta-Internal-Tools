@@ -45,7 +45,7 @@ namespace QIXLPTesting
 
         private async void refreshConnectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab.Name.Equals("serverTab"))
+            if (testTabControl.SelectedTab.Name.Equals("serverTab"))
             {
                 serverDetailsPanel.Visible = false;
                 List<string> sns = SQLManager.GetAllSerials();
@@ -57,6 +57,16 @@ namespace QIXLPTesting
                 {
                     inServer.Items.Add(sn);
                 }
+            }
+            else if (testTabControl.SelectedTab.Name.Equals("dlTab"))
+            {
+                availDataloggers.Items.Clear();
+                foreach (string dl in SerialDataloggerManager.GetComs())
+                {
+                    availDataloggers.Items.Add(dl, false);
+                }
+                if (availDataloggers.Items.Count > 0) availDataloggers.SetItemChecked(0, true);
+
             }
             else
             {
@@ -307,15 +317,23 @@ namespace QIXLPTesting
 
         private async Task<bool> RunTempTest(List<SerialNPMManager> serialMans)
         {
-            AddOutput("--Begin SDEV Test--\n", Color.FromArgb(255, 131, 89));
+
+            if (!int.TryParse(tempWait.Text, out int waitSec) ||
+                !double.TryParse(tempMinBox.Text, out double minT) ||
+                !double.TryParse(tempMaxBox.Text, out double maxT))
+            {
+                AddOutput("Invalid Inputs\n", Color.FromArgb(251, 55, 40));
+                return true;
+            }
+
+
+            AddOutput("--Begin Temp Test--\n", Color.FromArgb(255, 131, 89));
+            AddOutput("Acceptable Range: ", Color.FromArgb(71, 134, 255));
+            AddOutput(tempMinBox.Text + " - " + tempMaxBox.Text + "C" + Environment.NewLine, Color.White);
             AddOutput("Waiting: ", Color.FromArgb(71, 134, 255));
-            AddOutput(sdevWait.Text + " Seconds" + Environment.NewLine, Color.White);
+            AddOutput(tempWait.Text + " Seconds" + Environment.NewLine, Color.White);
 
             List<Thread> threads = new List<Thread>();
-
-            int waitSec = int.Parse(tempWait.Text);
-            double minT = int.Parse(tempMinBox.Text);
-            double maxT = int.Parse(tempMaxBox.Text);
 
 
             ConcurrentDictionary<string, Tuple<bool, double>> tempDict = new ConcurrentDictionary<string, Tuple<bool, double>>();
@@ -408,6 +426,15 @@ namespace QIXLPTesting
 
         private async Task<bool> RunSdevTest(List<SerialNPMManager> serialMans)
         {
+
+            if (!int.TryParse(sdevWait.Text, out int waitSec) ||
+                !int.TryParse(sdevVolt.Text, out int voltage) ||
+                !int.TryParse(minBinBox.Text, out int minBin))
+            {
+                AddOutput("Invalid Inputs\n", Color.FromArgb(251, 55, 40));
+                return true;
+            }
+
             AddOutput("--Begin SDEV Test--\n", Color.FromArgb(255, 131, 89));
             AddOutput("Wait: ", Color.FromArgb(71, 134, 255));
             AddOutput(sdevWait.Text + " Seconds" + Environment.NewLine, Color.White);
@@ -418,9 +445,6 @@ namespace QIXLPTesting
 
             List<Thread> threads = new List<Thread>();
 
-            int voltage = int.Parse(sdevVolt.Text);
-            int waitSec = int.Parse(sdevWait.Text);
-            int minBin = int.Parse(minBinBox.Text);
             ConcurrentDictionary<string, Tuple<bool, int>> psDict = new ConcurrentDictionary<string, Tuple<bool, int>>();
             HGMPlotForm pf = new HGMPlotForm();
             pf.Show();
@@ -513,6 +537,18 @@ namespace QIXLPTesting
 
         private async Task<bool> RunPulseSimTest(List<SerialNPMManager> serialMans)
         {
+            if (!int.TryParse(waitPs.Text, out int waitSec) ||
+                !int.TryParse(psNbins.Text, out int nbins) ||
+                !int.TryParse(psValid.Text, out int range) ||
+                !double.TryParse(gainBox.Text, out double gain) ||
+                !int.TryParse(psDiscHigh.Text, out int discHigh) ||
+                !int.TryParse(psDiscLow.Text, out int discLow))
+            {
+                AddOutput("Invalid Inputs\n", Color.FromArgb(251, 55, 40));
+                return true;
+            }
+
+
             AddOutput("--Begin PulseSim Test--\n", Color.FromArgb(255, 131, 89));
             AddOutput("NBins: ", Color.FromArgb(71, 134, 255));
             AddOutput(psNbins.Text + Environment.NewLine, Color.White);
@@ -529,12 +565,6 @@ namespace QIXLPTesting
 
             List<Thread> threads = new List<Thread>();
 
-            double gain = double.Parse(gainBox.Text);
-            int waitSec = int.Parse(waitPs.Text);
-            int range = int.Parse(psValid.Text);
-            int discLow = int.Parse(psDiscLow.Text);
-            int nbins = int.Parse(psNbins.Text);
-            int discHigh = int.Parse(psDiscHigh.Text);
             ConcurrentDictionary<string, Tuple<bool, int>> psDict = new ConcurrentDictionary<string, Tuple<bool, int>>();
             HGMPlotForm pf = new HGMPlotForm();
             pf.Show();
@@ -654,10 +684,17 @@ namespace QIXLPTesting
             progressBar.Maximum = serialMans.Count;
             foreach (SerialNPMManager serialMan in serialMans)
             {
-                bool res = Tests.BlinkTest(serialMan);
-                SQLManager.UpdateLEDTest(serialMan.GetSerial(), res);
-                errFound = errFound || res;
-                if (res)
+                bool? res = Tests.BlinkTest(serialMan);
+                if (!res.HasValue)
+                {
+                    AddOutput("ABORT TEST" + Environment.NewLine, Color.FromArgb(251, 55, 40));
+                    errFound = true;
+                    break;
+                }
+
+                SQLManager.UpdateLEDTest(serialMan.GetSerial(), res.Value);
+                errFound = errFound || res.Value;
+                if (res.Value)
                 {
                     AddOutput(serialMan.GetSerial() + ": ", Color.FromArgb(71, 134, 255));
                     AddOutput("Pass" + Environment.NewLine, Color.FromArgb(0, 200, 156));
@@ -676,6 +713,14 @@ namespace QIXLPTesting
 
         private async Task<bool> RunVoltageTest(List<SerialNPMManager> serialMans)
         {
+            if (!int.TryParse(waitVolt.Text, out int waitSec) ||
+                !int.TryParse(voltLevel.Text, out int testVoltage) ||
+                !int.TryParse(validVoltRange.Text, out int range))
+            {
+                AddOutput("Invalid Inputs\n", Color.FromArgb(251, 55, 40));
+                return true;
+            }
+
             AddOutput("--Begin Voltage Test--\n", Color.FromArgb(255, 131, 89));
             AddOutput("Set Voltage: ", Color.FromArgb(71, 134, 255));
             AddOutput(voltLevel.Text + "V" + Environment.NewLine, Color.White);
@@ -686,9 +731,6 @@ namespace QIXLPTesting
 
             List<Thread> threads = new List<Thread>();
 
-            int testVoltage = int.Parse(voltLevel.Text);
-            int waitSec = int.Parse(waitVolt.Text);
-            int range = int.Parse(validVoltRange.Text);
             bool rampDown = rampDownVoltCheck.Checked;
             ConcurrentDictionary<string, Tuple<bool, int>> voltDict = new ConcurrentDictionary<string, Tuple<bool, int>>();
             progressBar.Value = 0;
@@ -1252,6 +1294,35 @@ namespace QIXLPTesting
 
 
 
+        }
+
+        private void ValidateIntegerInput(object sender, EventArgs e)
+        {
+            ComboBox box = (ComboBox)sender;
+            string txt = box.Text;
+            if (int.TryParse(txt, out int i))
+            {
+                box.ForeColor = Color.Black;
+            }
+            else
+            {
+                box.ForeColor = Color.Red;
+            }
+
+        }
+
+        private void ValidateDecimalInput(object sender, EventArgs e)
+        {
+            ComboBox box = (ComboBox)sender;
+            string txt = box.Text;
+            if (double.TryParse(txt, out double i))
+            {
+                box.ForeColor = Color.Black;
+            }
+            else
+            {
+                box.ForeColor = Color.Red;
+            }
         }
     }
 }

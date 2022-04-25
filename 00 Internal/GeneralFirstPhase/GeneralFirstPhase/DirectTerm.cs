@@ -55,7 +55,7 @@ namespace QIXLPTesting
                 man.SendCommand(termIn.Text + "\r\n");
                 termIn.Clear();
             }
-            
+
         }
 
         internal void AddData(string data)
@@ -110,7 +110,8 @@ namespace QIXLPTesting
             int lineDelay = int.Parse(lineDelayBox.Text);
             int byteDelay = int.Parse(byteDelayBox.Text);
             string crlfOption = "\r\n";
-            int numTimes = int.Parse(numTimesBox.Text);
+            int numTimes = 1;
+            int.TryParse(numTimesBox.Text, out numTimes);
 
             if (crRadio.Checked) crlfOption = "\r";
             else if (lfRadio.Checked) crlfOption = "\n";
