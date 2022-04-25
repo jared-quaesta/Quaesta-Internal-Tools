@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -60,7 +57,8 @@ namespace UniversalUpdate.TCP_UDP
                     {
                         var recvBuffer = udpClient.Receive(ref from);
                         data += Encoding.UTF8.GetString(recvBuffer).Trim() + "\n";
-                        main.Invoke((MethodInvoker)delegate {
+                        main.Invoke((MethodInvoker)delegate
+                        {
                             main.ParseUDP(data);
                         });
                     }
@@ -92,7 +90,8 @@ namespace UniversalUpdate.TCP_UDP
                         var recvBuffer = udpClient.Receive(ref from);
                         data += Encoding.UTF8.GetString(recvBuffer).Trim() + "\n";
                         Debug.WriteLine(data);
-                        main.Invoke((MethodInvoker)delegate {
+                        main.Invoke((MethodInvoker)delegate
+                        {
                             main.ParseUDP(data);
                         });
                     }

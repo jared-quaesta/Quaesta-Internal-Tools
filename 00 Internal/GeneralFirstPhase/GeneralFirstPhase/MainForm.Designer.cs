@@ -420,6 +420,7 @@ namespace QIXLPTesting
             this.sdevVolt.TabIndex = 13;
             this.sdevVolt.Text = "500";
             this.sdevVolt.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
+            this.sdevVolt.TextChanged += new System.EventHandler(this.ValidateMaxVoltage);
             // 
             // minBinBox
             // 
@@ -833,6 +834,7 @@ namespace QIXLPTesting
             this.voltLevel.TabIndex = 0;
             this.voltLevel.Text = "500";
             this.voltLevel.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
+            this.voltLevel.TextChanged += new System.EventHandler(this.ValidateMaxVoltage);
             // 
             // runBtn
             // 

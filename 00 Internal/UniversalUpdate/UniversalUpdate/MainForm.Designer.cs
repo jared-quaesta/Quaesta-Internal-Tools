@@ -66,6 +66,8 @@ namespace UniversalUpdate
             this.serverPanel = new System.Windows.Forms.Panel();
             this.progTxt = new System.Windows.Forms.Label();
             this.blinkBtn = new System.Windows.Forms.Button();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.serverPanel.SuspendLayout();
             this.SuspendLayout();
@@ -119,7 +121,8 @@ namespace UniversalUpdate
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.sTLinkFlashToolStripMenuItem});
+            this.sTLinkFlashToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(460, 24);
@@ -139,14 +142,14 @@ namespace UniversalUpdate
             // serialDevicesToolStripMenuItem
             // 
             this.serialDevicesToolStripMenuItem.Name = "serialDevicesToolStripMenuItem";
-            this.serialDevicesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.serialDevicesToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.serialDevicesToolStripMenuItem.Text = "Serial Devices";
             this.serialDevicesToolStripMenuItem.Click += new System.EventHandler(this.serialDevicesToolStripMenuItem_ClickAsync);
             // 
             // tCPDevicesToolStripMenuItem
             // 
             this.tCPDevicesToolStripMenuItem.Name = "tCPDevicesToolStripMenuItem";
-            this.tCPDevicesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tCPDevicesToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.tCPDevicesToolStripMenuItem.Text = "TCP Devices";
             this.tCPDevicesToolStripMenuItem.Click += new System.EventHandler(this.tCPDevicesToolStripMenuItem_Click);
             // 
@@ -429,6 +432,21 @@ namespace UniversalUpdate
             this.blinkBtn.UseVisualStyleBackColor = true;
             this.blinkBtn.Click += new System.EventHandler(this.blinkBtn_Click);
             // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.manualToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // manualToolStripMenuItem
+            // 
+            this.manualToolStripMenuItem.Name = "manualToolStripMenuItem";
+            this.manualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.manualToolStripMenuItem.Text = "Manual";
+            this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -507,6 +525,8 @@ namespace UniversalUpdate
         private System.Windows.Forms.ToolStripMenuItem turnOffAllLEDsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem serialDevicesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tCPDevicesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manualToolStripMenuItem;
     }
 }
 

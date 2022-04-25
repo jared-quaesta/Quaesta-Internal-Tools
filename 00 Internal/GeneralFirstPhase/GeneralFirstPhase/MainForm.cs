@@ -188,6 +188,7 @@ namespace QIXLPTesting
         {
             refreshConnectedToolStripMenuItem_Click(null, null);
             TestChange(null, null);
+            testTabControl.TabPages.Remove(dlTab);
         }
 
         private void SelAll(object sender, EventArgs e)
@@ -434,7 +435,14 @@ namespace QIXLPTesting
                 AddOutput("Invalid Inputs\n", Color.FromArgb(251, 55, 40));
                 return true;
             }
-
+            if (voltage > 500)
+            {
+                if (MessageBox.Show($"Is the NPM protected for {voltage} Volts?", "Warning", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    AddOutput("ABORT TEST\n", Color.FromArgb(251, 55, 40));
+                    return true;
+                }
+            }
             AddOutput("--Begin SDEV Test--\n", Color.FromArgb(255, 131, 89));
             AddOutput("Wait: ", Color.FromArgb(71, 134, 255));
             AddOutput(sdevWait.Text + " Seconds" + Environment.NewLine, Color.White);
@@ -719,6 +727,15 @@ namespace QIXLPTesting
             {
                 AddOutput("Invalid Inputs\n", Color.FromArgb(251, 55, 40));
                 return true;
+            }
+
+            if (testVoltage > 500)
+            {
+                if (MessageBox.Show($"Is the NPM protected for {testVoltage} Volts?", "Warning", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                {
+                    AddOutput("ABORT TEST\n", Color.FromArgb(251, 55, 40));
+                    return true;
+                }
             }
 
             AddOutput("--Begin Voltage Test--\n", Color.FromArgb(255, 131, 89));
@@ -1302,7 +1319,26 @@ namespace QIXLPTesting
 
 
         }
-
+        private void ValidateMaxVoltage(object sender, EventArgs e)
+        {
+            ComboBox box = (ComboBox)sender;
+            string txt = box.Text;
+            if (int.TryParse(txt, out int i))
+            {
+                if (i > 500)
+                {
+                    box.ForeColor = Color.Red;
+                }
+                else
+                {
+                    box.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                box.ForeColor = Color.Red;
+            }
+        }
         private void ValidateIntegerInput(object sender, EventArgs e)
         {
             ComboBox box = (ComboBox)sender;

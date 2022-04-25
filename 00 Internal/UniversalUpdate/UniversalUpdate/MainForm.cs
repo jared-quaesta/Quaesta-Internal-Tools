@@ -27,7 +27,7 @@ namespace UniversalUpdate
 
         private async void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -468,8 +468,8 @@ namespace UniversalUpdate
                 {
                     ThreadStart threadDelegate = new ThreadStart(() =>
                     {
-                    // Connect to device.
-                    int att = 0;
+                        // Connect to device.
+                        int att = 0;
                         while (!serialMan.IsConnected())
                         {
                             if (att == 10)
@@ -641,7 +641,7 @@ namespace UniversalUpdate
                 }
                 mac = mac.Trim(':', ' ');
 
-                availComs.Items.Add($"{ip.Split('.')[ip.Split('.').Length-1]} : {serial}");
+                availComs.Items.Add($"{ip.Split('.')[ip.Split('.').Length - 1]} : {serial}");
             }
         }
 
@@ -725,7 +725,7 @@ namespace UniversalUpdate
                     if (prevSerialFormat[i].Equals('{'))
                     {
                         // find closing bracket
-                        string formSub = prevSerialFormat.Substring(i+1);
+                        string formSub = prevSerialFormat.Substring(i + 1);
                         int closing = formSub.IndexOf('}');
                         string format = prevSerialFormat.Substring(i + 1, closing);
 
@@ -810,7 +810,7 @@ namespace UniversalUpdate
                     MessageBox.Show($"Incorrect prev format. Try again:\n{prevSerialFormat}\n{curSerial}", "ERROR");
                     return "";
                 }
-                    
+
             }
         }
 
@@ -870,31 +870,31 @@ namespace UniversalUpdate
                         if (formatString.Length < 2)
                         {
                             prevEx.Text += "{ERR}";
-                        } 
+                        }
                         else
                         {
                             try
-                        {
+                            {
 
-                            if (formatString.ToLower()[0] == 'n')
-                            {
-                                prevEx.Text += 17.ToString().PadLeft(formatString.Length, '0');
-                            }
-                            else if (formatString.ToLower()[0] == 'y')
-                            {
-                                prevEx.Text += DateTime.Now.ToString(formatString);
-                            }
-                            else if (formatString.ToLower()[0] == 'm')
-                            {
-                                prevEx.Text += DateTime.Now.ToString("MM").PadLeft(formatString.Length, '0') ;
-                            }
+                                if (formatString.ToLower()[0] == 'n')
+                                {
+                                    prevEx.Text += 17.ToString().PadLeft(formatString.Length, '0');
+                                }
+                                else if (formatString.ToLower()[0] == 'y')
+                                {
+                                    prevEx.Text += DateTime.Now.ToString(formatString);
+                                }
+                                else if (formatString.ToLower()[0] == 'm')
+                                {
+                                    prevEx.Text += DateTime.Now.ToString("MM").PadLeft(formatString.Length, '0');
+                                }
 
-                            else
-                            {
-                                prevEx.Text += "{ERR}";
+                                else
+                                {
+                                    prevEx.Text += "{ERR}";
+                                }
                             }
-                        }
-                        catch { prevEx.Text += "{ERR}"; }
+                            catch { prevEx.Text += "{ERR}"; }
                         }
                     }
                 }
@@ -975,7 +975,7 @@ namespace UniversalUpdate
         private void BlinkSelectedLED(object sender, EventArgs e)
         {
             // turn off all LEDs
-           
+
         }
 
         private void blinkOnSelectionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1020,7 +1020,7 @@ namespace UniversalUpdate
 
                 serialMan.SendCommand("menu\r\n");
                 Thread.Sleep(100);
-                
+
                 Thread.Sleep(100);
                 serialMan.Disconnect();
             });
@@ -1142,7 +1142,7 @@ namespace UniversalUpdate
                     Thread.Sleep(30);
                     serialMan.SendCommand("ledmode=0\r\n");
 
-                   
+
                     Thread.Sleep(100);
                     serialMan.Disconnect();
                 });
@@ -1255,6 +1255,12 @@ namespace UniversalUpdate
         private void tCPDevicesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             udpMan.SearchNeuchQIY();
+        }
+
+        private void manualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string loc = Path.Combine(Environment.CurrentDirectory, @"Manual\Update and Serialize Manual.pdf");
+            Process.Start(loc);
         }
     }
 }

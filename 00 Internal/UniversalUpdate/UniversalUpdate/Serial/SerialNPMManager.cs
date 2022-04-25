@@ -31,12 +31,13 @@ namespace UniversalUpdate.Serial
                 WriteBufferSize = 1024,
                 BaudRate = 115200
             };
-            _serialPort.DataReceived += (sender, e) => { 
+            _serialPort.DataReceived += (sender, e) =>
+            {
                 try
                 {
                     listener.NewData(_serialPort.ReadExisting(), lastCom);
-                } 
-                catch { } 
+                }
+                catch { }
             };
         }
 
