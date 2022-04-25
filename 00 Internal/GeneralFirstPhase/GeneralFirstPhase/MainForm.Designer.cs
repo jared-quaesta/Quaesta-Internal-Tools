@@ -99,8 +99,8 @@ namespace QIXLPTesting
             this.serverTab = new System.Windows.Forms.TabPage();
             this.serverDetailsPanel = new System.Windows.Forms.Panel();
             this.remBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cancelTestBtn = new System.Windows.Forms.Button();
+            this.saveTestBtn = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.ndT = new System.Windows.Forms.RadioButton();
@@ -977,8 +977,8 @@ namespace QIXLPTesting
             // serverDetailsPanel
             // 
             this.serverDetailsPanel.Controls.Add(this.remBtn);
-            this.serverDetailsPanel.Controls.Add(this.button1);
-            this.serverDetailsPanel.Controls.Add(this.button2);
+            this.serverDetailsPanel.Controls.Add(this.cancelTestBtn);
+            this.serverDetailsPanel.Controls.Add(this.saveTestBtn);
             this.serverDetailsPanel.Controls.Add(this.textBox2);
             this.serverDetailsPanel.Controls.Add(this.panel6);
             this.serverDetailsPanel.Controls.Add(this.panel5);
@@ -1017,6 +1017,7 @@ namespace QIXLPTesting
             this.serverDetailsPanel.Size = new System.Drawing.Size(666, 547);
             this.serverDetailsPanel.TabIndex = 27;
             this.serverDetailsPanel.Visible = false;
+            this.serverDetailsPanel.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // remBtn
             // 
@@ -1028,25 +1029,28 @@ namespace QIXLPTesting
             this.remBtn.UseVisualStyleBackColor = true;
             this.remBtn.Click += new System.EventHandler(this.remBtn_Click);
             // 
-            // button1
+            // cancelTestBtn
             // 
-            this.button1.Location = new System.Drawing.Point(345, 160);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 46);
-            this.button1.TabIndex = 49;
-            this.button1.Text = "Cancel";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.DisplayInfo);
+            this.cancelTestBtn.Enabled = false;
+            this.cancelTestBtn.Location = new System.Drawing.Point(345, 160);
+            this.cancelTestBtn.Name = "cancelTestBtn";
+            this.cancelTestBtn.Size = new System.Drawing.Size(108, 46);
+            this.cancelTestBtn.TabIndex = 49;
+            this.cancelTestBtn.Text = "Cancel";
+            this.cancelTestBtn.UseVisualStyleBackColor = true;
+            this.cancelTestBtn.Click += new System.EventHandler(this.DisplayInfo);
             // 
-            // button2
+            // saveTestBtn
             // 
-            this.button2.ForeColor = System.Drawing.Color.Green;
-            this.button2.Location = new System.Drawing.Point(457, 160);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(166, 46);
-            this.button2.TabIndex = 48;
-            this.button2.Text = "Save Test Info";
-            this.button2.UseVisualStyleBackColor = true;
+            this.saveTestBtn.Enabled = false;
+            this.saveTestBtn.ForeColor = System.Drawing.Color.Green;
+            this.saveTestBtn.Location = new System.Drawing.Point(457, 160);
+            this.saveTestBtn.Name = "saveTestBtn";
+            this.saveTestBtn.Size = new System.Drawing.Size(166, 46);
+            this.saveTestBtn.TabIndex = 48;
+            this.saveTestBtn.Text = "Save Test Info";
+            this.saveTestBtn.UseVisualStyleBackColor = true;
+            this.saveTestBtn.Click += new System.EventHandler(this.saveTestBtn_Click);
             // 
             // textBox2
             // 
@@ -1078,6 +1082,7 @@ namespace QIXLPTesting
             this.ndT.Text = "Not Done";
             this.ndT.UseVisualStyleBackColor = true;
             this.ndT.CheckedChanged += new System.EventHandler(this.CheckTempRadio);
+            this.ndT.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // failT
             // 
@@ -1090,6 +1095,7 @@ namespace QIXLPTesting
             this.failT.Text = "Fail";
             this.failT.UseVisualStyleBackColor = true;
             this.failT.CheckedChanged += new System.EventHandler(this.CheckTempRadio);
+            this.failT.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // passT
             // 
@@ -1102,6 +1108,7 @@ namespace QIXLPTesting
             this.passT.Text = "Pass";
             this.passT.UseVisualStyleBackColor = true;
             this.passT.CheckedChanged += new System.EventHandler(this.CheckTempRadio);
+            this.passT.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // panel5
             // 
@@ -1124,6 +1131,7 @@ namespace QIXLPTesting
             this.ndP.Text = "Not Done";
             this.ndP.UseVisualStyleBackColor = true;
             this.ndP.CheckedChanged += new System.EventHandler(this.CheckPSRadio);
+            this.ndP.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // failP
             // 
@@ -1136,6 +1144,7 @@ namespace QIXLPTesting
             this.failP.Text = "Fail";
             this.failP.UseVisualStyleBackColor = true;
             this.failP.CheckedChanged += new System.EventHandler(this.CheckPSRadio);
+            this.failP.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // passP
             // 
@@ -1148,6 +1157,7 @@ namespace QIXLPTesting
             this.passP.Text = "Pass";
             this.passP.UseVisualStyleBackColor = true;
             this.passP.CheckedChanged += new System.EventHandler(this.CheckPSRadio);
+            this.passP.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // panel4
             // 
@@ -1170,6 +1180,7 @@ namespace QIXLPTesting
             this.ndS.Text = "Not Done";
             this.ndS.UseVisualStyleBackColor = true;
             this.ndS.CheckedChanged += new System.EventHandler(this.CheckSDEVRadio);
+            this.ndS.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // failS
             // 
@@ -1182,6 +1193,7 @@ namespace QIXLPTesting
             this.failS.Text = "Fail";
             this.failS.UseVisualStyleBackColor = true;
             this.failS.CheckedChanged += new System.EventHandler(this.CheckSDEVRadio);
+            this.failS.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // passS
             // 
@@ -1194,6 +1206,7 @@ namespace QIXLPTesting
             this.passS.Text = "Pass";
             this.passS.UseVisualStyleBackColor = true;
             this.passS.CheckedChanged += new System.EventHandler(this.CheckSDEVRadio);
+            this.passS.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // ledLbl
             // 
@@ -1226,6 +1239,7 @@ namespace QIXLPTesting
             this.ndL.Text = "Not Done";
             this.ndL.UseVisualStyleBackColor = true;
             this.ndL.CheckedChanged += new System.EventHandler(this.CheckLEDRadio);
+            this.ndL.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // failL
             // 
@@ -1238,6 +1252,7 @@ namespace QIXLPTesting
             this.failL.Text = "Fail";
             this.failL.UseVisualStyleBackColor = true;
             this.failL.CheckedChanged += new System.EventHandler(this.CheckLEDRadio);
+            this.failL.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // passL
             // 
@@ -1250,6 +1265,7 @@ namespace QIXLPTesting
             this.passL.Text = "Pass";
             this.passL.UseVisualStyleBackColor = true;
             this.passL.CheckedChanged += new System.EventHandler(this.CheckLEDRadio);
+            this.passL.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // panel2
             // 
@@ -1272,6 +1288,7 @@ namespace QIXLPTesting
             this.ndV.Text = "Not Done";
             this.ndV.UseVisualStyleBackColor = true;
             this.ndV.CheckedChanged += new System.EventHandler(this.checkVoltRadio);
+            this.ndV.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // failV
             // 
@@ -1284,6 +1301,7 @@ namespace QIXLPTesting
             this.failV.Text = "Fail";
             this.failV.UseVisualStyleBackColor = true;
             this.failV.CheckedChanged += new System.EventHandler(this.checkVoltRadio);
+            this.failV.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // passV
             // 
@@ -1296,9 +1314,11 @@ namespace QIXLPTesting
             this.passV.Text = "Pass";
             this.passV.UseVisualStyleBackColor = true;
             this.passV.CheckedChanged += new System.EventHandler(this.checkVoltRadio);
+            this.passV.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // resetBtn
             // 
+            this.resetBtn.Enabled = false;
             this.resetBtn.Location = new System.Drawing.Point(8, 497);
             this.resetBtn.Name = "resetBtn";
             this.resetBtn.Size = new System.Drawing.Size(108, 46);
@@ -1390,6 +1410,7 @@ namespace QIXLPTesting
             // 
             // saveBtn
             // 
+            this.saveBtn.Enabled = false;
             this.saveBtn.ForeColor = System.Drawing.Color.Green;
             this.saveBtn.Location = new System.Drawing.Point(120, 497);
             this.saveBtn.Name = "saveBtn";
@@ -1725,8 +1746,8 @@ namespace QIXLPTesting
         private System.Windows.Forms.RadioButton ndV;
         private System.Windows.Forms.RadioButton failV;
         private System.Windows.Forms.RadioButton passV;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cancelTestBtn;
+        private System.Windows.Forms.Button saveTestBtn;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label12;

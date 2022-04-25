@@ -230,7 +230,7 @@ namespace QIXLPTesting.SQL
             }
         }
 
-        internal static void UpdateVoltTest(string serial, bool val)
+        internal static void UpdateVoltTest(string serial, bool? val)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -248,7 +248,7 @@ namespace QIXLPTesting.SQL
             }
         }
 
-        internal static void UpdateLEDTest(string serial, bool val)
+        internal static void UpdateLEDTest(string serial, bool? val)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -283,7 +283,30 @@ namespace QIXLPTesting.SQL
             }
         }
 
-        internal static void UpdatePSTest(string serial, bool val)
+        internal static void UpdateAllTests(string serial, bool? volt, bool? sdev, bool? temp, bool? led, bool? pulsesim)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Alter_Gen_Tests", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+                    cmd.Parameters.Add("@doAll", SqlDbType.VarChar).Value = true;
+                    cmd.Parameters.Add("@pulse", SqlDbType.Bit).Value = pulsesim;
+                    cmd.Parameters.Add("@led", SqlDbType.Bit).Value = led;
+                    cmd.Parameters.Add("@volt", SqlDbType.Bit).Value = volt;
+                    cmd.Parameters.Add("@sdev", SqlDbType.Bit).Value = sdev;
+                    cmd.Parameters.Add("@temp", SqlDbType.Bit).Value = temp;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+        internal static void UpdatePSTest(string serial, bool? val)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -301,7 +324,7 @@ namespace QIXLPTesting.SQL
             }
         }
 
-        internal static void UpdateSdevTest(string serial, bool val)
+        internal static void UpdateSdevTest(string serial, bool? val)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -319,7 +342,7 @@ namespace QIXLPTesting.SQL
             }
         }
 
-        internal static void UpdateTempTest(string serial, bool val)
+        internal static void UpdateTempTest(string serial, bool? val)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {

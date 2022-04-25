@@ -856,6 +856,11 @@ namespace QIXLPTesting
                 return;
             }
 
+            cancelTestBtn.Enabled = false;
+            saveTestBtn.Enabled = false;
+            saveBtn.Enabled = false;
+            resetBtn.Enabled = false;
+
             string serial = inServer.SelectedItem.ToString();
 
             NPMData data = SQLManager.GetInfo(serial);
@@ -949,6 +954,8 @@ namespace QIXLPTesting
         private void EditText(object sender, EventArgs e)
         {
             ((TextBox)sender).BackColor = SystemColors.Window;
+            saveBtn.Enabled = true;
+            resetBtn.Enabled = true;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
@@ -1323,6 +1330,66 @@ namespace QIXLPTesting
             {
                 box.ForeColor = Color.Red;
             }
+        }
+
+        private void EnableTestSaveCancelBtns(object sender, EventArgs e)
+        {
+            cancelTestBtn.Enabled = true;
+            saveTestBtn.Enabled = true;
+        }
+
+        private void saveTestBtn_Click(object sender, EventArgs e)
+        {
+            string sn = snLbl.Text;
+            bool? volt;
+            bool? led;
+            bool? sdev;
+            bool? pulse;
+            bool? temp;
+            // voltage
+            if (ndV.Checked)
+            {
+                volt = null;
+            } else
+            {
+                volt = passV.Checked;
+            }
+            if (ndL.Checked)
+            {
+                led = null;
+            }
+            else
+            {
+                led = passL.Checked;
+            }
+            if (ndS.Checked)
+            {
+                sdev = null;
+            }
+            else
+            {
+                sdev = passS.Checked;
+            }
+            if (ndT.Checked)
+            {
+                temp = null;
+            }
+            else
+            {
+                temp = passT.Checked;
+            }
+            if (ndP.Checked)
+            {
+                pulse = null;
+            }
+            else
+            {
+                pulse = passP.Checked;
+            }
+
+            SQLManager.UpdateAllTests(sn, volt, sdev, temp, led, pulse);
+
+            DisplayInfo(null, null);
         }
     }
 }
