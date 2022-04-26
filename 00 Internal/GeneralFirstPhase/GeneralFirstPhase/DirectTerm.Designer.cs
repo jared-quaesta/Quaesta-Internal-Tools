@@ -329,12 +329,12 @@ namespace QIXLPTesting
             this.connectedLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.connectedLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.connectedLbl.ForeColor = System.Drawing.Color.Red;
-            this.connectedLbl.Location = new System.Drawing.Point(746, 40);
+            this.connectedLbl.Location = new System.Drawing.Point(721, 40);
             this.connectedLbl.Name = "connectedLbl";
             this.connectedLbl.Size = new System.Drawing.Size(161, 32);
             this.connectedLbl.TabIndex = 33;
             this.connectedLbl.Text = "NOT CONNECTED";
-            this.connectedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.connectedLbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label13
             // 
@@ -348,9 +348,10 @@ namespace QIXLPTesting
             // 
             // connectBtn
             // 
-            this.connectBtn.Location = new System.Drawing.Point(837, 75);
+            this.connectBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.connectBtn.Location = new System.Drawing.Point(697, 75);
             this.connectBtn.Name = "connectBtn";
-            this.connectBtn.Size = new System.Drawing.Size(71, 29);
+            this.connectBtn.Size = new System.Drawing.Size(208, 29);
             this.connectBtn.TabIndex = 35;
             this.connectBtn.Text = "Disconnect";
             this.connectBtn.UseVisualStyleBackColor = true;
@@ -365,6 +366,7 @@ namespace QIXLPTesting
             // 
             // clrOut
             // 
+            this.clrOut.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.clrOut.Location = new System.Drawing.Point(827, 386);
             this.clrOut.Name = "clrOut";
             this.clrOut.Size = new System.Drawing.Size(78, 52);
@@ -375,6 +377,7 @@ namespace QIXLPTesting
             // 
             // numTimesBox
             // 
+            this.numTimesBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.numTimesBox.Location = new System.Drawing.Point(733, 294);
             this.numTimesBox.Name = "numTimesBox";
             this.numTimesBox.Size = new System.Drawing.Size(47, 20);
@@ -428,7 +431,7 @@ namespace QIXLPTesting
             this.Controls.Add(this.label6);
             this.MinimumSize = new System.Drawing.Size(600, 412);
             this.Name = "DirectTerm";
-            this.Text = "DirectTerm";
+            this.Text = "Debug Terminal";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DisconnectDereference);
             this.Load += new System.EventHandler(this.DirectTerm_Load);
             this.ResumeLayout(false);

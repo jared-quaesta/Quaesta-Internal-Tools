@@ -44,7 +44,8 @@ namespace QIXLPTesting.SerialTools
 
         internal void NewData(string data)
         {
-            if (term.IsHandleCreated)
+
+            if (term.IsHandleCreated && !term.IsDisposed)
             {
                 term.Invoke((MethodInvoker)delegate
                 {

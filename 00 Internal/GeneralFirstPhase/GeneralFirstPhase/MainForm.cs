@@ -26,17 +26,18 @@ namespace QIXLPTesting
             "This test repeatedly queries and plots each NPMs histogram." +
             "\n\n" +
             "Pass/fail is determined by whether the histogram spreads bins over a range greater than " +
-            "the user determines neccesary.";
+            "the user determines necessary.";
 
         private const string sdevDesc =
             "Enclose NPMs in a shielded environment. To determine noise, voltage is set by the user, and gain is set to 25.5 (Max). " +
             "The histograms from each NPM are queried and plotted.\n\n" +
-            "Pass/fail is determined by whether the maximum bin with counts is less than the user set minimum.";
+            "Pass/fail is determined by whether the maximum bin with counts is less than the user set maximum.";
 
         private const string tempDesc =
-            "Repeatedly query tempterature for each device and plot it.\n\n" +
+            "Repeatedly query temperature for each device and plot it.\n\n" +
             "Pass/Fail is determined by whether the average temperature falls between the set minimum and maximum.";
 
+        List<string> curServerResults = new List<string>();
 
         public MainForm()
         {
@@ -47,11 +48,13 @@ namespace QIXLPTesting
         {
             if (testTabControl.SelectedTab.Name.Equals("serverTab"))
             {
+                searchBar.Clear();
                 serverDetailsPanel.Visible = false;
                 List<string> sns = SQLManager.GetAllSerials();
+                curServerResults.Clear();
+                curServerResults.AddRange(sns);
                 sns.Sort();
                 inServer.Items.Clear();
-                searchBySnBox.Clear();
 
                 foreach (string sn in sns)
                 {
@@ -83,6 +86,8 @@ namespace QIXLPTesting
                 }
                 List<Thread> threads = new List<Thread>();
                 BlockingCollection<string> coms = new BlockingCollection<string>();
+                BlockingCollection<string> errs = new BlockingCollection<string>();
+
                 foreach (SerialNPMManager serialMan in serialMans)
                 {
                     ThreadStart threadDelegate = new ThreadStart(() =>
@@ -103,6 +108,7 @@ namespace QIXLPTesting
                         }
                         if (!serialMan.IsConnected())
                         {
+                            errs.Add(serialMan.com);
                             return;
                         }
                         // get info
@@ -159,6 +165,13 @@ namespace QIXLPTesting
                 {
                     availNpms.Items.Add(i);
                 }
+
+                foreach (string com in errs.ToArray())
+                {
+                    AddOutput("Unable to connect: ", Color.FromArgb(251, 55, 40));
+                    AddOutput(com + Environment.NewLine, Color.White);
+                }
+
                 refreshConnectedToolStripMenuItem.Enabled = true;
                 avail.Text = $"Available NPMs ({availNpms.Items.Count} Connected)";
 
@@ -855,6 +868,7 @@ namespace QIXLPTesting
             else if (sdevRadio.Checked) testDesc.Text = sdevDesc;
             else if (psRadio.Checked) testDesc.Text = pulseSimDesc;
             else if (tempRadio.Checked) testDesc.Text = tempDesc;
+            else testDesc.Text = "";
         }
 
         private void RefreshAvailable(object sender, EventArgs e)
@@ -895,7 +909,8 @@ namespace QIXLPTesting
             fwLbl.BackColor = SystemColors.ScrollBar;
             noteBox.BackColor = SystemColors.ScrollBar;
             tubeLbl.BackColor = SystemColors.ScrollBar;
-
+            resetBtn.Enabled = false;
+            saveBtn.Enabled = false;
             SQLManager.GetTestInfo(ref data);
 
             if (data.Volt == null)
@@ -962,7 +977,6 @@ namespace QIXLPTesting
             {
                 failT.Checked = true;
             }
-
 
 
             Refresh();
@@ -1426,6 +1440,30 @@ namespace QIXLPTesting
             SQLManager.UpdateAllTests(sn, volt, sdev, temp, led, pulse);
 
             DisplayInfo(null, null);
+        }
+
+        private void searchBar_TextChanged(object sender, EventArgs e)
+        {
+            inServer.BeginUpdate();
+            inServer.Items.Clear(); 
+            foreach (string item in curServerResults)
+            {
+                if (item.ToLower().Contains(searchBar.Text.ToLower()))
+                {
+                    inServer.Items.Add(item);
+                }
+            }
+            if (inServer.Items.Count == 0) 
+            {
+                serverDetailsPanel.Visible = false;
+                searchBar.ForeColor = Color.Red;
+            } 
+            else searchBar.ForeColor = Color.Black;
+            
+            if (inServer.SelectedIndex == -1) 
+                serverDetailsPanel.Visible = false;
+
+            inServer.EndUpdate();
         }
     }
 }

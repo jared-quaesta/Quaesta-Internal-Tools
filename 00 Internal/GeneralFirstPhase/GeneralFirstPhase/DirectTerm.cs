@@ -71,8 +71,16 @@ namespace QIXLPTesting
 
         }
 
-        private void DisconnectDereference(object sender, FormClosingEventArgs e)
+        private async void DisconnectDereference(object sender, FormClosingEventArgs e)
         {
+            debugWorker.CancelAsync();
+            await Task.Run(() =>
+            {
+                while (debugWorker.IsBusy)
+                {
+                    Thread.Sleep(100);
+                }
+            });
             man.Disconnect();
         }
 

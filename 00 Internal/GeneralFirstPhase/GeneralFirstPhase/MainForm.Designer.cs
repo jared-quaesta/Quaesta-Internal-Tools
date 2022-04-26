@@ -150,11 +150,12 @@ namespace QIXLPTesting
             this.sdevLbl = new System.Windows.Forms.Label();
             this.voltLbl = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.searchBySnBox = new System.Windows.Forms.TextBox();
+            this.searchBar = new System.Windows.Forms.TextBox();
             this.inServer = new System.Windows.Forms.ListBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -419,7 +420,6 @@ namespace QIXLPTesting
             this.sdevVolt.Size = new System.Drawing.Size(49, 21);
             this.sdevVolt.TabIndex = 13;
             this.sdevVolt.Text = "500";
-            this.sdevVolt.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             this.sdevVolt.TextChanged += new System.EventHandler(this.ValidateMaxVoltage);
             // 
             // minBinBox
@@ -443,9 +443,9 @@ namespace QIXLPTesting
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(184, 22);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(92, 13);
+            this.label34.Size = new System.Drawing.Size(95, 13);
             this.label34.TabIndex = 10;
-            this.label34.Text = "Minimum Valid Bin";
+            this.label34.Text = "Maximum Valid Bin";
             // 
             // groupBox1
             // 
@@ -833,7 +833,6 @@ namespace QIXLPTesting
             this.voltLevel.Size = new System.Drawing.Size(49, 21);
             this.voltLevel.TabIndex = 0;
             this.voltLevel.Text = "500";
-            this.voltLevel.TextChanged += new System.EventHandler(this.ValidateIntegerInput);
             this.voltLevel.TextChanged += new System.EventHandler(this.ValidateMaxVoltage);
             // 
             // runBtn
@@ -966,7 +965,7 @@ namespace QIXLPTesting
             // 
             this.serverTab.Controls.Add(this.serverDetailsPanel);
             this.serverTab.Controls.Add(this.label9);
-            this.serverTab.Controls.Add(this.searchBySnBox);
+            this.serverTab.Controls.Add(this.searchBar);
             this.serverTab.Controls.Add(this.inServer);
             this.serverTab.Location = new System.Drawing.Point(4, 22);
             this.serverTab.Name = "serverTab";
@@ -1019,7 +1018,6 @@ namespace QIXLPTesting
             this.serverDetailsPanel.Size = new System.Drawing.Size(666, 547);
             this.serverDetailsPanel.TabIndex = 27;
             this.serverDetailsPanel.Visible = false;
-            this.serverDetailsPanel.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
             // 
             // remBtn
             // 
@@ -1573,12 +1571,13 @@ namespace QIXLPTesting
             this.label9.TabIndex = 2;
             this.label9.Text = "Search by SN:";
             // 
-            // searchBySnBox
+            // searchBar
             // 
-            this.searchBySnBox.Location = new System.Drawing.Point(85, 18);
-            this.searchBySnBox.Name = "searchBySnBox";
-            this.searchBySnBox.Size = new System.Drawing.Size(132, 20);
-            this.searchBySnBox.TabIndex = 1;
+            this.searchBar.Location = new System.Drawing.Point(85, 18);
+            this.searchBar.Name = "searchBar";
+            this.searchBar.Size = new System.Drawing.Size(132, 20);
+            this.searchBar.TabIndex = 1;
+            this.searchBar.TextChanged += new System.EventHandler(this.searchBar_TextChanged);
             // 
             // inServer
             // 
@@ -1595,7 +1594,8 @@ namespace QIXLPTesting
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshConnectedToolStripMenuItem,
-            this.optionsToolStripMenuItem});
+            this.optionsToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(927, 24);
@@ -1614,6 +1614,12 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
             // 
             // MainForm
             // 
@@ -1697,7 +1703,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.RadioButton voltageRadio;
         private System.Windows.Forms.TabPage serverTab;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox searchBySnBox;
+        private System.Windows.Forms.TextBox searchBar;
         private System.Windows.Forms.ListBox inServer;
         private System.Windows.Forms.RadioButton sdevRadio;
         private System.Windows.Forms.Button saveBtn;
@@ -1790,6 +1796,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TabPage dlTab;
         private System.Windows.Forms.CheckedListBox availDataloggers;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
     }
 }
 
