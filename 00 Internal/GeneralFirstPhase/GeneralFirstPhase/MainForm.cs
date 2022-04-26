@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1464,6 +1465,19 @@ namespace QIXLPTesting
                 serverDetailsPanel.Visible = false;
 
             inServer.EndUpdate();
+        }
+
+        private void manualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string loc = Path.Combine(Environment.CurrentDirectory, @"Manual\Manual.pdf");
+            try
+            {
+                Process.Start("chrome.exe", string.Format("\"{0}\"", loc));
+            }
+            catch
+            {
+                Process.Start(loc);
+            }
         }
     }
 }
