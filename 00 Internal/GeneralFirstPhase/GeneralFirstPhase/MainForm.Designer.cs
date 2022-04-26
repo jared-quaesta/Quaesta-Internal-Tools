@@ -157,6 +157,8 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label38 = new System.Windows.Forms.Label();
+            this.sdiRadio = new System.Windows.Forms.RadioButton();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -186,7 +188,7 @@ namespace QIXLPTesting
             this.testTabControl.Location = new System.Drawing.Point(12, 27);
             this.testTabControl.Name = "testTabControl";
             this.testTabControl.SelectedIndex = 0;
-            this.testTabControl.Size = new System.Drawing.Size(903, 596);
+            this.testTabControl.Size = new System.Drawing.Size(903, 622);
             this.testTabControl.TabIndex = 0;
             this.testTabControl.SelectedIndexChanged += new System.EventHandler(this.RefreshAvailable);
             // 
@@ -213,7 +215,7 @@ namespace QIXLPTesting
             this.testTab.Location = new System.Drawing.Point(4, 22);
             this.testTab.Name = "testTab";
             this.testTab.Padding = new System.Windows.Forms.Padding(3);
-            this.testTab.Size = new System.Drawing.Size(895, 570);
+            this.testTab.Size = new System.Drawing.Size(895, 596);
             this.testTab.TabIndex = 1;
             this.testTab.Text = "Testing";
             this.testTab.UseVisualStyleBackColor = true;
@@ -229,7 +231,7 @@ namespace QIXLPTesting
             this.groupBox3.Controls.Add(this.tempWait);
             this.groupBox3.Controls.Add(this.label32);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(249, 345);
+            this.groupBox3.Location = new System.Drawing.Point(249, 368);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(361, 51);
             this.groupBox3.TabIndex = 20;
@@ -320,16 +322,16 @@ namespace QIXLPTesting
             // 
             this.testDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.testDesc.Location = new System.Drawing.Point(249, 399);
+            this.testDesc.Location = new System.Drawing.Point(249, 422);
             this.testDesc.Name = "testDesc";
-            this.testDesc.Size = new System.Drawing.Size(361, 92);
+            this.testDesc.Size = new System.Drawing.Size(361, 95);
             this.testDesc.TabIndex = 21;
             this.testDesc.Text = "testDesc";
             // 
             // blinkBtn
             // 
             this.blinkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.blinkBtn.Location = new System.Drawing.Point(170, 544);
+            this.blinkBtn.Location = new System.Drawing.Point(170, 570);
             this.blinkBtn.Name = "blinkBtn";
             this.blinkBtn.Size = new System.Drawing.Size(73, 23);
             this.blinkBtn.TabIndex = 20;
@@ -348,7 +350,7 @@ namespace QIXLPTesting
             this.groupBox2.Controls.Add(this.minBinBox);
             this.groupBox2.Controls.Add(this.label34);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(249, 256);
+            this.groupBox2.Location = new System.Drawing.Point(249, 279);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(361, 83);
             this.groupBox2.TabIndex = 19;
@@ -464,7 +466,7 @@ namespace QIXLPTesting
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label26);
             this.groupBox1.Controls.Add(this.gainBox);
-            this.groupBox1.Location = new System.Drawing.Point(249, 145);
+            this.groupBox1.Location = new System.Drawing.Point(249, 168);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(361, 105);
             this.groupBox1.TabIndex = 14;
@@ -625,6 +627,7 @@ namespace QIXLPTesting
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.sdiRadio);
             this.panel1.Controls.Add(this.tempRadio);
             this.panel1.Controls.Add(this.sdevRadio);
             this.panel1.Controls.Add(this.psRadio);
@@ -632,7 +635,7 @@ namespace QIXLPTesting
             this.panel1.Controls.Add(this.voltageRadio);
             this.panel1.Location = new System.Drawing.Point(249, 22);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(361, 29);
+            this.panel1.Size = new System.Drawing.Size(361, 52);
             this.panel1.TabIndex = 19;
             // 
             // tempRadio
@@ -695,7 +698,7 @@ namespace QIXLPTesting
             // openTerm
             // 
             this.openTerm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.openTerm.Location = new System.Drawing.Point(109, 544);
+            this.openTerm.Location = new System.Drawing.Point(109, 570);
             this.openTerm.Name = "openTerm";
             this.openTerm.Size = new System.Drawing.Size(55, 23);
             this.openTerm.TabIndex = 18;
@@ -715,7 +718,7 @@ namespace QIXLPTesting
             this.voltOptionsGB.Controls.Add(this.label4);
             this.voltOptionsGB.Controls.Add(this.label3);
             this.voltOptionsGB.Controls.Add(this.voltLevel);
-            this.voltOptionsGB.Location = new System.Drawing.Point(249, 57);
+            this.voltOptionsGB.Location = new System.Drawing.Point(249, 80);
             this.voltOptionsGB.Name = "voltOptionsGB";
             this.voltOptionsGB.Size = new System.Drawing.Size(361, 82);
             this.voltOptionsGB.TabIndex = 13;
@@ -841,7 +844,7 @@ namespace QIXLPTesting
             this.runBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.runBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.runBtn.ForeColor = System.Drawing.Color.Green;
-            this.runBtn.Location = new System.Drawing.Point(249, 494);
+            this.runBtn.Location = new System.Drawing.Point(249, 520);
             this.runBtn.Name = "runBtn";
             this.runBtn.Size = new System.Drawing.Size(361, 44);
             this.runBtn.TabIndex = 12;
@@ -852,7 +855,7 @@ namespace QIXLPTesting
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar.Location = new System.Drawing.Point(249, 544);
+            this.progressBar.Location = new System.Drawing.Point(249, 570);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(361, 23);
             this.progressBar.TabIndex = 11;
@@ -870,7 +873,7 @@ namespace QIXLPTesting
             // 
             this.clearOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearOut.Location = new System.Drawing.Point(616, 544);
+            this.clearOut.Location = new System.Drawing.Point(616, 570);
             this.clearOut.Name = "clearOut";
             this.clearOut.Size = new System.Drawing.Size(273, 23);
             this.clearOut.TabIndex = 7;
@@ -881,7 +884,7 @@ namespace QIXLPTesting
             // selNone
             // 
             this.selNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.selNone.Location = new System.Drawing.Point(50, 544);
+            this.selNone.Location = new System.Drawing.Point(50, 570);
             this.selNone.Name = "selNone";
             this.selNone.Size = new System.Drawing.Size(53, 23);
             this.selNone.TabIndex = 6;
@@ -892,7 +895,7 @@ namespace QIXLPTesting
             // selAll
             // 
             this.selAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.selAll.Location = new System.Drawing.Point(7, 544);
+            this.selAll.Location = new System.Drawing.Point(7, 570);
             this.selAll.Name = "selAll";
             this.selAll.Size = new System.Drawing.Size(37, 23);
             this.selAll.TabIndex = 5;
@@ -910,7 +913,7 @@ namespace QIXLPTesting
             this.outputBox.ForeColor = System.Drawing.Color.White;
             this.outputBox.Location = new System.Drawing.Point(616, 22);
             this.outputBox.Name = "outputBox";
-            this.outputBox.Size = new System.Drawing.Size(273, 522);
+            this.outputBox.Size = new System.Drawing.Size(273, 548);
             this.outputBox.TabIndex = 4;
             this.outputBox.Text = "";
             // 
@@ -940,16 +943,17 @@ namespace QIXLPTesting
             this.availNpms.FormattingEnabled = true;
             this.availNpms.Location = new System.Drawing.Point(7, 22);
             this.availNpms.Name = "availNpms";
-            this.availNpms.Size = new System.Drawing.Size(236, 514);
+            this.availNpms.Size = new System.Drawing.Size(236, 544);
             this.availNpms.TabIndex = 0;
             // 
             // dlTab
             // 
+            this.dlTab.Controls.Add(this.label38);
             this.dlTab.Controls.Add(this.availDataloggers);
             this.dlTab.Location = new System.Drawing.Point(4, 22);
             this.dlTab.Name = "dlTab";
             this.dlTab.Padding = new System.Windows.Forms.Padding(3);
-            this.dlTab.Size = new System.Drawing.Size(895, 570);
+            this.dlTab.Size = new System.Drawing.Size(895, 627);
             this.dlTab.TabIndex = 3;
             this.dlTab.Text = "Datalogger";
             this.dlTab.UseVisualStyleBackColor = true;
@@ -959,7 +963,7 @@ namespace QIXLPTesting
             this.availDataloggers.FormattingEnabled = true;
             this.availDataloggers.Location = new System.Drawing.Point(7, 22);
             this.availDataloggers.Name = "availDataloggers";
-            this.availDataloggers.Size = new System.Drawing.Size(215, 109);
+            this.availDataloggers.Size = new System.Drawing.Size(160, 109);
             this.availDataloggers.TabIndex = 0;
             // 
             // serverTab
@@ -1631,11 +1635,30 @@ namespace QIXLPTesting
             this.manualToolStripMenuItem.Text = "Manual";
             this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
             // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(6, 6);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(119, 13);
+            this.label38.TabIndex = 1;
+            this.label38.Text = "Connected Dataloggers";
+            // 
+            // sdiRadio
+            // 
+            this.sdiRadio.AutoSize = true;
+            this.sdiRadio.Location = new System.Drawing.Point(8, 27);
+            this.sdiRadio.Name = "sdiRadio";
+            this.sdiRadio.Size = new System.Drawing.Size(55, 17);
+            this.sdiRadio.TabIndex = 5;
+            this.sdiRadio.Text = "SDI12";
+            this.sdiRadio.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 635);
+            this.ClientSize = new System.Drawing.Size(927, 661);
             this.Controls.Add(this.testTabControl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -1657,6 +1680,7 @@ namespace QIXLPTesting
             this.voltOptionsGB.ResumeLayout(false);
             this.voltOptionsGB.PerformLayout();
             this.dlTab.ResumeLayout(false);
+            this.dlTab.PerformLayout();
             this.serverTab.ResumeLayout(false);
             this.serverTab.PerformLayout();
             this.serverDetailsPanel.ResumeLayout(false);
@@ -1808,6 +1832,8 @@ namespace QIXLPTesting
         private System.Windows.Forms.CheckedListBox availDataloggers;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualToolStripMenuItem;
+        private System.Windows.Forms.RadioButton sdiRadio;
+        private System.Windows.Forms.Label label38;
     }
 }
 
