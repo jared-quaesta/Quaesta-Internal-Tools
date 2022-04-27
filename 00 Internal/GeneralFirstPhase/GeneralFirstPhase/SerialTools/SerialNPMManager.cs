@@ -20,8 +20,10 @@ namespace QIXLPTesting.SerialTools
         private string lastCom = "";
         internal DirectTerm term;
         string serial;
-        public SerialNPMManager(string serial, string com)
+        char addr;
+        public SerialNPMManager(string serial, string com,char addr = '-')
         {
+            this.addr = addr;
             this.serial = serial;
             this.com = com;
             listener = new SerialListener(this);
@@ -135,6 +137,11 @@ namespace QIXLPTesting.SerialTools
             connected = true;
             curConnected = comPort;
             return true;
+        }
+
+        internal void SetSDI(char sdiAddress)
+        {
+            addr = sdiAddress;
         }
 
 
@@ -295,6 +302,11 @@ namespace QIXLPTesting.SerialTools
         internal void ShowTerm()
         {
             term.ShowDialog();
+        }
+
+        internal char GetAddress()
+        {
+            return addr;
         }
     }
 }

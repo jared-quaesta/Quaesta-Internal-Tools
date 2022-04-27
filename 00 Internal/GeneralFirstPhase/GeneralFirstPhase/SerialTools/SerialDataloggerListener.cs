@@ -22,6 +22,8 @@ namespace GeneralFirstPhase.SerialTools
         bool gotINI = false;
         bool gotCS215 = false;
         string cs215String = "";
+        string sdiResponseString = "";
+        bool gotSDI = false;
 
         internal void NewData(string data, string lastCom)
         {
@@ -45,7 +47,11 @@ namespace GeneralFirstPhase.SerialTools
                 cs215String += data;
                 if (data.Contains("CS215:")) gotCS215 = true;
             }
-            
+            if (lastCom.Contains("!"))
+            {
+                sdiResponseString += data;
+                if (data.Contains("SDI12 Response:")) gotSDI = true;
+            }
         }
 
         internal bool GotCycle()
@@ -133,12 +139,34 @@ namespace GeneralFirstPhase.SerialTools
             }
             return "UNK";
         }
+        internal string GetR8()
+        {
+            foreach (string line in sdiResponseString.Split('\n'))
+            {
+                if (line.Contains("SDI12 Response:"))
+                {
+                    sdiResponseString = "";
+                    return line.Trim('\r', ' ').Split(':')[1];
+                }
+            }
+            return "UNK";
+        }
 
         internal bool GotCS215()
         {
             if (gotCS215)
             {
                 gotCS215 = false;
+                return true;
+            }
+            else return false;
+        }
+
+        internal bool GotSDIResponse()
+        {
+            if (gotSDI)
+            {
+                gotSDI = false;
                 return true;
             }
             else return false;

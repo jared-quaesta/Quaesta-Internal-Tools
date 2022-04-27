@@ -24,6 +24,7 @@ namespace QIXLPTesting.SerialTools
         string hgmString = "";
         string tempString = "";
         string termBuffer = "";
+        string localAddress = "-";
         List<int> hgm = new List<int>();
 
         SerialNPMManager serialMan;
@@ -108,6 +109,9 @@ namespace QIXLPTesting.SerialTools
                 else if (line.Contains("Model") && !line.Contains("Type"))
                 {
                     modelString = line.Trim().Split(' ')[line.Trim().Split(' ').Length - 1].Trim('\r', ' ');
+                } else if (line.Contains("LocalAddress"))
+                {
+                    localAddress = line.Trim().Split(' ')[line.Trim().Split(' ').Length - 1].Trim('\r', ' ');
                 }
             }
 
@@ -193,6 +197,11 @@ namespace QIXLPTesting.SerialTools
         internal string GetSerial()
         {
             return serialString;
+        }
+
+        internal string GetAddress()
+        {
+            return localAddress;
         }
 
         internal string GetModel()

@@ -4,6 +4,7 @@ using QIXLPTesting.SerialTools;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QIXLPTesting
@@ -15,6 +16,8 @@ namespace QIXLPTesting
         public double averageT = -1;
         public int maxSpread = 0;
         public int maxBin = 0;
+
+        static char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".ToCharArray();
 
         public IEnumerable<DataPoint> VoltageTest(SerialNPMManager serialMan, int testVoltage, int range, int wait, bool rampDown)
         {
@@ -50,6 +53,57 @@ namespace QIXLPTesting
                 errOccurred = true;
 
             //return new Tuple<LineSeries, bool>(series, err);
+        }
+
+        internal static async Task<bool> SetupSDI(List<SerialNPMManager> serialMans, bool disconnectAfter = true)
+        {
+            bool err = false;
+            int sdi = 0;
+            List<Thread> threads = new List<Thread>();
+            foreach (SerialNPMManager serialMan in serialMans)
+            {
+                char sdiAddress = alphabet[sdi];
+                ThreadStart threadDelegate = new ThreadStart(() =>
+                {
+                    // connect
+                    int att = 0;
+                    while (!serialMan.Connect(serialMan.com))
+                    {
+                        Thread.Sleep(30);
+                        if (att++ == 10) break;
+                    }
+                    if (!serialMan.IsConnected()) 
+                    {
+                        MessageBox.Show("Error in SDI Setup. Make sure all devices can connect.");
+                        err = true;
+                        return; 
+                    }
+
+                    Debug.WriteLine($"localaddress={sdiAddress}");
+                    // set sdi
+                    serialMan.SendCommand($"localaddress={sdiAddress}\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"localaddress={sdiAddress}\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SetSDI(sdiAddress);
+                    // disconnect
+                    if (disconnectAfter)
+                        serialMan.Disconnect();
+                });
+                sdi++;
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
+            }
+
+            await Task.Run(() =>
+            {
+                foreach (var thread in threads)
+                {
+                    thread.Join();
+                }
+            });
+            return err;
         }
 
         internal IEnumerable<int[]> SdevTest(SerialNPMManager serialMan, int waitSec, int voltage, int minBin)

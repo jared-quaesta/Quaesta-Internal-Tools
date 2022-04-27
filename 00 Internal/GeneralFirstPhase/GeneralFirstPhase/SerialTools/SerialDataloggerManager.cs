@@ -229,5 +229,32 @@ namespace QIXLPTesting.SerialTools
             });
             return listener.GetCS215();
         }
+
+        internal async Task<string> GetR8(char addr)
+        {
+            string cmd = $"{addr}R8!\r\n";
+            SendCommand(cmd, 0);
+            await Task.Run(() =>
+            {
+                int tries = 0;
+                Stopwatch watch = Stopwatch.StartNew();
+                while (!listener.GotSDIResponse())
+                {
+                    if (watch.ElapsedMilliseconds > 3000)
+                    {
+                        tries++;
+                        watch.Restart();
+                        SendCommand(cmd, 0);
+                    }
+                    if (tries == 5)
+                    {
+                        return false;
+                    }
+                    Thread.Sleep(20);
+                }
+                return true;
+            });
+            return listener.GetR8();
+        }
     }
 }

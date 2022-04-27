@@ -137,7 +137,7 @@ namespace QIXLPTesting
 
                         string serial = serialMan.listener.GetSerial();
                         att = 0;
-                        while (!coms.TryAdd(serial + " : " + serialMan.com))
+                        while (!coms.TryAdd(serial + " : " + serialMan.com + " : " + serialMan.listener.GetAddress()))
                         {
                             if (att++ == 10) break;
                             Thread.Sleep(30);
@@ -237,7 +237,7 @@ namespace QIXLPTesting
 
                         string serial = serialMan.listener.GetSerial();
                         att = 0;
-                        while (!coms.TryAdd(serial + " : " + serialMan.com))
+                        while (!coms.TryAdd(serial + " : " + serialMan.com + " : " + serialMan.listener.GetAddress()))
                         {
                             if (att++ == 10) break;
                             Thread.Sleep(30);
@@ -305,6 +305,7 @@ namespace QIXLPTesting
             TestChange(null, null);
             // force load heater options without showing it.
             IntPtr p = heaterOptionsForm.Handle;
+
         }
 
         private void SelAll(object sender, EventArgs e)
@@ -330,13 +331,12 @@ namespace QIXLPTesting
 
         private async void runBtn_Click(object sender, EventArgs e)
         {
-
             if (availNpms.CheckedItems.Count == 0)
             {
                 MessageBox.Show("No NPMs Selected.", "Error");
                 return;
             }
-
+            runBtn.Enabled = false;
             // Connect
 
             outputBox.Clear();
@@ -344,10 +344,8 @@ namespace QIXLPTesting
             List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
             foreach (string checkedCom in availNpms.CheckedItems)
             {
-                serialMans.Add(new SerialNPMManager(checkedCom.Split(':')[0].Trim(), checkedCom.Split(':')[1].Trim()));
+                serialMans.Add(new SerialNPMManager(checkedCom.Split(':')[0].Trim(), checkedCom.Split(':')[1].Trim(), checkedCom.Split(':')[2].Trim()[0]));
             }
-            int finished = 0;
-            int numUpdating = serialMans.Count;
             List<string> failedConnect = new List<string>();
             List<Thread> threads = new List<Thread>();
             BlockingCollection<string> coms = new BlockingCollection<string>();
@@ -398,6 +396,7 @@ namespace QIXLPTesting
 
                 AddOutput("Terminating Test\n", Color.FromArgb(251, 55, 40));
                 foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
+                runBtn.Enabled = true;
                 return;
             }
             else
@@ -426,9 +425,136 @@ namespace QIXLPTesting
             {
                 bool tempErr = await RunTempTest(serialMans);
             }
+            else if (sdiRadio.Checked)
+            {
+                bool sdiErr = await RunSDITest(serialMans);
+            }
 
 
             foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
+            runBtn.Enabled = true;
+
+        }
+
+        private async Task<bool> RunSDITest(List<SerialNPMManager> serialMans)
+        {
+            // first, assign ALL addresses connected to the board.
+            if (MessageBox.Show("This test requires that all NPMS on the SDI12 path are able to connect. " +
+                "Validate all NPMS are reachable by closing teraterm and validating the expected amount vs the " +
+                "displayed amount in the app.\n" +
+                "Abort this test by clicking the Cancel button, otherwise it will begin immediately.", 
+                "Warning", MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                AddOutput("ABORT TEST\n", Color.FromArgb(251, 55, 40));
+                return true;
+            }
+
+            // add non-checked npms to list
+            List<SerialNPMManager> nonCheckedNPMS = new List<SerialNPMManager>();
+            foreach (string com in availNpms.Items)
+            {
+                if (!availNpms.CheckedItems.Contains(com))
+                {
+                    SerialNPMManager newMan = new SerialNPMManager(com.Split(':')[0].Trim(), com.Split(':')[1].Trim());
+                    serialMans.Add(newMan);
+                    nonCheckedNPMS.Add(newMan);
+                }
+            }
+            if (await Tests.SetupSDI(serialMans, false))
+            {
+                AddOutput("ABORT TEST\n", Color.FromArgb(251, 55, 40));
+                return true;
+            }
+
+            // remove non checked npms from test
+            foreach (SerialNPMManager uncheckedMan in nonCheckedNPMS)
+            {
+                uncheckedMan.Disconnect();
+                serialMans.Remove(uncheckedMan);
+            }
+
+            // Now connect to datalogger. Ask user if there are multiple available.
+            List<string> dls = SerialDataloggerManager.GetComs();
+            string dlCom = "";
+            if (dls.Count > 1)
+            {
+                SelectDL selDl = new SelectDL(dls.ToArray());
+                selDl.ShowDialog();
+
+                dlCom = selDl.selectedCom;
+                selDl.Dispose();
+                if (dlCom.Equals(""))
+                {
+                    AddOutput("ABORT TEST\n", Color.FromArgb(251, 55, 40));
+                    return true;
+                }
+
+            } 
+            else if (dls.Count == 0)
+            {
+                AddOutput("No Datalogger detected\n", Color.FromArgb(251, 55, 40));
+                AddOutput("ABORT TEST\n", Color.FromArgb(251, 55, 40));
+                return true;
+            } else
+            {
+                dlCom = dls[0];
+            }
+            AddOutput($"Connecting to Datalogger: {dlCom}\n", Color.FromArgb(71, 134, 255));
+
+            await Task.Run(() =>
+            {
+                int att = 0;
+                while (!dlMan.Connect(dlCom))
+                {
+                    if (att++ == 10) break;
+                    Thread.Sleep(30);
+                }
+            });
+            if (!dlMan.IsConnected())
+            {
+                AddOutput("Unable to connect to Datalogger\n", Color.FromArgb(251, 55, 40));
+                AddOutput("ABORT TEST\n", Color.FromArgb(251, 55, 40));
+                return true;
+            }
+
+            progressBar.Value = 0;
+            progressBar.Maximum = serialMans.Count;
+
+            bool err = false;
+            await Task.Run(async ()=>
+            {
+                foreach (SerialNPMManager serialMan in serialMans)
+                {
+                    char addr = serialMan.GetAddress();
+                    string r8 = await dlMan.GetR8(addr);
+
+                    Invoke((MethodInvoker)delegate
+                    {
+                        progressBar.Value++;
+                        if (r8.Length == 0)
+                        {
+                            AddOutput(serialMan.GetSerial() + ": ", Color.FromArgb(71, 134, 255));
+                            AddOutput($"NO RESPONSE" + Environment.NewLine, Color.FromArgb(251, 55, 40));
+                            err = true;
+                            SQLManager.UpdateSDITest(serialMan.GetSerial(), false);
+                        } else
+                        {
+                            AddOutput(serialMan.GetSerial() + ": ", Color.FromArgb(71, 134, 255));
+                            AddOutput(r8 + Environment.NewLine, Color.FromArgb(0, 200, 156));
+                            SQLManager.UpdateSDITest(serialMan.GetSerial(), true);
+                        }
+
+                        Refresh();
+                    });
+
+
+                }
+            });
+            progressBar.Value = 0;
+            return err;
+
+
+
 
         }
 
@@ -1081,6 +1207,19 @@ namespace QIXLPTesting
                 failT.Checked = true;
             }
 
+            if (data.Sdi == null)
+            {
+                ndSd.Checked = true;
+            }
+            else if (data.Sdi == true)
+            {
+                passSd.Checked = true;
+            }
+            else if (data.Sdi == false)
+            {
+                failSd.Checked = true;
+            }
+
 
             Refresh();
         }
@@ -1299,6 +1438,24 @@ namespace QIXLPTesting
             }
         }
 
+        private void CheckSDIRadio(object sender, EventArgs e)
+        {
+            if (passSd.Checked)
+            {
+                sdiLbl.Text = "Passed";
+                sdiLbl.ForeColor = Color.Green;
+            }
+            else if (failSd.Checked)
+            {
+                sdiLbl.Text = "Failed";
+                sdiLbl.ForeColor = Color.Red;
+            }
+            else
+            {
+                sdiLbl.Text = "Not Done";
+                sdiLbl.ForeColor = Color.Orange;
+            }
+        }
         private void CheckTempRadio(object sender, EventArgs e)
         {
             if (passT.Checked)
@@ -1499,6 +1656,7 @@ namespace QIXLPTesting
             bool? sdev;
             bool? pulse;
             bool? temp;
+            bool? sdi;
             // voltage
             if (ndV.Checked)
             {
@@ -1539,8 +1697,16 @@ namespace QIXLPTesting
             {
                 pulse = passP.Checked;
             }
+            if (ndSd.Checked)
+            {
+                sdi = null;
+            }
+            else
+            {
+                sdi = passSd.Checked;
+            }
 
-            SQLManager.UpdateAllTests(sn, volt, sdev, temp, led, pulse);
+            SQLManager.UpdateAllTests(sn, volt, sdev, temp, led, pulse, sdi);
 
             DisplayInfo(null, null);
         }
@@ -1704,6 +1870,7 @@ namespace QIXLPTesting
 
         private async void runHeatTest_ClickAsync(object sender, EventArgs e)
         {
+            
             if (availNpmsHeater.CheckedItems.Count == 0)
             {
                 MessageBox.Show("No NPMs Selected.", "Error");
@@ -1764,16 +1931,22 @@ namespace QIXLPTesting
             // validate all NPMs connected
             if (failedConnect.Count != 0)
             {
-                foreach (string npm in failedConnect)
-                {
-                    AddOutput("Connection Failed: ", Color.FromArgb(251, 55, 40));
-                    AddOutput(npm + Environment.NewLine, Color.White);
-                }
-
-                AddOutput("Terminating Test\n", Color.FromArgb(251, 55, 40));
+                MessageBox.Show("One or more NPMs refused to connect.\nTerminating Test", "Error");
                 foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
                 return;
             }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         }
@@ -1824,5 +1997,7 @@ namespace QIXLPTesting
         {
             heaterOptionsForm.ShowDialog();
         }
+
+
     }
 }

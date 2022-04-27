@@ -139,6 +139,10 @@ namespace QIXLPTesting.SQL
                     {
                         ret.Temp = dataReader.GetBoolean(5);
                     }
+                    if (!dataReader.IsDBNull(6))
+                    {
+                        ret.Sdi = dataReader.GetBoolean(6);
+                    }
 
                 }
             }
@@ -248,6 +252,24 @@ namespace QIXLPTesting.SQL
             }
         }
 
+        internal static void UpdateSDITest(string serial, bool? val)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Alter_Gen_Tests", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+                    cmd.Parameters.Add("@PSb", SqlDbType.Bit).Value = val;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
         internal static void UpdateLEDTest(string serial, bool? val)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -283,7 +305,7 @@ namespace QIXLPTesting.SQL
             }
         }
 
-        internal static void UpdateAllTests(string serial, bool? volt, bool? sdev, bool? temp, bool? led, bool? pulsesim)
+        internal static void UpdateAllTests(string serial, bool? volt, bool? sdev, bool? temp, bool? led, bool? pulsesim, bool? sdi)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -298,6 +320,7 @@ namespace QIXLPTesting.SQL
                     cmd.Parameters.Add("@volt", SqlDbType.Bit).Value = volt;
                     cmd.Parameters.Add("@sdev", SqlDbType.Bit).Value = sdev;
                     cmd.Parameters.Add("@temp", SqlDbType.Bit).Value = temp;
+                    cmd.Parameters.Add("@sdi", SqlDbType.Bit).Value = sdi;
 
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -359,5 +382,33 @@ namespace QIXLPTesting.SQL
                 }
             }
         }
+
+        // Not final version of this, just to get the tests going
+        internal static void AddHeaterData(string sn, DateTime time, double voltage, int temp, string PSCommaDelim, string SDEVCommaDelim)
+        {
+            // build query
+            string date = time.ToString("yyyy-MM-dd");
+            date += " " + time.ToString("HH:mm:ss");
+            string query = $"INSERT INTO Heat_Testing VALUES('{sn}', '{date}',{voltage},{temp}";
+            foreach (string psB in PSCommaDelim.Split(','))
+            {
+                query += $",{psB}";
+            }
+            foreach (string sdevB in SDEVCommaDelim.Split(','))
+            {
+                query += $",{sdevB}";
+            }
+            query += ");";
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        
     }
 }

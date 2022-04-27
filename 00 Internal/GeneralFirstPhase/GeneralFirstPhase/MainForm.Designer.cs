@@ -186,9 +186,45 @@ namespace QIXLPTesting
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.refreshConnectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showHeaterOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showHeaterOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.ndSd = new System.Windows.Forms.RadioButton();
+            this.failSd = new System.Windows.Forms.RadioButton();
+            this.passSd = new System.Windows.Forms.RadioButton();
+            this.label44 = new System.Windows.Forms.Label();
+            this.sdiLbl = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.radioButton7 = new System.Windows.Forms.RadioButton();
+            this.radioButton8 = new System.Windows.Forms.RadioButton();
+            this.radioButton9 = new System.Windows.Forms.RadioButton();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.radioButton10 = new System.Windows.Forms.RadioButton();
+            this.radioButton11 = new System.Windows.Forms.RadioButton();
+            this.radioButton12 = new System.Windows.Forms.RadioButton();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.radioButton13 = new System.Windows.Forms.RadioButton();
+            this.radioButton14 = new System.Windows.Forms.RadioButton();
+            this.radioButton15 = new System.Windows.Forms.RadioButton();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.radioButton19 = new System.Windows.Forms.RadioButton();
+            this.radioButton20 = new System.Windows.Forms.RadioButton();
+            this.radioButton21 = new System.Windows.Forms.RadioButton();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -209,6 +245,11 @@ namespace QIXLPTesting
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // testTabControl
@@ -251,7 +292,7 @@ namespace QIXLPTesting
             this.testTab.Padding = new System.Windows.Forms.Padding(3);
             this.testTab.Size = new System.Drawing.Size(974, 671);
             this.testTab.TabIndex = 1;
-            this.testTab.Text = "Testing";
+            this.testTab.Text = "Desk Tests";
             this.testTab.UseVisualStyleBackColor = true;
             // 
             // groupBox3
@@ -267,7 +308,7 @@ namespace QIXLPTesting
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(249, 368);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(434, 51);
+            this.groupBox3.Size = new System.Drawing.Size(391, 51);
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Temperature Options";
@@ -358,7 +399,7 @@ namespace QIXLPTesting
             | System.Windows.Forms.AnchorStyles.Left)));
             this.testDesc.Location = new System.Drawing.Point(249, 422);
             this.testDesc.Name = "testDesc";
-            this.testDesc.Size = new System.Drawing.Size(434, 167);
+            this.testDesc.Size = new System.Drawing.Size(391, 167);
             this.testDesc.TabIndex = 21;
             this.testDesc.Text = "testDesc";
             // 
@@ -386,7 +427,7 @@ namespace QIXLPTesting
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(249, 279);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(434, 83);
+            this.groupBox2.Size = new System.Drawing.Size(391, 83);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SDEV Noise Test Options";
@@ -502,7 +543,7 @@ namespace QIXLPTesting
             this.groupBox1.Controls.Add(this.gainBox);
             this.groupBox1.Location = new System.Drawing.Point(249, 168);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(434, 105);
+            this.groupBox1.Size = new System.Drawing.Size(391, 105);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PulseSim Test Options";
@@ -669,7 +710,7 @@ namespace QIXLPTesting
             this.panel1.Controls.Add(this.voltageRadio);
             this.panel1.Location = new System.Drawing.Point(249, 22);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(434, 52);
+            this.panel1.Size = new System.Drawing.Size(391, 52);
             this.panel1.TabIndex = 19;
             // 
             // sdiRadio
@@ -764,7 +805,7 @@ namespace QIXLPTesting
             this.voltOptionsGB.Controls.Add(this.voltLevel);
             this.voltOptionsGB.Location = new System.Drawing.Point(249, 80);
             this.voltOptionsGB.Name = "voltOptionsGB";
-            this.voltOptionsGB.Size = new System.Drawing.Size(434, 82);
+            this.voltOptionsGB.Size = new System.Drawing.Size(391, 82);
             this.voltOptionsGB.TabIndex = 13;
             this.voltOptionsGB.TabStop = false;
             this.voltOptionsGB.Text = "Voltage Test Options";
@@ -890,7 +931,7 @@ namespace QIXLPTesting
             this.runBtn.ForeColor = System.Drawing.Color.Green;
             this.runBtn.Location = new System.Drawing.Point(249, 592);
             this.runBtn.Name = "runBtn";
-            this.runBtn.Size = new System.Drawing.Size(434, 44);
+            this.runBtn.Size = new System.Drawing.Size(391, 44);
             this.runBtn.TabIndex = 12;
             this.runBtn.Text = "Run Test";
             this.runBtn.UseVisualStyleBackColor = true;
@@ -901,7 +942,7 @@ namespace QIXLPTesting
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.progressBar.Location = new System.Drawing.Point(249, 642);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(434, 23);
+            this.progressBar.Size = new System.Drawing.Size(391, 23);
             this.progressBar.TabIndex = 11;
             // 
             // label1
@@ -917,9 +958,9 @@ namespace QIXLPTesting
             // 
             this.clearOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearOut.Location = new System.Drawing.Point(689, 642);
+            this.clearOut.Location = new System.Drawing.Point(646, 642);
             this.clearOut.Name = "clearOut";
-            this.clearOut.Size = new System.Drawing.Size(279, 23);
+            this.clearOut.Size = new System.Drawing.Size(322, 23);
             this.clearOut.TabIndex = 7;
             this.clearOut.Text = "Clear";
             this.clearOut.UseVisualStyleBackColor = true;
@@ -955,16 +996,16 @@ namespace QIXLPTesting
             this.outputBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(59)))));
             this.outputBox.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.outputBox.ForeColor = System.Drawing.Color.White;
-            this.outputBox.Location = new System.Drawing.Point(689, 22);
+            this.outputBox.Location = new System.Drawing.Point(646, 22);
             this.outputBox.Name = "outputBox";
-            this.outputBox.Size = new System.Drawing.Size(279, 614);
+            this.outputBox.Size = new System.Drawing.Size(322, 614);
             this.outputBox.TabIndex = 4;
             this.outputBox.Text = "";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(686, 6);
+            this.label2.Location = new System.Drawing.Point(643, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 3;
@@ -1013,7 +1054,7 @@ namespace QIXLPTesting
             this.dlTab.Padding = new System.Windows.Forms.Padding(3);
             this.dlTab.Size = new System.Drawing.Size(974, 671);
             this.dlTab.TabIndex = 3;
-            this.dlTab.Text = "Heater";
+            this.dlTab.Text = "Heater Tests";
             this.dlTab.UseVisualStyleBackColor = true;
             // 
             // cs215Btn
@@ -1397,7 +1438,28 @@ namespace QIXLPTesting
             // 
             // serverDetailsPanel
             // 
+            this.serverDetailsPanel.Controls.Add(this.button4);
+            this.serverDetailsPanel.Controls.Add(this.button3);
+            this.serverDetailsPanel.Controls.Add(this.button2);
+            this.serverDetailsPanel.Controls.Add(this.button1);
+            this.serverDetailsPanel.Controls.Add(this.label47);
+            this.serverDetailsPanel.Controls.Add(this.panel9);
+            this.serverDetailsPanel.Controls.Add(this.panel10);
+            this.serverDetailsPanel.Controls.Add(this.panel11);
+            this.serverDetailsPanel.Controls.Add(this.panel13);
+            this.serverDetailsPanel.Controls.Add(this.label51);
+            this.serverDetailsPanel.Controls.Add(this.label52);
+            this.serverDetailsPanel.Controls.Add(this.label53);
+            this.serverDetailsPanel.Controls.Add(this.label54);
+            this.serverDetailsPanel.Controls.Add(this.label56);
+            this.serverDetailsPanel.Controls.Add(this.label57);
+            this.serverDetailsPanel.Controls.Add(this.label58);
+            this.serverDetailsPanel.Controls.Add(this.label59);
+            this.serverDetailsPanel.Controls.Add(this.label46);
+            this.serverDetailsPanel.Controls.Add(this.panel7);
+            this.serverDetailsPanel.Controls.Add(this.label44);
             this.serverDetailsPanel.Controls.Add(this.remBtn);
+            this.serverDetailsPanel.Controls.Add(this.sdiLbl);
             this.serverDetailsPanel.Controls.Add(this.cancelTestBtn);
             this.serverDetailsPanel.Controls.Add(this.saveTestBtn);
             this.serverDetailsPanel.Controls.Add(this.textBox2);
@@ -1452,7 +1514,7 @@ namespace QIXLPTesting
             // cancelTestBtn
             // 
             this.cancelTestBtn.Enabled = false;
-            this.cancelTestBtn.Location = new System.Drawing.Point(359, 163);
+            this.cancelTestBtn.Location = new System.Drawing.Point(313, 601);
             this.cancelTestBtn.Name = "cancelTestBtn";
             this.cancelTestBtn.Size = new System.Drawing.Size(108, 46);
             this.cancelTestBtn.TabIndex = 49;
@@ -1464,9 +1526,9 @@ namespace QIXLPTesting
             // 
             this.saveTestBtn.Enabled = false;
             this.saveTestBtn.ForeColor = System.Drawing.Color.Green;
-            this.saveTestBtn.Location = new System.Drawing.Point(471, 163);
+            this.saveTestBtn.Location = new System.Drawing.Point(425, 601);
             this.saveTestBtn.Name = "saveTestBtn";
-            this.saveTestBtn.Size = new System.Drawing.Size(166, 46);
+            this.saveTestBtn.Size = new System.Drawing.Size(301, 46);
             this.saveTestBtn.TabIndex = 48;
             this.saveTestBtn.Text = "Save Test Info";
             this.saveTestBtn.UseVisualStyleBackColor = true;
@@ -1488,7 +1550,7 @@ namespace QIXLPTesting
             this.panel6.Controls.Add(this.ndT);
             this.panel6.Controls.Add(this.failT);
             this.panel6.Controls.Add(this.passT);
-            this.panel6.Location = new System.Drawing.Point(461, 119);
+            this.panel6.Location = new System.Drawing.Point(461, 141);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(184, 23);
             this.panel6.TabIndex = 46;
@@ -1537,7 +1599,7 @@ namespace QIXLPTesting
             this.panel5.Controls.Add(this.ndP);
             this.panel5.Controls.Add(this.failP);
             this.panel5.Controls.Add(this.passP);
-            this.panel5.Location = new System.Drawing.Point(461, 92);
+            this.panel5.Location = new System.Drawing.Point(461, 114);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(184, 23);
             this.panel5.TabIndex = 46;
@@ -1586,7 +1648,7 @@ namespace QIXLPTesting
             this.panel4.Controls.Add(this.ndS);
             this.panel4.Controls.Add(this.failS);
             this.panel4.Controls.Add(this.passS);
-            this.panel4.Location = new System.Drawing.Point(461, 64);
+            this.panel4.Location = new System.Drawing.Point(461, 86);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(184, 23);
             this.panel4.TabIndex = 45;
@@ -1634,7 +1696,7 @@ namespace QIXLPTesting
             // 
             this.ledLbl.AutoSize = true;
             this.ledLbl.ForeColor = System.Drawing.Color.Orange;
-            this.ledLbl.Location = new System.Drawing.Point(405, 40);
+            this.ledLbl.Location = new System.Drawing.Point(405, 62);
             this.ledLbl.Name = "ledLbl";
             this.ledLbl.Size = new System.Drawing.Size(53, 13);
             this.ledLbl.TabIndex = 8;
@@ -1645,7 +1707,7 @@ namespace QIXLPTesting
             this.panel3.Controls.Add(this.ndL);
             this.panel3.Controls.Add(this.failL);
             this.panel3.Controls.Add(this.passL);
-            this.panel3.Location = new System.Drawing.Point(461, 35);
+            this.panel3.Location = new System.Drawing.Point(461, 57);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(184, 23);
             this.panel3.TabIndex = 44;
@@ -1694,7 +1756,7 @@ namespace QIXLPTesting
             this.panel2.Controls.Add(this.ndV);
             this.panel2.Controls.Add(this.failV);
             this.panel2.Controls.Add(this.passV);
-            this.panel2.Location = new System.Drawing.Point(461, 6);
+            this.panel2.Location = new System.Drawing.Point(461, 28);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(184, 23);
             this.panel2.TabIndex = 43;
@@ -1905,7 +1967,7 @@ namespace QIXLPTesting
             // 
             // label23
             // 
-            this.label23.Location = new System.Drawing.Point(325, 127);
+            this.label23.Location = new System.Drawing.Point(325, 149);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(79, 13);
             this.label23.TabIndex = 22;
@@ -1916,7 +1978,7 @@ namespace QIXLPTesting
             // 
             this.tempLbl.AutoSize = true;
             this.tempLbl.ForeColor = System.Drawing.Color.Green;
-            this.tempLbl.Location = new System.Drawing.Point(405, 127);
+            this.tempLbl.Location = new System.Drawing.Point(405, 149);
             this.tempLbl.Name = "tempLbl";
             this.tempLbl.Size = new System.Drawing.Size(42, 13);
             this.tempLbl.TabIndex = 23;
@@ -1924,7 +1986,7 @@ namespace QIXLPTesting
             // 
             // label20
             // 
-            this.label20.Location = new System.Drawing.Point(325, 98);
+            this.label20.Location = new System.Drawing.Point(325, 120);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(79, 13);
             this.label20.TabIndex = 16;
@@ -1933,7 +1995,7 @@ namespace QIXLPTesting
             // 
             // label17
             // 
-            this.label17.Location = new System.Drawing.Point(325, 69);
+            this.label17.Location = new System.Drawing.Point(325, 91);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(79, 13);
             this.label17.TabIndex = 9;
@@ -1942,7 +2004,7 @@ namespace QIXLPTesting
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(325, 40);
+            this.label15.Location = new System.Drawing.Point(325, 62);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(79, 13);
             this.label15.TabIndex = 7;
@@ -1951,7 +2013,7 @@ namespace QIXLPTesting
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(325, 11);
+            this.label11.Location = new System.Drawing.Point(325, 33);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(79, 13);
             this.label11.TabIndex = 4;
@@ -1962,7 +2024,7 @@ namespace QIXLPTesting
             // 
             this.pulseSimLbl.AutoSize = true;
             this.pulseSimLbl.ForeColor = System.Drawing.Color.Green;
-            this.pulseSimLbl.Location = new System.Drawing.Point(405, 98);
+            this.pulseSimLbl.Location = new System.Drawing.Point(405, 120);
             this.pulseSimLbl.Name = "pulseSimLbl";
             this.pulseSimLbl.Size = new System.Drawing.Size(42, 13);
             this.pulseSimLbl.TabIndex = 17;
@@ -1972,7 +2034,7 @@ namespace QIXLPTesting
             // 
             this.sdevLbl.AutoSize = true;
             this.sdevLbl.ForeColor = System.Drawing.Color.Red;
-            this.sdevLbl.Location = new System.Drawing.Point(405, 69);
+            this.sdevLbl.Location = new System.Drawing.Point(405, 91);
             this.sdevLbl.Name = "sdevLbl";
             this.sdevLbl.Size = new System.Drawing.Size(35, 13);
             this.sdevLbl.TabIndex = 10;
@@ -1982,7 +2044,7 @@ namespace QIXLPTesting
             // 
             this.voltLbl.AutoSize = true;
             this.voltLbl.ForeColor = System.Drawing.Color.Green;
-            this.voltLbl.Location = new System.Drawing.Point(405, 11);
+            this.voltLbl.Location = new System.Drawing.Point(405, 33);
             this.voltLbl.Name = "voltLbl";
             this.voltLbl.Size = new System.Drawing.Size(42, 13);
             this.voltLbl.TabIndex = 5;
@@ -2045,6 +2107,13 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
+            // showHeaterOptionsToolStripMenuItem
+            // 
+            this.showHeaterOptionsToolStripMenuItem.Name = "showHeaterOptionsToolStripMenuItem";
+            this.showHeaterOptionsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.showHeaterOptionsToolStripMenuItem.Text = "Show Heater Options";
+            this.showHeaterOptionsToolStripMenuItem.Click += new System.EventHandler(this.showHeaterOptionsToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2060,12 +2129,377 @@ namespace QIXLPTesting
             this.manualToolStripMenuItem.Text = "Manual";
             this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
             // 
-            // showHeaterOptionsToolStripMenuItem
+            // panel7
             // 
-            this.showHeaterOptionsToolStripMenuItem.Name = "showHeaterOptionsToolStripMenuItem";
-            this.showHeaterOptionsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
-            this.showHeaterOptionsToolStripMenuItem.Text = "Show Heater Options";
-            this.showHeaterOptionsToolStripMenuItem.Click += new System.EventHandler(this.showHeaterOptionsToolStripMenuItem_Click);
+            this.panel7.Controls.Add(this.ndSd);
+            this.panel7.Controls.Add(this.failSd);
+            this.panel7.Controls.Add(this.passSd);
+            this.panel7.Location = new System.Drawing.Point(461, 167);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(184, 23);
+            this.panel7.TabIndex = 49;
+            // 
+            // ndSd
+            // 
+            this.ndSd.AutoSize = true;
+            this.ndSd.Location = new System.Drawing.Point(105, 3);
+            this.ndSd.Name = "ndSd";
+            this.ndSd.Size = new System.Drawing.Size(71, 17);
+            this.ndSd.TabIndex = 2;
+            this.ndSd.TabStop = true;
+            this.ndSd.Text = "Not Done";
+            this.ndSd.UseVisualStyleBackColor = true;
+            this.ndSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
+            this.ndSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
+            // 
+            // failSd
+            // 
+            this.failSd.AutoSize = true;
+            this.failSd.Location = new System.Drawing.Point(58, 3);
+            this.failSd.Name = "failSd";
+            this.failSd.Size = new System.Drawing.Size(41, 17);
+            this.failSd.TabIndex = 1;
+            this.failSd.TabStop = true;
+            this.failSd.Text = "Fail";
+            this.failSd.UseVisualStyleBackColor = true;
+            this.failSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
+            this.failSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
+            // 
+            // passSd
+            // 
+            this.passSd.AutoSize = true;
+            this.passSd.Location = new System.Drawing.Point(4, 4);
+            this.passSd.Name = "passSd";
+            this.passSd.Size = new System.Drawing.Size(48, 17);
+            this.passSd.TabIndex = 0;
+            this.passSd.TabStop = true;
+            this.passSd.Text = "Pass";
+            this.passSd.UseVisualStyleBackColor = true;
+            this.passSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
+            this.passSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
+            // 
+            // label44
+            // 
+            this.label44.Location = new System.Drawing.Point(325, 175);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(79, 13);
+            this.label44.TabIndex = 47;
+            this.label44.Text = "SDI:";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // sdiLbl
+            // 
+            this.sdiLbl.AutoSize = true;
+            this.sdiLbl.ForeColor = System.Drawing.Color.Green;
+            this.sdiLbl.Location = new System.Drawing.Point(405, 175);
+            this.sdiLbl.Name = "sdiLbl";
+            this.sdiLbl.Size = new System.Drawing.Size(42, 13);
+            this.sdiLbl.TabIndex = 48;
+            this.sdiLbl.Text = "Passed";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.label46.Location = new System.Drawing.Point(311, 4);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(99, 18);
+            this.label46.TabIndex = 51;
+            this.label46.Text = "Desk Tests:";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.label47.Location = new System.Drawing.Point(311, 238);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(201, 18);
+            this.label47.TabIndex = 70;
+            this.label47.Text = "Bare-Board Heater Tests:";
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.radioButton7);
+            this.panel9.Controls.Add(this.radioButton8);
+            this.panel9.Controls.Add(this.radioButton9);
+            this.panel9.Location = new System.Drawing.Point(461, 340);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(184, 23);
+            this.panel9.TabIndex = 66;
+            // 
+            // radioButton7
+            // 
+            this.radioButton7.AutoSize = true;
+            this.radioButton7.Location = new System.Drawing.Point(105, 3);
+            this.radioButton7.Name = "radioButton7";
+            this.radioButton7.Size = new System.Drawing.Size(71, 17);
+            this.radioButton7.TabIndex = 2;
+            this.radioButton7.TabStop = true;
+            this.radioButton7.Text = "Not Done";
+            this.radioButton7.UseVisualStyleBackColor = true;
+            // 
+            // radioButton8
+            // 
+            this.radioButton8.AutoSize = true;
+            this.radioButton8.Location = new System.Drawing.Point(58, 3);
+            this.radioButton8.Name = "radioButton8";
+            this.radioButton8.Size = new System.Drawing.Size(41, 17);
+            this.radioButton8.TabIndex = 1;
+            this.radioButton8.TabStop = true;
+            this.radioButton8.Text = "Fail";
+            this.radioButton8.UseVisualStyleBackColor = true;
+            // 
+            // radioButton9
+            // 
+            this.radioButton9.AutoSize = true;
+            this.radioButton9.Location = new System.Drawing.Point(4, 4);
+            this.radioButton9.Name = "radioButton9";
+            this.radioButton9.Size = new System.Drawing.Size(48, 17);
+            this.radioButton9.TabIndex = 0;
+            this.radioButton9.TabStop = true;
+            this.radioButton9.Text = "Pass";
+            this.radioButton9.UseVisualStyleBackColor = true;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.radioButton10);
+            this.panel10.Controls.Add(this.radioButton11);
+            this.panel10.Controls.Add(this.radioButton12);
+            this.panel10.Location = new System.Drawing.Point(461, 314);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(184, 23);
+            this.panel10.TabIndex = 65;
+            // 
+            // radioButton10
+            // 
+            this.radioButton10.AutoSize = true;
+            this.radioButton10.Location = new System.Drawing.Point(105, 3);
+            this.radioButton10.Name = "radioButton10";
+            this.radioButton10.Size = new System.Drawing.Size(71, 17);
+            this.radioButton10.TabIndex = 2;
+            this.radioButton10.TabStop = true;
+            this.radioButton10.Text = "Not Done";
+            this.radioButton10.UseVisualStyleBackColor = true;
+            // 
+            // radioButton11
+            // 
+            this.radioButton11.AutoSize = true;
+            this.radioButton11.Location = new System.Drawing.Point(58, 3);
+            this.radioButton11.Name = "radioButton11";
+            this.radioButton11.Size = new System.Drawing.Size(41, 17);
+            this.radioButton11.TabIndex = 1;
+            this.radioButton11.TabStop = true;
+            this.radioButton11.Text = "Fail";
+            this.radioButton11.UseVisualStyleBackColor = true;
+            // 
+            // radioButton12
+            // 
+            this.radioButton12.AutoSize = true;
+            this.radioButton12.Location = new System.Drawing.Point(4, 4);
+            this.radioButton12.Name = "radioButton12";
+            this.radioButton12.Size = new System.Drawing.Size(48, 17);
+            this.radioButton12.TabIndex = 0;
+            this.radioButton12.TabStop = true;
+            this.radioButton12.Text = "Pass";
+            this.radioButton12.UseVisualStyleBackColor = true;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.radioButton13);
+            this.panel11.Controls.Add(this.radioButton14);
+            this.panel11.Controls.Add(this.radioButton15);
+            this.panel11.Location = new System.Drawing.Point(461, 288);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(184, 23);
+            this.panel11.TabIndex = 64;
+            // 
+            // radioButton13
+            // 
+            this.radioButton13.AutoSize = true;
+            this.radioButton13.Location = new System.Drawing.Point(105, 3);
+            this.radioButton13.Name = "radioButton13";
+            this.radioButton13.Size = new System.Drawing.Size(71, 17);
+            this.radioButton13.TabIndex = 2;
+            this.radioButton13.TabStop = true;
+            this.radioButton13.Text = "Not Done";
+            this.radioButton13.UseVisualStyleBackColor = true;
+            // 
+            // radioButton14
+            // 
+            this.radioButton14.AutoSize = true;
+            this.radioButton14.Location = new System.Drawing.Point(58, 3);
+            this.radioButton14.Name = "radioButton14";
+            this.radioButton14.Size = new System.Drawing.Size(41, 17);
+            this.radioButton14.TabIndex = 1;
+            this.radioButton14.TabStop = true;
+            this.radioButton14.Text = "Fail";
+            this.radioButton14.UseVisualStyleBackColor = true;
+            // 
+            // radioButton15
+            // 
+            this.radioButton15.AutoSize = true;
+            this.radioButton15.Location = new System.Drawing.Point(4, 4);
+            this.radioButton15.Name = "radioButton15";
+            this.radioButton15.Size = new System.Drawing.Size(48, 17);
+            this.radioButton15.TabIndex = 0;
+            this.radioButton15.TabStop = true;
+            this.radioButton15.Text = "Pass";
+            this.radioButton15.UseVisualStyleBackColor = true;
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.radioButton19);
+            this.panel13.Controls.Add(this.radioButton20);
+            this.panel13.Controls.Add(this.radioButton21);
+            this.panel13.Location = new System.Drawing.Point(461, 262);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(184, 23);
+            this.panel13.TabIndex = 62;
+            // 
+            // radioButton19
+            // 
+            this.radioButton19.AutoSize = true;
+            this.radioButton19.Location = new System.Drawing.Point(105, 3);
+            this.radioButton19.Name = "radioButton19";
+            this.radioButton19.Size = new System.Drawing.Size(71, 17);
+            this.radioButton19.TabIndex = 2;
+            this.radioButton19.TabStop = true;
+            this.radioButton19.Text = "Not Done";
+            this.radioButton19.UseVisualStyleBackColor = true;
+            // 
+            // radioButton20
+            // 
+            this.radioButton20.AutoSize = true;
+            this.radioButton20.Location = new System.Drawing.Point(58, 3);
+            this.radioButton20.Name = "radioButton20";
+            this.radioButton20.Size = new System.Drawing.Size(41, 17);
+            this.radioButton20.TabIndex = 1;
+            this.radioButton20.TabStop = true;
+            this.radioButton20.Text = "Fail";
+            this.radioButton20.UseVisualStyleBackColor = true;
+            // 
+            // radioButton21
+            // 
+            this.radioButton21.AutoSize = true;
+            this.radioButton21.Location = new System.Drawing.Point(4, 4);
+            this.radioButton21.Name = "radioButton21";
+            this.radioButton21.Size = new System.Drawing.Size(48, 17);
+            this.radioButton21.TabIndex = 0;
+            this.radioButton21.TabStop = true;
+            this.radioButton21.Text = "Pass";
+            this.radioButton21.UseVisualStyleBackColor = true;
+            // 
+            // label51
+            // 
+            this.label51.Location = new System.Drawing.Point(325, 348);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(79, 13);
+            this.label51.TabIndex = 60;
+            this.label51.Text = "Temperature:";
+            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.ForeColor = System.Drawing.Color.Green;
+            this.label52.Location = new System.Drawing.Point(405, 348);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(42, 13);
+            this.label52.TabIndex = 61;
+            this.label52.Text = "Passed";
+            // 
+            // label53
+            // 
+            this.label53.Location = new System.Drawing.Point(325, 320);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(79, 13);
+            this.label53.TabIndex = 58;
+            this.label53.Text = "PulseSim:";
+            this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label54
+            // 
+            this.label54.Location = new System.Drawing.Point(325, 293);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(79, 13);
+            this.label54.TabIndex = 56;
+            this.label54.Text = "SDEV:";
+            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label56
+            // 
+            this.label56.Location = new System.Drawing.Point(325, 267);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(79, 13);
+            this.label56.TabIndex = 52;
+            this.label56.Text = "Voltage:";
+            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.ForeColor = System.Drawing.Color.Green;
+            this.label57.Location = new System.Drawing.Point(405, 320);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(42, 13);
+            this.label57.TabIndex = 59;
+            this.label57.Text = "Passed";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.ForeColor = System.Drawing.Color.Red;
+            this.label58.Location = new System.Drawing.Point(405, 293);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(35, 13);
+            this.label58.TabIndex = 57;
+            this.label58.Text = "Failed";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.ForeColor = System.Drawing.Color.Green;
+            this.label59.Location = new System.Drawing.Point(405, 267);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(42, 13);
+            this.label59.TabIndex = 53;
+            this.label59.Text = "Passed";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(651, 262);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 71;
+            this.button1.Text = "See Chart";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(651, 288);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 72;
+            this.button2.Text = "See Chart";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(651, 314);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 73;
+            this.button3.Text = "See Chart";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(651, 340);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 74;
+            this.button4.Text = "See Chart";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -2116,6 +2550,16 @@ namespace QIXLPTesting
             this.panel2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2283,6 +2727,42 @@ namespace QIXLPTesting
         private System.Windows.Forms.Button cs215Btn;
         private System.Windows.Forms.Label cs215Lbl;
         private System.Windows.Forms.ToolStripMenuItem showHeaterOptionsToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.RadioButton radioButton7;
+        private System.Windows.Forms.RadioButton radioButton8;
+        private System.Windows.Forms.RadioButton radioButton9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.RadioButton radioButton10;
+        private System.Windows.Forms.RadioButton radioButton11;
+        private System.Windows.Forms.RadioButton radioButton12;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.RadioButton radioButton13;
+        private System.Windows.Forms.RadioButton radioButton14;
+        private System.Windows.Forms.RadioButton radioButton15;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.RadioButton radioButton19;
+        private System.Windows.Forms.RadioButton radioButton20;
+        private System.Windows.Forms.RadioButton radioButton21;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.Label label59;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.RadioButton ndSd;
+        private System.Windows.Forms.RadioButton failSd;
+        private System.Windows.Forms.RadioButton passSd;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label sdiLbl;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
     }
 }
 

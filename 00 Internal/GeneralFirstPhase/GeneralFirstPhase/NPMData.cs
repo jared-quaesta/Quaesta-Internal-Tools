@@ -19,6 +19,7 @@ namespace QIXLPTesting
         private bool? sdev;
         private bool? pulsesim;
         private bool? temp;
+        private bool? sdi;
 
         public string Sn { get => sn; set => sn = value; }
         public string Family { get => family; set => family = value; }
@@ -32,5 +33,6 @@ namespace QIXLPTesting
         public bool? Sdev { get => sdev; set => sdev = value; }
         public bool? Pulsesim { get => pulsesim; set => pulsesim = value; }
         public bool? Temp { get => temp; set => temp = value; }
+        public bool? Sdi { get => sdi; set => sdi = value; }
     }
 }

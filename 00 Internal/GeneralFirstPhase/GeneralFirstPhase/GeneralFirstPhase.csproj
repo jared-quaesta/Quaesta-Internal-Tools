@@ -86,6 +86,12 @@
     <Compile Include="NPMData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectDL.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectDL.Designer.cs">
+      <DependentUpon>SelectDL.cs</DependentUpon>
+    </Compile>
     <Compile Include="SerialTools\SerialDataloggerListener.cs" />
     <Compile Include="SerialTools\SerialDataloggerManager.cs" />
     <Compile Include="SerialTools\SerialNPMListener.cs" />
@@ -125,6 +131,9 @@
     </Compile>
     <EmbeddedResource Include="LinePlotForm.resx">
       <DependentUpon>LinePlotForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectDL.resx">
+      <DependentUpon>SelectDL.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
