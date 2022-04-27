@@ -634,23 +634,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\shama\\.nuget\\packages\\": {},
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\shama\\Documents\\GitHub\\Quaesta-Internal-Tools\\00 Internal\\NPM General App (Ethernet Debug Terminal)\\NPM General App\\NPM General App.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\Source\\Repos\\jared-quaesta\\Quaesta-Internal-Tools\\00 Internal\\NPM General App (Ethernet Debug Terminal)\\NPM General App\\NPM General App.csproj",
       "projectName": "NPM General App",
-      "projectPath": "C:\\Users\\shama\\Documents\\GitHub\\Quaesta-Internal-Tools\\00 Internal\\NPM General App (Ethernet Debug Terminal)\\NPM General App\\NPM General App.csproj",
-      "packagesPath": "C:\\Users\\shama\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\shama\\Documents\\GitHub\\Quaesta-Internal-Tools\\00 Internal\\NPM General App (Ethernet Debug Terminal)\\NPM General App\\obj\\",
+      "projectPath": "C:\\Users\\admin\\Source\\Repos\\jared-quaesta\\Quaesta-Internal-Tools\\00 Internal\\NPM General App (Ethernet Debug Terminal)\\NPM General App\\NPM General App.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\admin\\Source\\Repos\\jared-quaesta\\Quaesta-Internal-Tools\\00 Internal\\NPM General App (Ethernet Debug Terminal)\\NPM General App\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\shama\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -712,7 +712,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

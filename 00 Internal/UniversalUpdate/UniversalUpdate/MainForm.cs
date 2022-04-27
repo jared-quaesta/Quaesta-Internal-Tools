@@ -1211,8 +1211,6 @@ namespace UniversalUpdate
                         Thread.Sleep(30);
                         serialMan.SendCommand("info\r");
                         Thread.Sleep(30);
-                        serialMan.SendCommand("info\r");
-                        Thread.Sleep(30);
                         serialMan.listener.ParseInfo();
                     }
 

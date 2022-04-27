@@ -202,7 +202,7 @@ namespace QIXLPTesting
         {
             refreshConnectedToolStripMenuItem_Click(null, null);
             TestChange(null, null);
-            testTabControl.TabPages.Remove(dlTab);
+            //testTabControl.TabPages.Remove(dlTab);
         }
 
         private void SelAll(object sender, EventArgs e)

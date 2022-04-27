@@ -67,6 +67,7 @@ namespace QIXLPTesting
             this.label26 = new System.Windows.Forms.Label();
             this.gainBox = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.sdiRadio = new System.Windows.Forms.RadioButton();
             this.tempRadio = new System.Windows.Forms.RadioButton();
             this.sdevRadio = new System.Windows.Forms.RadioButton();
             this.psRadio = new System.Windows.Forms.RadioButton();
@@ -95,6 +96,7 @@ namespace QIXLPTesting
             this.avail = new System.Windows.Forms.Label();
             this.availNpms = new System.Windows.Forms.CheckedListBox();
             this.dlTab = new System.Windows.Forms.TabPage();
+            this.label38 = new System.Windows.Forms.Label();
             this.availDataloggers = new System.Windows.Forms.CheckedListBox();
             this.serverTab = new System.Windows.Forms.TabPage();
             this.serverDetailsPanel = new System.Windows.Forms.Panel();
@@ -157,8 +159,6 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label38 = new System.Windows.Forms.Label();
-            this.sdiRadio = new System.Windows.Forms.RadioButton();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -638,6 +638,16 @@ namespace QIXLPTesting
             this.panel1.Size = new System.Drawing.Size(361, 52);
             this.panel1.TabIndex = 19;
             // 
+            // sdiRadio
+            // 
+            this.sdiRadio.AutoSize = true;
+            this.sdiRadio.Location = new System.Drawing.Point(8, 27);
+            this.sdiRadio.Name = "sdiRadio";
+            this.sdiRadio.Size = new System.Drawing.Size(55, 17);
+            this.sdiRadio.TabIndex = 5;
+            this.sdiRadio.Text = "SDI12";
+            this.sdiRadio.UseVisualStyleBackColor = true;
+            // 
             // tempRadio
             // 
             this.tempRadio.AutoSize = true;
@@ -953,17 +963,26 @@ namespace QIXLPTesting
             this.dlTab.Location = new System.Drawing.Point(4, 22);
             this.dlTab.Name = "dlTab";
             this.dlTab.Padding = new System.Windows.Forms.Padding(3);
-            this.dlTab.Size = new System.Drawing.Size(895, 627);
+            this.dlTab.Size = new System.Drawing.Size(895, 596);
             this.dlTab.TabIndex = 3;
-            this.dlTab.Text = "Datalogger";
+            this.dlTab.Text = "Heater";
             this.dlTab.UseVisualStyleBackColor = true;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(6, 6);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(119, 13);
+            this.label38.TabIndex = 1;
+            this.label38.Text = "Connected Dataloggers";
             // 
             // availDataloggers
             // 
             this.availDataloggers.FormattingEnabled = true;
             this.availDataloggers.Location = new System.Drawing.Point(7, 22);
             this.availDataloggers.Name = "availDataloggers";
-            this.availDataloggers.Size = new System.Drawing.Size(160, 109);
+            this.availDataloggers.Size = new System.Drawing.Size(118, 64);
             this.availDataloggers.TabIndex = 0;
             // 
             // serverTab
@@ -975,7 +994,7 @@ namespace QIXLPTesting
             this.serverTab.Location = new System.Drawing.Point(4, 22);
             this.serverTab.Name = "serverTab";
             this.serverTab.Padding = new System.Windows.Forms.Padding(3);
-            this.serverTab.Size = new System.Drawing.Size(895, 570);
+            this.serverTab.Size = new System.Drawing.Size(895, 596);
             this.serverTab.TabIndex = 2;
             this.serverTab.Text = "Server View";
             this.serverTab.UseVisualStyleBackColor = true;
@@ -1631,28 +1650,9 @@ namespace QIXLPTesting
             // manualToolStripMenuItem
             // 
             this.manualToolStripMenuItem.Name = "manualToolStripMenuItem";
-            this.manualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.manualToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.manualToolStripMenuItem.Text = "Manual";
             this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(6, 6);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(119, 13);
-            this.label38.TabIndex = 1;
-            this.label38.Text = "Connected Dataloggers";
-            // 
-            // sdiRadio
-            // 
-            this.sdiRadio.AutoSize = true;
-            this.sdiRadio.Location = new System.Drawing.Point(8, 27);
-            this.sdiRadio.Name = "sdiRadio";
-            this.sdiRadio.Size = new System.Drawing.Size(55, 17);
-            this.sdiRadio.TabIndex = 5;
-            this.sdiRadio.Text = "SDI12";
-            this.sdiRadio.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
