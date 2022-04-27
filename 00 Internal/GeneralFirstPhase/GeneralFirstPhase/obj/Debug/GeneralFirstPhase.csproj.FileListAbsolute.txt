@@ -36,3 +36,4 @@ C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\Gen
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.csproj.CopyComplete
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.exe
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.pdb
+C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.HeaterOptions.resources

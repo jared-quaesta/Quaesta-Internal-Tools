@@ -1,4 +1,6 @@
-﻿using OxyPlot;
+﻿using GeneralFirstPhase;
+using OxyPlot;
+using OxyPlot.Series;
 using QIXLPTesting.SerialTools;
 using QIXLPTesting.SQL;
 using System;
@@ -39,7 +41,12 @@ namespace QIXLPTesting
             "Pass/Fail is determined by whether the average temperature falls between the set minimum and maximum.";
 
         List<string> curServerResults = new List<string>();
+        SerialDataloggerManager dlMan = new SerialDataloggerManager();
+        
+        // Heater stuff
+        HeaterOptions heaterOptionsForm = new HeaterOptions();
 
+        
         public MainForm()
         {
             InitializeComponent();
@@ -70,6 +77,100 @@ namespace QIXLPTesting
                     availDataloggers.Items.Add(dl, false);
                 }
                 if (availDataloggers.Items.Count > 0) availDataloggers.SetItemChecked(0, true);
+
+                refreshConnectedToolStripMenuItem.Enabled = false;
+                availNpmsHeater.Items.Clear();
+
+                List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
+                foreach (Tuple<string, string> com in SerialNPMManager.GetComs("STMicroelectronics"))
+                {
+                    // get sn, app to com number
+                    serialMans.Add(new SerialNPMManager("unk", com.Item1));
+                    //
+                }
+                List<Thread> threads = new List<Thread>();
+                BlockingCollection<string> coms = new BlockingCollection<string>();
+
+                foreach (SerialNPMManager serialMan in serialMans)
+                {
+                    ThreadStart threadDelegate = new ThreadStart(() =>
+                    {
+                        // connect
+                        int att = 0;
+
+                        serialMan.Connect(serialMan.com);
+                        while (!serialMan.IsConnected())
+                        {
+                            if (att == 10)
+                            {
+                                break;
+                            }
+                            att++;
+                            Thread.Sleep(500);
+                            serialMan.Connect(serialMan.com);
+                        }
+                        if (!serialMan.IsConnected())
+                        {
+                            return;
+                        }
+                        // get info
+                        serialMan.ClearInput();
+                        serialMan.SendCommand("info\r");
+                        Thread.Sleep(100);
+                        att = 0;
+                        while (serialMan.listener.GetSerial().Length == 0)
+                        {
+                            if (att == 10)
+                            {
+                                Debug.WriteLine("Unable to get " + serialMan.com);
+                                break;
+                            };
+                            att++;
+                            serialMan.listener.Clearinfo();
+                            Thread.Sleep(30);
+                            serialMan.SendCommand("info\r");
+                            Thread.Sleep(30);
+                            serialMan.SendCommand("info\r");
+                            Thread.Sleep(30);
+                            serialMan.listener.ParseInfo();
+                        }
+
+                        string serial = serialMan.listener.GetSerial();
+                        att = 0;
+                        while (!coms.TryAdd(serial + " : " + serialMan.com))
+                        {
+                            if (att++ == 10) break;
+                            Thread.Sleep(30);
+                        }
+                        serialMan.Disconnect();
+                    });
+                    Thread thread = new Thread(threadDelegate);
+                    thread.Start();
+                    threads.Add(thread);
+
+                }
+                await Task.Run(() =>
+                {
+                    foreach (var thread in threads)
+                    {
+                        thread.Join();
+                    }
+                });
+
+                List<string> sortMe = new List<string>();
+                foreach (string npm in coms)
+                {
+                    sortMe.Add(npm);
+                }
+                sortMe.Sort();
+                foreach (string i in sortMe)
+                {
+                    availNpmsHeater.Items.Add(i);
+                }
+
+                refreshConnectedToolStripMenuItem.Enabled = true;
+                avail.Text = $"Available NPMs ({availNpms.Items.Count} Connected)";
+
 
             }
             else
@@ -202,7 +303,8 @@ namespace QIXLPTesting
         {
             refreshConnectedToolStripMenuItem_Click(null, null);
             TestChange(null, null);
-            //testTabControl.TabPages.Remove(dlTab);
+            // force load heater options without showing it.
+            IntPtr p = heaterOptionsForm.Handle;
         }
 
         private void SelAll(object sender, EventArgs e)
@@ -1478,6 +1580,249 @@ namespace QIXLPTesting
             {
                 Process.Start(loc);
             }
+        }
+
+        private void availDataloggers_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
+            if (e.NewValue == CheckState.Unchecked) return;
+            dlMan.Disconnect();
+            dlConnectedLabel.Text = "Not Connected";
+            dlConnectedLabel.ForeColor = Color.Red;
+            bool tryConnect = false;
+            tryConnect = dlMan.Connect(availDataloggers.Items[e.Index].ToString());
+
+            foreach (int avail in availDataloggers.CheckedIndices)
+            {
+                availDataloggers.SetItemCheckState(avail, CheckState.Unchecked);
+            }
+
+            if (tryConnect)
+            {
+                dlConnectedLabel.Text = "Connected";
+                dlConnectedLabel.ForeColor = Color.Green;
+            }
+
+        }
+
+
+        private void minTrack_Scroll(object sender, EventArgs e)
+        {
+            minTempBox.Text = minTrack.Value.ToString();
+        }
+
+        private void maxTrack_Scroll(object sender, EventArgs e)
+        {
+            maxTempBox.Text = maxTrack.Value.ToString();
+        }
+
+
+
+        private void ParseMax(object sender, KeyEventArgs e)
+        {
+            if (int.TryParse(maxTempBox.Text, out int val))
+            {
+                if (val >= 0 && val <= maxTrack.Maximum) maxTrack.Value = val;
+            }
+            Refresh();
+        }
+
+        private void ParseMin(object sender, KeyEventArgs e)
+        {
+            if (int.TryParse(minTempBox.Text, out int val))
+            {
+                if (val >= 0 && val <= minTrack.Maximum) minTrack.Value = val;
+            }
+            Refresh();
+        }
+
+        private async void queryDlBtn_Click(object sender, EventArgs e)
+        {
+            if (!dlMan.IsConnected()) return;
+            cs215Btn.Enabled = false;
+            dlPanel.Enabled = false;
+            await dlMan.QueryCycle();
+            Tuple<bool, bool, bool, bool, int, int, int> cycle = dlMan.listener.GetCycle();
+
+            bool flgThermalCyclingEnabled = cycle.Item1;
+            bool flgHotCycle = cycle.Item2;
+            bool flgColdCycle = cycle.Item3;
+            bool flgUseCS215 = cycle.Item4;
+            int maxCycleTemp = cycle.Item5;
+            int minCycleTemp = cycle.Item6;
+            int relays = cycle.Item7;
+
+            dlPanel.Enabled = true;
+            cs215Btn.Enabled = true;
+
+            if (!flgThermalCyclingEnabled) dlMan.SendCommand("flgThermalCyclingEnabled=1\r\n");
+            if (maxCycleTemp >= 0 && maxCycleTemp <= maxTrack.Maximum)
+            {
+                maxTrack.Value = maxCycleTemp;
+                maxTempBox.Text = maxCycleTemp.ToString();
+            }
+            if (minCycleTemp >= 0 && minCycleTemp <= minTrack.Maximum)
+            {
+                minTrack.Value = minCycleTemp;
+                minTempBox.Text = minCycleTemp.ToString();
+            }
+            coolCycleCheck.Checked = flgColdCycle;
+            heatCycleCheck.Checked = flgHotCycle;
+            if (relays == 1) coolerOnRadio.Checked = true;
+            else if (relays == 8) heaterOnRadio.Checked = true;
+            else if (relays == 0) relayOffRadio.Checked = true;
+            Refresh();
+        }
+
+
+        private async void relayChange(object sender, EventArgs e)
+        {
+            if (!dlMan.IsConnected()) return;
+            await dlMan.INICommand($"relays={((RadioButton)sender).Tag}\r\n");
+            await dlMan.QueryCycle();
+            queryDlBtn_Click(null, null);
+        }
+
+
+        private async void UpdateHotCycle(object sender, EventArgs e)
+        {
+            int val = 0;
+            if (heatCycleCheck.Checked) val = 1;
+            await dlMan.INICommand($"flgHotCycle={val}\r\n\r\n");
+            await dlMan.QueryCycle();
+            queryDlBtn_Click(null, null);
+        }
+
+        private async void UpdateCoolCycle(object sender, EventArgs e)
+        {
+            int val = 0;
+            if (coolCycleCheck.Checked) val = 1;
+            await dlMan.INICommand($"flgColdCycle={val}\r\n\r\n");
+            await dlMan.QueryCycle();
+            queryDlBtn_Click(null, null);
+        }
+
+        private async void runHeatTest_ClickAsync(object sender, EventArgs e)
+        {
+            if (availNpmsHeater.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("No NPMs Selected.", "Error");
+                return;
+            }
+            if (!dlMan.IsConnected())
+            {
+                MessageBox.Show("Datalogger not connected.","Error");
+                return;
+            }
+
+            List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
+            foreach (string checkedCom in availNpms.CheckedItems)
+            {
+                serialMans.Add(new SerialNPMManager(checkedCom.Split(':')[0].Trim(), checkedCom.Split(':')[1].Trim()));
+            }
+            int finished = 0;
+            int numUpdating = serialMans.Count;
+            List<string> failedConnect = new List<string>();
+            List<Thread> threads = new List<Thread>();
+            BlockingCollection<string> coms = new BlockingCollection<string>();
+            foreach (SerialNPMManager serialMan in serialMans)
+            {
+                ThreadStart threadDelegate = new ThreadStart(() =>
+                {
+                    // connect
+                    int att = 0;
+
+                    serialMan.Connect(serialMan.com);
+                    while (!serialMan.IsConnected())
+                    {
+                        if (att == 10)
+                        {
+                            break;
+                        }
+                        att++;
+                        Thread.Sleep(500);
+                        serialMan.Connect(serialMan.com);
+                    }
+                    if (!serialMan.IsConnected())
+                    {
+                        MessageBox.Show("Unable to connect to ");
+                    }
+                });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
+            }
+
+            await Task.Run(() =>
+            {
+                foreach (var thread in threads)
+                {
+                    thread.Join();
+                }
+            });
+
+            // validate all NPMs connected
+            if (failedConnect.Count != 0)
+            {
+                foreach (string npm in failedConnect)
+                {
+                    AddOutput("Connection Failed: ", Color.FromArgb(251, 55, 40));
+                    AddOutput(npm + Environment.NewLine, Color.White);
+                }
+
+                AddOutput("Terminating Test\n", Color.FromArgb(251, 55, 40));
+                foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
+                return;
+            }
+
+
+        }
+
+        private async void cs215Btn_Click(object sender, EventArgs e)
+        {
+            cs215Btn.Enabled = false;
+            dlPanel.Enabled = false;
+            cs215Lbl.Text = "";
+            if (!dlMan.IsConnected())
+            {
+                MessageBox.Show("Datalogger not connected.", "Error");
+                return;
+            }
+            string cs215 = await dlMan.GetCS215();
+            cs215Lbl.Text = cs215;
+            cs215Btn.Enabled = true;
+            dlPanel.Enabled = true;
+        }
+
+        private void selAllHeat_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < availNpmsHeater.Items.Count; i++)
+            {
+                availNpmsHeater.SetItemChecked(i, true);
+            }
+        }
+
+        private void selNoneHeat_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < availNpmsHeater.Items.Count; i++)
+            {
+                availNpmsHeater.SetItemChecked(i, false);
+            }
+        }
+
+        private void showTermHeat_Click(object sender, EventArgs e)
+        {
+            if (availNpmsHeater.SelectedIndex == -1) return;
+
+            string com = availNpmsHeater.SelectedItem.ToString().Split(':')[1].Trim();
+            string serial = availNpmsHeater.SelectedItem.ToString().Split(':')[0].Trim();
+            SerialNPMManager man = new SerialNPMManager(serial, com);
+            man.ShowTerm();
+        }
+
+        private void showHeaterOptionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            heaterOptionsForm.ShowDialog();
         }
     }
 }

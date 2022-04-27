@@ -65,6 +65,12 @@
     <Compile Include="DirectTerm.Designer.cs">
       <DependentUpon>DirectTerm.cs</DependentUpon>
     </Compile>
+    <Compile Include="HeaterOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HeaterOptions.Designer.cs">
+      <DependentUpon>HeaterOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="HGMPlotForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,8 +86,9 @@
     <Compile Include="NPMData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerialTools\SerialDataloggerListener.cs" />
     <Compile Include="SerialTools\SerialDataloggerManager.cs" />
-    <Compile Include="SerialTools\SerialListener.cs" />
+    <Compile Include="SerialTools\SerialNPMListener.cs" />
     <Compile Include="SerialTools\SerialNPMManager.cs" />
     <Compile Include="SQL\SQLManager.cs" />
     <Compile Include="Tests\Tests.cs" />
@@ -96,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DirectTerm.resx">
       <DependentUpon>DirectTerm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HeaterOptions.resx">
+      <DependentUpon>HeaterOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HGMPlotForm.resx">
       <DependentUpon>HGMPlotForm.cs</DependentUpon>

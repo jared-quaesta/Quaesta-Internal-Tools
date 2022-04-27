@@ -96,6 +96,35 @@ namespace QIXLPTesting
             this.avail = new System.Windows.Forms.Label();
             this.availNpms = new System.Windows.Forms.CheckedListBox();
             this.dlTab = new System.Windows.Forms.TabPage();
+            this.cs215Btn = new System.Windows.Forms.Button();
+            this.runHeatTest = new System.Windows.Forms.Button();
+            this.varySelectBox = new System.Windows.Forms.ComboBox();
+            this.cs215Lbl = new System.Windows.Forms.Label();
+            this.hgmPlot = new OxyPlot.WindowsForms.PlotView();
+            this.variablePlot = new OxyPlot.WindowsForms.PlotView();
+            this.timePlot = new OxyPlot.WindowsForms.PlotView();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.dlPanel = new System.Windows.Forms.Panel();
+            this.queryDlBtn = new System.Windows.Forms.Button();
+            this.coolerOnRadio = new System.Windows.Forms.RadioButton();
+            this.heaterOnRadio = new System.Windows.Forms.RadioButton();
+            this.relayOffRadio = new System.Windows.Forms.RadioButton();
+            this.coolCycleCheck = new System.Windows.Forms.CheckBox();
+            this.heatCycleCheck = new System.Windows.Forms.CheckBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.maxTempBox = new System.Windows.Forms.TextBox();
+            this.maxTrack = new System.Windows.Forms.TrackBar();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.minTempBox = new System.Windows.Forms.TextBox();
+            this.minTrack = new System.Windows.Forms.TrackBar();
+            this.showTermHeat = new System.Windows.Forms.Button();
+            this.selNoneHeat = new System.Windows.Forms.Button();
+            this.selAllHeat = new System.Windows.Forms.Button();
+            this.label40 = new System.Windows.Forms.Label();
+            this.availNpmsHeater = new System.Windows.Forms.CheckedListBox();
+            this.dlConnectedLabel = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.availDataloggers = new System.Windows.Forms.CheckedListBox();
             this.serverTab = new System.Windows.Forms.TabPage();
@@ -159,6 +188,7 @@ namespace QIXLPTesting
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showHeaterOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -167,6 +197,10 @@ namespace QIXLPTesting
             this.panel1.SuspendLayout();
             this.voltOptionsGB.SuspendLayout();
             this.dlTab.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.dlPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxTrack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minTrack)).BeginInit();
             this.serverTab.SuspendLayout();
             this.serverDetailsPanel.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -188,7 +222,7 @@ namespace QIXLPTesting
             this.testTabControl.Location = new System.Drawing.Point(12, 27);
             this.testTabControl.Name = "testTabControl";
             this.testTabControl.SelectedIndex = 0;
-            this.testTabControl.Size = new System.Drawing.Size(903, 622);
+            this.testTabControl.Size = new System.Drawing.Size(982, 697);
             this.testTabControl.TabIndex = 0;
             this.testTabControl.SelectedIndexChanged += new System.EventHandler(this.RefreshAvailable);
             // 
@@ -215,7 +249,7 @@ namespace QIXLPTesting
             this.testTab.Location = new System.Drawing.Point(4, 22);
             this.testTab.Name = "testTab";
             this.testTab.Padding = new System.Windows.Forms.Padding(3);
-            this.testTab.Size = new System.Drawing.Size(895, 596);
+            this.testTab.Size = new System.Drawing.Size(974, 671);
             this.testTab.TabIndex = 1;
             this.testTab.Text = "Testing";
             this.testTab.UseVisualStyleBackColor = true;
@@ -233,7 +267,7 @@ namespace QIXLPTesting
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(249, 368);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(361, 51);
+            this.groupBox3.Size = new System.Drawing.Size(434, 51);
             this.groupBox3.TabIndex = 20;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Temperature Options";
@@ -324,14 +358,14 @@ namespace QIXLPTesting
             | System.Windows.Forms.AnchorStyles.Left)));
             this.testDesc.Location = new System.Drawing.Point(249, 422);
             this.testDesc.Name = "testDesc";
-            this.testDesc.Size = new System.Drawing.Size(361, 95);
+            this.testDesc.Size = new System.Drawing.Size(434, 167);
             this.testDesc.TabIndex = 21;
             this.testDesc.Text = "testDesc";
             // 
             // blinkBtn
             // 
             this.blinkBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.blinkBtn.Location = new System.Drawing.Point(170, 570);
+            this.blinkBtn.Location = new System.Drawing.Point(170, 642);
             this.blinkBtn.Name = "blinkBtn";
             this.blinkBtn.Size = new System.Drawing.Size(73, 23);
             this.blinkBtn.TabIndex = 20;
@@ -352,7 +386,7 @@ namespace QIXLPTesting
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(249, 279);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(361, 83);
+            this.groupBox2.Size = new System.Drawing.Size(434, 83);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SDEV Noise Test Options";
@@ -468,7 +502,7 @@ namespace QIXLPTesting
             this.groupBox1.Controls.Add(this.gainBox);
             this.groupBox1.Location = new System.Drawing.Point(249, 168);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(361, 105);
+            this.groupBox1.Size = new System.Drawing.Size(434, 105);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PulseSim Test Options";
@@ -635,7 +669,7 @@ namespace QIXLPTesting
             this.panel1.Controls.Add(this.voltageRadio);
             this.panel1.Location = new System.Drawing.Point(249, 22);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(361, 52);
+            this.panel1.Size = new System.Drawing.Size(434, 52);
             this.panel1.TabIndex = 19;
             // 
             // sdiRadio
@@ -708,7 +742,7 @@ namespace QIXLPTesting
             // openTerm
             // 
             this.openTerm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.openTerm.Location = new System.Drawing.Point(109, 570);
+            this.openTerm.Location = new System.Drawing.Point(109, 642);
             this.openTerm.Name = "openTerm";
             this.openTerm.Size = new System.Drawing.Size(55, 23);
             this.openTerm.TabIndex = 18;
@@ -730,7 +764,7 @@ namespace QIXLPTesting
             this.voltOptionsGB.Controls.Add(this.voltLevel);
             this.voltOptionsGB.Location = new System.Drawing.Point(249, 80);
             this.voltOptionsGB.Name = "voltOptionsGB";
-            this.voltOptionsGB.Size = new System.Drawing.Size(361, 82);
+            this.voltOptionsGB.Size = new System.Drawing.Size(434, 82);
             this.voltOptionsGB.TabIndex = 13;
             this.voltOptionsGB.TabStop = false;
             this.voltOptionsGB.Text = "Voltage Test Options";
@@ -854,9 +888,9 @@ namespace QIXLPTesting
             this.runBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.runBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.runBtn.ForeColor = System.Drawing.Color.Green;
-            this.runBtn.Location = new System.Drawing.Point(249, 520);
+            this.runBtn.Location = new System.Drawing.Point(249, 592);
             this.runBtn.Name = "runBtn";
-            this.runBtn.Size = new System.Drawing.Size(361, 44);
+            this.runBtn.Size = new System.Drawing.Size(434, 44);
             this.runBtn.TabIndex = 12;
             this.runBtn.Text = "Run Test";
             this.runBtn.UseVisualStyleBackColor = true;
@@ -865,9 +899,9 @@ namespace QIXLPTesting
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar.Location = new System.Drawing.Point(249, 570);
+            this.progressBar.Location = new System.Drawing.Point(249, 642);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(361, 23);
+            this.progressBar.Size = new System.Drawing.Size(434, 23);
             this.progressBar.TabIndex = 11;
             // 
             // label1
@@ -883,9 +917,9 @@ namespace QIXLPTesting
             // 
             this.clearOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.clearOut.Location = new System.Drawing.Point(616, 570);
+            this.clearOut.Location = new System.Drawing.Point(689, 642);
             this.clearOut.Name = "clearOut";
-            this.clearOut.Size = new System.Drawing.Size(273, 23);
+            this.clearOut.Size = new System.Drawing.Size(279, 23);
             this.clearOut.TabIndex = 7;
             this.clearOut.Text = "Clear";
             this.clearOut.UseVisualStyleBackColor = true;
@@ -894,7 +928,7 @@ namespace QIXLPTesting
             // selNone
             // 
             this.selNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.selNone.Location = new System.Drawing.Point(50, 570);
+            this.selNone.Location = new System.Drawing.Point(50, 642);
             this.selNone.Name = "selNone";
             this.selNone.Size = new System.Drawing.Size(53, 23);
             this.selNone.TabIndex = 6;
@@ -905,7 +939,7 @@ namespace QIXLPTesting
             // selAll
             // 
             this.selAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.selAll.Location = new System.Drawing.Point(7, 570);
+            this.selAll.Location = new System.Drawing.Point(7, 642);
             this.selAll.Name = "selAll";
             this.selAll.Size = new System.Drawing.Size(37, 23);
             this.selAll.TabIndex = 5;
@@ -921,16 +955,16 @@ namespace QIXLPTesting
             this.outputBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(48)))), ((int)(((byte)(47)))), ((int)(((byte)(59)))));
             this.outputBox.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.outputBox.ForeColor = System.Drawing.Color.White;
-            this.outputBox.Location = new System.Drawing.Point(616, 22);
+            this.outputBox.Location = new System.Drawing.Point(689, 22);
             this.outputBox.Name = "outputBox";
-            this.outputBox.Size = new System.Drawing.Size(273, 548);
+            this.outputBox.Size = new System.Drawing.Size(279, 614);
             this.outputBox.TabIndex = 4;
             this.outputBox.Text = "";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(613, 6);
+            this.label2.Location = new System.Drawing.Point(686, 6);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(39, 13);
             this.label2.TabIndex = 3;
@@ -953,37 +987,399 @@ namespace QIXLPTesting
             this.availNpms.FormattingEnabled = true;
             this.availNpms.Location = new System.Drawing.Point(7, 22);
             this.availNpms.Name = "availNpms";
-            this.availNpms.Size = new System.Drawing.Size(236, 544);
+            this.availNpms.Size = new System.Drawing.Size(236, 604);
             this.availNpms.TabIndex = 0;
             // 
             // dlTab
             // 
+            this.dlTab.Controls.Add(this.cs215Btn);
+            this.dlTab.Controls.Add(this.runHeatTest);
+            this.dlTab.Controls.Add(this.varySelectBox);
+            this.dlTab.Controls.Add(this.cs215Lbl);
+            this.dlTab.Controls.Add(this.hgmPlot);
+            this.dlTab.Controls.Add(this.variablePlot);
+            this.dlTab.Controls.Add(this.timePlot);
+            this.dlTab.Controls.Add(this.groupBox4);
+            this.dlTab.Controls.Add(this.showTermHeat);
+            this.dlTab.Controls.Add(this.selNoneHeat);
+            this.dlTab.Controls.Add(this.selAllHeat);
+            this.dlTab.Controls.Add(this.label40);
+            this.dlTab.Controls.Add(this.availNpmsHeater);
+            this.dlTab.Controls.Add(this.dlConnectedLabel);
             this.dlTab.Controls.Add(this.label38);
             this.dlTab.Controls.Add(this.availDataloggers);
             this.dlTab.Location = new System.Drawing.Point(4, 22);
             this.dlTab.Name = "dlTab";
             this.dlTab.Padding = new System.Windows.Forms.Padding(3);
-            this.dlTab.Size = new System.Drawing.Size(895, 596);
+            this.dlTab.Size = new System.Drawing.Size(974, 671);
             this.dlTab.TabIndex = 3;
             this.dlTab.Text = "Heater";
             this.dlTab.UseVisualStyleBackColor = true;
             // 
+            // cs215Btn
+            // 
+            this.cs215Btn.Location = new System.Drawing.Point(248, 108);
+            this.cs215Btn.Name = "cs215Btn";
+            this.cs215Btn.Size = new System.Drawing.Size(89, 23);
+            this.cs215Btn.TabIndex = 35;
+            this.cs215Btn.Text = "Get CS215";
+            this.cs215Btn.UseVisualStyleBackColor = true;
+            this.cs215Btn.Click += new System.EventHandler(this.cs215Btn_Click);
+            // 
+            // runHeatTest
+            // 
+            this.runHeatTest.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.runHeatTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.runHeatTest.ForeColor = System.Drawing.Color.Green;
+            this.runHeatTest.Location = new System.Drawing.Point(526, 108);
+            this.runHeatTest.Name = "runHeatTest";
+            this.runHeatTest.Size = new System.Drawing.Size(436, 23);
+            this.runHeatTest.TabIndex = 32;
+            this.runHeatTest.Text = "Run Test";
+            this.runHeatTest.UseVisualStyleBackColor = true;
+            this.runHeatTest.Click += new System.EventHandler(this.runHeatTest_ClickAsync);
+            // 
+            // varySelectBox
+            // 
+            this.varySelectBox.FormattingEnabled = true;
+            this.varySelectBox.Items.AddRange(new object[] {
+            "Voltage",
+            "Count Time Series",
+            "Temperature/Humidity"});
+            this.varySelectBox.Location = new System.Drawing.Point(250, 350);
+            this.varySelectBox.Name = "varySelectBox";
+            this.varySelectBox.Size = new System.Drawing.Size(153, 21);
+            this.varySelectBox.TabIndex = 31;
+            this.varySelectBox.Text = "Voltage";
+            // 
+            // cs215Lbl
+            // 
+            this.cs215Lbl.AutoSize = true;
+            this.cs215Lbl.Location = new System.Drawing.Point(343, 113);
+            this.cs215Lbl.Name = "cs215Lbl";
+            this.cs215Lbl.Size = new System.Drawing.Size(0, 13);
+            this.cs215Lbl.TabIndex = 33;
+            // 
+            // hgmPlot
+            // 
+            this.hgmPlot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.hgmPlot.Location = new System.Drawing.Point(250, 135);
+            this.hgmPlot.Name = "hgmPlot";
+            this.hgmPlot.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.hgmPlot.Size = new System.Drawing.Size(712, 209);
+            this.hgmPlot.TabIndex = 30;
+            this.hgmPlot.Text = "plotView3";
+            this.hgmPlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.hgmPlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.hgmPlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // variablePlot
+            // 
+            this.variablePlot.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.variablePlot.Location = new System.Drawing.Point(250, 350);
+            this.variablePlot.Name = "variablePlot";
+            this.variablePlot.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.variablePlot.Size = new System.Drawing.Size(712, 201);
+            this.variablePlot.TabIndex = 29;
+            this.variablePlot.Text = "plotView2";
+            this.variablePlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.variablePlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.variablePlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // timePlot
+            // 
+            this.timePlot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timePlot.Location = new System.Drawing.Point(250, 557);
+            this.timePlot.Name = "timePlot";
+            this.timePlot.PanCursor = System.Windows.Forms.Cursors.Hand;
+            this.timePlot.Size = new System.Drawing.Size(712, 104);
+            this.timePlot.TabIndex = 28;
+            this.timePlot.Text = "plotView1";
+            this.timePlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
+            this.timePlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
+            this.timePlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.dlPanel);
+            this.groupBox4.Controls.Add(this.label42);
+            this.groupBox4.Controls.Add(this.label43);
+            this.groupBox4.Controls.Add(this.maxTempBox);
+            this.groupBox4.Controls.Add(this.maxTrack);
+            this.groupBox4.Controls.Add(this.label41);
+            this.groupBox4.Controls.Add(this.label39);
+            this.groupBox4.Controls.Add(this.minTempBox);
+            this.groupBox4.Controls.Add(this.minTrack);
+            this.groupBox4.Location = new System.Drawing.Point(373, 7);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(589, 98);
+            this.groupBox4.TabIndex = 27;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Temperature Options";
+            // 
+            // dlPanel
+            // 
+            this.dlPanel.Controls.Add(this.queryDlBtn);
+            this.dlPanel.Controls.Add(this.coolerOnRadio);
+            this.dlPanel.Controls.Add(this.heaterOnRadio);
+            this.dlPanel.Controls.Add(this.relayOffRadio);
+            this.dlPanel.Controls.Add(this.coolCycleCheck);
+            this.dlPanel.Controls.Add(this.heatCycleCheck);
+            this.dlPanel.Location = new System.Drawing.Point(4, 73);
+            this.dlPanel.Name = "dlPanel";
+            this.dlPanel.Size = new System.Drawing.Size(570, 24);
+            this.dlPanel.TabIndex = 14;
+            // 
+            // queryDlBtn
+            // 
+            this.queryDlBtn.Location = new System.Drawing.Point(5, 1);
+            this.queryDlBtn.Name = "queryDlBtn";
+            this.queryDlBtn.Size = new System.Drawing.Size(193, 23);
+            this.queryDlBtn.TabIndex = 13;
+            this.queryDlBtn.Text = "Query";
+            this.queryDlBtn.UseVisualStyleBackColor = true;
+            this.queryDlBtn.Click += new System.EventHandler(this.queryDlBtn_Click);
+            // 
+            // coolerOnRadio
+            // 
+            this.coolerOnRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.coolerOnRadio.AutoSize = true;
+            this.coolerOnRadio.Location = new System.Drawing.Point(370, 3);
+            this.coolerOnRadio.Name = "coolerOnRadio";
+            this.coolerOnRadio.Size = new System.Drawing.Size(72, 17);
+            this.coolerOnRadio.TabIndex = 12;
+            this.coolerOnRadio.Tag = "1";
+            this.coolerOnRadio.Text = "Cooler On";
+            this.coolerOnRadio.UseVisualStyleBackColor = true;
+            this.coolerOnRadio.Click += new System.EventHandler(this.relayChange);
+            // 
+            // heaterOnRadio
+            // 
+            this.heaterOnRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.heaterOnRadio.AutoSize = true;
+            this.heaterOnRadio.Location = new System.Drawing.Point(448, 3);
+            this.heaterOnRadio.Name = "heaterOnRadio";
+            this.heaterOnRadio.Size = new System.Drawing.Size(74, 17);
+            this.heaterOnRadio.TabIndex = 11;
+            this.heaterOnRadio.Tag = "8";
+            this.heaterOnRadio.Text = "Heater On";
+            this.heaterOnRadio.UseVisualStyleBackColor = true;
+            this.heaterOnRadio.Click += new System.EventHandler(this.relayChange);
+            // 
+            // relayOffRadio
+            // 
+            this.relayOffRadio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.relayOffRadio.AutoSize = true;
+            this.relayOffRadio.Checked = true;
+            this.relayOffRadio.Location = new System.Drawing.Point(528, 3);
+            this.relayOffRadio.Name = "relayOffRadio";
+            this.relayOffRadio.Size = new System.Drawing.Size(39, 17);
+            this.relayOffRadio.TabIndex = 10;
+            this.relayOffRadio.TabStop = true;
+            this.relayOffRadio.Tag = "0";
+            this.relayOffRadio.Text = "Off";
+            this.relayOffRadio.UseVisualStyleBackColor = true;
+            this.relayOffRadio.Click += new System.EventHandler(this.relayChange);
+            // 
+            // coolCycleCheck
+            // 
+            this.coolCycleCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.coolCycleCheck.AutoSize = true;
+            this.coolCycleCheck.Location = new System.Drawing.Point(288, 4);
+            this.coolCycleCheck.Name = "coolCycleCheck";
+            this.coolCycleCheck.Size = new System.Drawing.Size(76, 17);
+            this.coolCycleCheck.TabIndex = 9;
+            this.coolCycleCheck.Text = "Cool Cycle";
+            this.coolCycleCheck.UseVisualStyleBackColor = true;
+            this.coolCycleCheck.Click += new System.EventHandler(this.UpdateCoolCycle);
+            // 
+            // heatCycleCheck
+            // 
+            this.heatCycleCheck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.heatCycleCheck.AutoSize = true;
+            this.heatCycleCheck.Location = new System.Drawing.Point(204, 4);
+            this.heatCycleCheck.Name = "heatCycleCheck";
+            this.heatCycleCheck.Size = new System.Drawing.Size(78, 17);
+            this.heatCycleCheck.TabIndex = 8;
+            this.heatCycleCheck.Text = "Heat Cycle";
+            this.heatCycleCheck.UseVisualStyleBackColor = true;
+            this.heatCycleCheck.Click += new System.EventHandler(this.UpdateHotCycle);
+            // 
+            // label42
+            // 
+            this.label42.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(571, 54);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(14, 13);
+            this.label42.TabIndex = 7;
+            this.label42.Text = "C";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(6, 54);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(27, 13);
+            this.label43.TabIndex = 6;
+            this.label43.Text = "Max";
+            // 
+            // maxTempBox
+            // 
+            this.maxTempBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.maxTempBox.Location = new System.Drawing.Point(532, 51);
+            this.maxTempBox.Name = "maxTempBox";
+            this.maxTempBox.Size = new System.Drawing.Size(39, 20);
+            this.maxTempBox.TabIndex = 5;
+            this.maxTempBox.Text = "50";
+            this.maxTempBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ParseMax);
+            // 
+            // maxTrack
+            // 
+            this.maxTrack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.maxTrack.AutoSize = false;
+            this.maxTrack.Location = new System.Drawing.Point(36, 48);
+            this.maxTrack.Maximum = 60;
+            this.maxTrack.Name = "maxTrack";
+            this.maxTrack.Size = new System.Drawing.Size(490, 23);
+            this.maxTrack.TabIndex = 4;
+            this.maxTrack.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.maxTrack.Value = 50;
+            this.maxTrack.Scroll += new System.EventHandler(this.maxTrack_Scroll);
+            // 
+            // label41
+            // 
+            this.label41.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(571, 25);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(14, 13);
+            this.label41.TabIndex = 3;
+            this.label41.Text = "C";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(6, 25);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(24, 13);
+            this.label39.TabIndex = 2;
+            this.label39.Text = "Min";
+            // 
+            // minTempBox
+            // 
+            this.minTempBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.minTempBox.Location = new System.Drawing.Point(532, 22);
+            this.minTempBox.Name = "minTempBox";
+            this.minTempBox.Size = new System.Drawing.Size(39, 20);
+            this.minTempBox.TabIndex = 1;
+            this.minTempBox.Text = "10";
+            this.minTempBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ParseMin);
+            // 
+            // minTrack
+            // 
+            this.minTrack.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.minTrack.AutoSize = false;
+            this.minTrack.Location = new System.Drawing.Point(36, 19);
+            this.minTrack.Maximum = 60;
+            this.minTrack.Name = "minTrack";
+            this.minTrack.Size = new System.Drawing.Size(490, 23);
+            this.minTrack.TabIndex = 0;
+            this.minTrack.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.minTrack.Value = 10;
+            this.minTrack.Scroll += new System.EventHandler(this.minTrack_Scroll);
+            // 
+            // showTermHeat
+            // 
+            this.showTermHeat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.showTermHeat.Location = new System.Drawing.Point(108, 646);
+            this.showTermHeat.Name = "showTermHeat";
+            this.showTermHeat.Size = new System.Drawing.Size(134, 23);
+            this.showTermHeat.TabIndex = 25;
+            this.showTermHeat.Text = "Terminal";
+            this.showTermHeat.UseVisualStyleBackColor = true;
+            this.showTermHeat.Click += new System.EventHandler(this.showTermHeat_Click);
+            // 
+            // selNoneHeat
+            // 
+            this.selNoneHeat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selNoneHeat.Location = new System.Drawing.Point(49, 646);
+            this.selNoneHeat.Name = "selNoneHeat";
+            this.selNoneHeat.Size = new System.Drawing.Size(53, 23);
+            this.selNoneHeat.TabIndex = 24;
+            this.selNoneHeat.Text = "None";
+            this.selNoneHeat.UseVisualStyleBackColor = true;
+            this.selNoneHeat.Click += new System.EventHandler(this.selNoneHeat_Click);
+            // 
+            // selAllHeat
+            // 
+            this.selAllHeat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selAllHeat.Location = new System.Drawing.Point(6, 646);
+            this.selAllHeat.Name = "selAllHeat";
+            this.selAllHeat.Size = new System.Drawing.Size(37, 23);
+            this.selAllHeat.TabIndex = 23;
+            this.selAllHeat.Text = "All";
+            this.selAllHeat.UseVisualStyleBackColor = true;
+            this.selAllHeat.Click += new System.EventHandler(this.selAllHeat_Click);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(5, 4);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(50, 13);
+            this.label40.TabIndex = 22;
+            this.label40.Text = "Available";
+            // 
+            // availNpmsHeater
+            // 
+            this.availNpmsHeater.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.availNpmsHeater.CheckOnClick = true;
+            this.availNpmsHeater.FormattingEnabled = true;
+            this.availNpmsHeater.Location = new System.Drawing.Point(6, 20);
+            this.availNpmsHeater.Name = "availNpmsHeater";
+            this.availNpmsHeater.Size = new System.Drawing.Size(236, 619);
+            this.availNpmsHeater.TabIndex = 21;
+            // 
+            // dlConnectedLabel
+            // 
+            this.dlConnectedLabel.AutoSize = true;
+            this.dlConnectedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dlConnectedLabel.ForeColor = System.Drawing.Color.Red;
+            this.dlConnectedLabel.Location = new System.Drawing.Point(247, 87);
+            this.dlConnectedLabel.Name = "dlConnectedLabel";
+            this.dlConnectedLabel.Size = new System.Drawing.Size(121, 18);
+            this.dlConnectedLabel.TabIndex = 2;
+            this.dlConnectedLabel.Text = "Not Connected";
+            // 
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(6, 6);
+            this.label38.Location = new System.Drawing.Point(247, 4);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(119, 13);
+            this.label38.Size = new System.Drawing.Size(110, 13);
             this.label38.TabIndex = 1;
-            this.label38.Text = "Connected Dataloggers";
+            this.label38.Text = "Dataloggers Available";
             // 
             // availDataloggers
             // 
+            this.availDataloggers.CheckOnClick = true;
             this.availDataloggers.FormattingEnabled = true;
-            this.availDataloggers.Location = new System.Drawing.Point(7, 22);
+            this.availDataloggers.Location = new System.Drawing.Point(248, 20);
             this.availDataloggers.Name = "availDataloggers";
-            this.availDataloggers.Size = new System.Drawing.Size(118, 64);
+            this.availDataloggers.Size = new System.Drawing.Size(109, 64);
             this.availDataloggers.TabIndex = 0;
+            this.availDataloggers.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.availDataloggers_ItemCheck);
             // 
             // serverTab
             // 
@@ -994,7 +1390,7 @@ namespace QIXLPTesting
             this.serverTab.Location = new System.Drawing.Point(4, 22);
             this.serverTab.Name = "serverTab";
             this.serverTab.Padding = new System.Windows.Forms.Padding(3);
-            this.serverTab.Size = new System.Drawing.Size(895, 596);
+            this.serverTab.Size = new System.Drawing.Size(974, 671);
             this.serverTab.TabIndex = 2;
             this.serverTab.Text = "Server View";
             this.serverTab.UseVisualStyleBackColor = true;
@@ -1037,9 +1433,9 @@ namespace QIXLPTesting
             this.serverDetailsPanel.Controls.Add(this.pulseSimLbl);
             this.serverDetailsPanel.Controls.Add(this.sdevLbl);
             this.serverDetailsPanel.Controls.Add(this.voltLbl);
-            this.serverDetailsPanel.Location = new System.Drawing.Point(223, 17);
+            this.serverDetailsPanel.Location = new System.Drawing.Point(223, 6);
             this.serverDetailsPanel.Name = "serverDetailsPanel";
-            this.serverDetailsPanel.Size = new System.Drawing.Size(666, 547);
+            this.serverDetailsPanel.Size = new System.Drawing.Size(739, 650);
             this.serverDetailsPanel.TabIndex = 27;
             this.serverDetailsPanel.Visible = false;
             // 
@@ -1056,7 +1452,7 @@ namespace QIXLPTesting
             // cancelTestBtn
             // 
             this.cancelTestBtn.Enabled = false;
-            this.cancelTestBtn.Location = new System.Drawing.Point(345, 160);
+            this.cancelTestBtn.Location = new System.Drawing.Point(359, 163);
             this.cancelTestBtn.Name = "cancelTestBtn";
             this.cancelTestBtn.Size = new System.Drawing.Size(108, 46);
             this.cancelTestBtn.TabIndex = 49;
@@ -1068,7 +1464,7 @@ namespace QIXLPTesting
             // 
             this.saveTestBtn.Enabled = false;
             this.saveTestBtn.ForeColor = System.Drawing.Color.Green;
-            this.saveTestBtn.Location = new System.Drawing.Point(457, 160);
+            this.saveTestBtn.Location = new System.Drawing.Point(471, 163);
             this.saveTestBtn.Name = "saveTestBtn";
             this.saveTestBtn.Size = new System.Drawing.Size(166, 46);
             this.saveTestBtn.TabIndex = 48;
@@ -1078,11 +1474,13 @@ namespace QIXLPTesting
             // 
             // textBox2
             // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox2.Location = new System.Drawing.Point(303, 4);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(2, 507);
+            this.textBox2.Size = new System.Drawing.Size(2, 642);
             this.textBox2.TabIndex = 47;
             // 
             // panel6
@@ -1090,7 +1488,7 @@ namespace QIXLPTesting
             this.panel6.Controls.Add(this.ndT);
             this.panel6.Controls.Add(this.failT);
             this.panel6.Controls.Add(this.passT);
-            this.panel6.Location = new System.Drawing.Point(447, 116);
+            this.panel6.Location = new System.Drawing.Point(461, 119);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(184, 23);
             this.panel6.TabIndex = 46;
@@ -1139,7 +1537,7 @@ namespace QIXLPTesting
             this.panel5.Controls.Add(this.ndP);
             this.panel5.Controls.Add(this.failP);
             this.panel5.Controls.Add(this.passP);
-            this.panel5.Location = new System.Drawing.Point(447, 89);
+            this.panel5.Location = new System.Drawing.Point(461, 92);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(184, 23);
             this.panel5.TabIndex = 46;
@@ -1188,7 +1586,7 @@ namespace QIXLPTesting
             this.panel4.Controls.Add(this.ndS);
             this.panel4.Controls.Add(this.failS);
             this.panel4.Controls.Add(this.passS);
-            this.panel4.Location = new System.Drawing.Point(447, 61);
+            this.panel4.Location = new System.Drawing.Point(461, 64);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(184, 23);
             this.panel4.TabIndex = 45;
@@ -1236,7 +1634,7 @@ namespace QIXLPTesting
             // 
             this.ledLbl.AutoSize = true;
             this.ledLbl.ForeColor = System.Drawing.Color.Orange;
-            this.ledLbl.Location = new System.Drawing.Point(391, 37);
+            this.ledLbl.Location = new System.Drawing.Point(405, 40);
             this.ledLbl.Name = "ledLbl";
             this.ledLbl.Size = new System.Drawing.Size(53, 13);
             this.ledLbl.TabIndex = 8;
@@ -1247,7 +1645,7 @@ namespace QIXLPTesting
             this.panel3.Controls.Add(this.ndL);
             this.panel3.Controls.Add(this.failL);
             this.panel3.Controls.Add(this.passL);
-            this.panel3.Location = new System.Drawing.Point(447, 32);
+            this.panel3.Location = new System.Drawing.Point(461, 35);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(184, 23);
             this.panel3.TabIndex = 44;
@@ -1296,7 +1694,7 @@ namespace QIXLPTesting
             this.panel2.Controls.Add(this.ndV);
             this.panel2.Controls.Add(this.failV);
             this.panel2.Controls.Add(this.passV);
-            this.panel2.Location = new System.Drawing.Point(447, 3);
+            this.panel2.Location = new System.Drawing.Point(461, 6);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(184, 23);
             this.panel2.TabIndex = 43;
@@ -1342,8 +1740,9 @@ namespace QIXLPTesting
             // 
             // resetBtn
             // 
+            this.resetBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.resetBtn.Enabled = false;
-            this.resetBtn.Location = new System.Drawing.Point(8, 497);
+            this.resetBtn.Location = new System.Drawing.Point(8, 601);
             this.resetBtn.Name = "resetBtn";
             this.resetBtn.Size = new System.Drawing.Size(108, 46);
             this.resetBtn.TabIndex = 42;
@@ -1434,11 +1833,12 @@ namespace QIXLPTesting
             // 
             // saveBtn
             // 
+            this.saveBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.saveBtn.Enabled = false;
             this.saveBtn.ForeColor = System.Drawing.Color.Green;
-            this.saveBtn.Location = new System.Drawing.Point(120, 497);
+            this.saveBtn.Location = new System.Drawing.Point(120, 601);
             this.saveBtn.Name = "saveBtn";
-            this.saveBtn.Size = new System.Drawing.Size(166, 46);
+            this.saveBtn.Size = new System.Drawing.Size(168, 46);
             this.saveBtn.TabIndex = 21;
             this.saveBtn.Text = "Save Info";
             this.saveBtn.UseVisualStyleBackColor = true;
@@ -1446,11 +1846,13 @@ namespace QIXLPTesting
             // 
             // noteBox
             // 
+            this.noteBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.noteBox.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.noteBox.Location = new System.Drawing.Point(8, 196);
             this.noteBox.Multiline = true;
             this.noteBox.Name = "noteBox";
-            this.noteBox.Size = new System.Drawing.Size(280, 295);
+            this.noteBox.Size = new System.Drawing.Size(280, 399);
             this.noteBox.TabIndex = 20;
             this.noteBox.TextChanged += new System.EventHandler(this.EditText);
             // 
@@ -1503,7 +1905,7 @@ namespace QIXLPTesting
             // 
             // label23
             // 
-            this.label23.Location = new System.Drawing.Point(311, 124);
+            this.label23.Location = new System.Drawing.Point(325, 127);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(79, 13);
             this.label23.TabIndex = 22;
@@ -1514,7 +1916,7 @@ namespace QIXLPTesting
             // 
             this.tempLbl.AutoSize = true;
             this.tempLbl.ForeColor = System.Drawing.Color.Green;
-            this.tempLbl.Location = new System.Drawing.Point(391, 124);
+            this.tempLbl.Location = new System.Drawing.Point(405, 127);
             this.tempLbl.Name = "tempLbl";
             this.tempLbl.Size = new System.Drawing.Size(42, 13);
             this.tempLbl.TabIndex = 23;
@@ -1522,7 +1924,7 @@ namespace QIXLPTesting
             // 
             // label20
             // 
-            this.label20.Location = new System.Drawing.Point(311, 95);
+            this.label20.Location = new System.Drawing.Point(325, 98);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(79, 13);
             this.label20.TabIndex = 16;
@@ -1531,7 +1933,7 @@ namespace QIXLPTesting
             // 
             // label17
             // 
-            this.label17.Location = new System.Drawing.Point(311, 66);
+            this.label17.Location = new System.Drawing.Point(325, 69);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(79, 13);
             this.label17.TabIndex = 9;
@@ -1540,7 +1942,7 @@ namespace QIXLPTesting
             // 
             // label15
             // 
-            this.label15.Location = new System.Drawing.Point(311, 37);
+            this.label15.Location = new System.Drawing.Point(325, 40);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(79, 13);
             this.label15.TabIndex = 7;
@@ -1549,7 +1951,7 @@ namespace QIXLPTesting
             // 
             // label11
             // 
-            this.label11.Location = new System.Drawing.Point(311, 8);
+            this.label11.Location = new System.Drawing.Point(325, 11);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(79, 13);
             this.label11.TabIndex = 4;
@@ -1560,7 +1962,7 @@ namespace QIXLPTesting
             // 
             this.pulseSimLbl.AutoSize = true;
             this.pulseSimLbl.ForeColor = System.Drawing.Color.Green;
-            this.pulseSimLbl.Location = new System.Drawing.Point(391, 95);
+            this.pulseSimLbl.Location = new System.Drawing.Point(405, 98);
             this.pulseSimLbl.Name = "pulseSimLbl";
             this.pulseSimLbl.Size = new System.Drawing.Size(42, 13);
             this.pulseSimLbl.TabIndex = 17;
@@ -1570,7 +1972,7 @@ namespace QIXLPTesting
             // 
             this.sdevLbl.AutoSize = true;
             this.sdevLbl.ForeColor = System.Drawing.Color.Red;
-            this.sdevLbl.Location = new System.Drawing.Point(391, 66);
+            this.sdevLbl.Location = new System.Drawing.Point(405, 69);
             this.sdevLbl.Name = "sdevLbl";
             this.sdevLbl.Size = new System.Drawing.Size(35, 13);
             this.sdevLbl.TabIndex = 10;
@@ -1580,7 +1982,7 @@ namespace QIXLPTesting
             // 
             this.voltLbl.AutoSize = true;
             this.voltLbl.ForeColor = System.Drawing.Color.Green;
-            this.voltLbl.Location = new System.Drawing.Point(391, 8);
+            this.voltLbl.Location = new System.Drawing.Point(405, 11);
             this.voltLbl.Name = "voltLbl";
             this.voltLbl.Size = new System.Drawing.Size(42, 13);
             this.voltLbl.TabIndex = 5;
@@ -1589,7 +1991,7 @@ namespace QIXLPTesting
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 21);
+            this.label9.Location = new System.Drawing.Point(6, 9);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(76, 13);
             this.label9.TabIndex = 2;
@@ -1597,7 +1999,7 @@ namespace QIXLPTesting
             // 
             // searchBar
             // 
-            this.searchBar.Location = new System.Drawing.Point(85, 18);
+            this.searchBar.Location = new System.Drawing.Point(85, 6);
             this.searchBar.Name = "searchBar";
             this.searchBar.Size = new System.Drawing.Size(132, 20);
             this.searchBar.TabIndex = 1;
@@ -1605,12 +2007,14 @@ namespace QIXLPTesting
             // 
             // inServer
             // 
+            this.inServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.inServer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.inServer.FormattingEnabled = true;
             this.inServer.ItemHeight = 16;
-            this.inServer.Location = new System.Drawing.Point(7, 44);
+            this.inServer.Location = new System.Drawing.Point(7, 28);
             this.inServer.Name = "inServer";
-            this.inServer.Size = new System.Drawing.Size(210, 516);
+            this.inServer.Size = new System.Drawing.Size(210, 628);
             this.inServer.TabIndex = 0;
             this.inServer.SelectedIndexChanged += new System.EventHandler(this.DisplayInfo);
             // 
@@ -1622,7 +2026,7 @@ namespace QIXLPTesting
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(927, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1006, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -1635,6 +2039,8 @@ namespace QIXLPTesting
             // 
             // optionsToolStripMenuItem
             // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showHeaterOptionsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
@@ -1654,15 +2060,22 @@ namespace QIXLPTesting
             this.manualToolStripMenuItem.Text = "Manual";
             this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
             // 
+            // showHeaterOptionsToolStripMenuItem
+            // 
+            this.showHeaterOptionsToolStripMenuItem.Name = "showHeaterOptionsToolStripMenuItem";
+            this.showHeaterOptionsToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.showHeaterOptionsToolStripMenuItem.Text = "Show Heater Options";
+            this.showHeaterOptionsToolStripMenuItem.Click += new System.EventHandler(this.showHeaterOptionsToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 661);
+            this.ClientSize = new System.Drawing.Size(1006, 736);
             this.Controls.Add(this.testTabControl);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(635, 405);
+            this.MinimumSize = new System.Drawing.Size(1022, 775);
             this.Name = "MainForm";
             this.Text = "General First Phase Testing";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -1681,6 +2094,12 @@ namespace QIXLPTesting
             this.voltOptionsGB.PerformLayout();
             this.dlTab.ResumeLayout(false);
             this.dlTab.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.dlPanel.ResumeLayout(false);
+            this.dlPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxTrack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minTrack)).EndInit();
             this.serverTab.ResumeLayout(false);
             this.serverTab.PerformLayout();
             this.serverDetailsPanel.ResumeLayout(false);
@@ -1834,6 +2253,36 @@ namespace QIXLPTesting
         private System.Windows.Forms.ToolStripMenuItem manualToolStripMenuItem;
         private System.Windows.Forms.RadioButton sdiRadio;
         private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Button showTermHeat;
+        private System.Windows.Forms.Button selNoneHeat;
+        private System.Windows.Forms.Button selAllHeat;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.CheckedListBox availNpmsHeater;
+        private System.Windows.Forms.Label dlConnectedLabel;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.TextBox maxTempBox;
+        private System.Windows.Forms.TrackBar maxTrack;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TextBox minTempBox;
+        private System.Windows.Forms.TrackBar minTrack;
+        private OxyPlot.WindowsForms.PlotView hgmPlot;
+        private OxyPlot.WindowsForms.PlotView variablePlot;
+        private OxyPlot.WindowsForms.PlotView timePlot;
+        private System.Windows.Forms.ComboBox varySelectBox;
+        private System.Windows.Forms.RadioButton coolerOnRadio;
+        private System.Windows.Forms.RadioButton heaterOnRadio;
+        private System.Windows.Forms.RadioButton relayOffRadio;
+        private System.Windows.Forms.CheckBox coolCycleCheck;
+        private System.Windows.Forms.CheckBox heatCycleCheck;
+        private System.Windows.Forms.Button runHeatTest;
+        private System.Windows.Forms.Button queryDlBtn;
+        private System.Windows.Forms.Panel dlPanel;
+        private System.Windows.Forms.Button cs215Btn;
+        private System.Windows.Forms.Label cs215Lbl;
+        private System.Windows.Forms.ToolStripMenuItem showHeaterOptionsToolStripMenuItem;
     }
 }
 
