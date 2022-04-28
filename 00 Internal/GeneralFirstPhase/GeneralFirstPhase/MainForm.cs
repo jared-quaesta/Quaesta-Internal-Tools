@@ -1,6 +1,8 @@
 ﻿using GeneralFirstPhase;
+using GeneralFirstPhase.Charting;
 using GeneralFirstPhase.Data;
 using OxyPlot;
+using OxyPlot.Axes;
 using OxyPlot.Series;
 using QIXLPTesting.SerialTools;
 using QIXLPTesting.SQL;
@@ -296,7 +298,6 @@ namespace QIXLPTesting
                 outputBox.SelectionStart = outputBox.TextLength;
                 outputBox.ScrollToCaret();
                 outputBox.Refresh();
-
             });
         }
 
@@ -306,7 +307,8 @@ namespace QIXLPTesting
             TestChange(null, null);
             // force load heater options without showing it.
             IntPtr p = heaterOptionsForm.Handle;
-
+            
+            
         }
 
         private void SelAll(object sender, EventArgs e)
@@ -2019,8 +2021,9 @@ namespace QIXLPTesting
             Debug.WriteLine(heatTestWorker.IsBusy);
             while (!heatTestWorker.CancellationPending)
             {
-                if (timer.ElapsedMilliseconds / 60000 > queryTime)
+                if (timer.ElapsedMilliseconds > queryTime*60000)
                 {
+                    DateTime now = DateTime.Now;
                     timer.Restart();
                     string cs215str = dlMan.GetCS215Sync();
                     string temp = "-1";
@@ -2035,9 +2038,9 @@ namespace QIXLPTesting
                             HeaterDataResults res = Tests.GetHeaterData(serialMan, psGain, voltRange, voltage, sdevMaxBin, psBinRange);
                             
                             res.Cs215Temp = (int)double.Parse(temp);
-
+                            res.Time = now;
                             data.TryAdd(serialMan.GetSerial(), res);
-                            SQLManager.AddHeaterData(res.Serial, DateTime.Now, res.Voltage, res.NpmTemp, res.Cs215Temp, res.PsHGM, res.SdevHGM);
+                            SQLManager.AddHeaterData(res.Serial, now, res.Voltage, res.NpmTemp, res.Cs215Temp, res.PsHGM, res.SdevHGM);
                             Debug.WriteLine("Added entry");
                         });
                         Thread thread = new Thread(threadDelegate);
@@ -2050,24 +2053,41 @@ namespace QIXLPTesting
                     {
                         thread.Join();
                     }
-
+                    heatTestWorker.ReportProgress(0, data);
                 }
                 Thread.Sleep(300);
             }
-
-
 
 
         }
 
         private void UpdateHeatCharts(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
+            // unpack and display data
+            ConcurrentDictionary<string, HeaterDataResults> data = (ConcurrentDictionary<string, HeaterDataResults>)e.UserState;
+            heatPlots1.UpdateCharts(data);
+            //foreach (string sn in data.Keys)
+            //{
+            //    // voltage
+                
+
+
+
+
+            //    HeaterDataResults results = data[sn];
+            //    Debug.WriteLine($"Added {results.Cs215Temp}");
+            //    cs215Series.Points.Add(new DataPoint(DateTimeAxis.ToDouble(results.Time), results.Cs215Temp));
+            //}
+
+            //cs215Model.InvalidatePlot(true);
 
         }
 
         private void heatTestWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             Debug.WriteLine("End");
+            
+            
         }
     }
 }

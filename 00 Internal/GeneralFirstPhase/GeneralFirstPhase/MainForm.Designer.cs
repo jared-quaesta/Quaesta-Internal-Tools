@@ -96,13 +96,10 @@ namespace QIXLPTesting
             this.avail = new System.Windows.Forms.Label();
             this.availNpms = new System.Windows.Forms.CheckedListBox();
             this.dlTab = new System.Windows.Forms.TabPage();
+            this.heatPlots1 = new GeneralFirstPhase.Charting.HeatPlots();
             this.cs215Btn = new System.Windows.Forms.Button();
             this.runHeatTest = new System.Windows.Forms.Button();
-            this.varySelectBox = new System.Windows.Forms.ComboBox();
             this.cs215Lbl = new System.Windows.Forms.Label();
-            this.hgmPlot = new OxyPlot.WindowsForms.PlotView();
-            this.variablePlot = new OxyPlot.WindowsForms.PlotView();
-            this.timePlot = new OxyPlot.WindowsForms.PlotView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.dlPanel = new System.Windows.Forms.Panel();
             this.queryDlBtn = new System.Windows.Forms.Button();
@@ -1034,13 +1031,10 @@ namespace QIXLPTesting
             // 
             // dlTab
             // 
+            this.dlTab.Controls.Add(this.heatPlots1);
             this.dlTab.Controls.Add(this.cs215Btn);
             this.dlTab.Controls.Add(this.runHeatTest);
-            this.dlTab.Controls.Add(this.varySelectBox);
             this.dlTab.Controls.Add(this.cs215Lbl);
-            this.dlTab.Controls.Add(this.hgmPlot);
-            this.dlTab.Controls.Add(this.variablePlot);
-            this.dlTab.Controls.Add(this.timePlot);
             this.dlTab.Controls.Add(this.groupBox4);
             this.dlTab.Controls.Add(this.showTermHeat);
             this.dlTab.Controls.Add(this.selNoneHeat);
@@ -1057,6 +1051,16 @@ namespace QIXLPTesting
             this.dlTab.TabIndex = 3;
             this.dlTab.Text = "Heater Tests";
             this.dlTab.UseVisualStyleBackColor = true;
+            // 
+            // heatPlots1
+            // 
+            this.heatPlots1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.heatPlots1.Location = new System.Drawing.Point(248, 137);
+            this.heatPlots1.Name = "heatPlots1";
+            this.heatPlots1.Size = new System.Drawing.Size(723, 532);
+            this.heatPlots1.TabIndex = 36;
             // 
             // cs215Btn
             // 
@@ -1082,19 +1086,6 @@ namespace QIXLPTesting
             this.runHeatTest.UseVisualStyleBackColor = true;
             this.runHeatTest.Click += new System.EventHandler(this.runHeatTest_ClickAsync);
             // 
-            // varySelectBox
-            // 
-            this.varySelectBox.FormattingEnabled = true;
-            this.varySelectBox.Items.AddRange(new object[] {
-            "Voltage",
-            "Count Time Series",
-            "Temperature/Humidity"});
-            this.varySelectBox.Location = new System.Drawing.Point(250, 350);
-            this.varySelectBox.Name = "varySelectBox";
-            this.varySelectBox.Size = new System.Drawing.Size(153, 21);
-            this.varySelectBox.TabIndex = 31;
-            this.varySelectBox.Text = "Voltage";
-            // 
             // cs215Lbl
             // 
             this.cs215Lbl.AutoSize = true;
@@ -1102,49 +1093,6 @@ namespace QIXLPTesting
             this.cs215Lbl.Name = "cs215Lbl";
             this.cs215Lbl.Size = new System.Drawing.Size(0, 13);
             this.cs215Lbl.TabIndex = 33;
-            // 
-            // hgmPlot
-            // 
-            this.hgmPlot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.hgmPlot.Location = new System.Drawing.Point(250, 135);
-            this.hgmPlot.Name = "hgmPlot";
-            this.hgmPlot.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.hgmPlot.Size = new System.Drawing.Size(712, 209);
-            this.hgmPlot.TabIndex = 30;
-            this.hgmPlot.Text = "plotView3";
-            this.hgmPlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-            this.hgmPlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.hgmPlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
-            // 
-            // variablePlot
-            // 
-            this.variablePlot.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.variablePlot.Location = new System.Drawing.Point(250, 350);
-            this.variablePlot.Name = "variablePlot";
-            this.variablePlot.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.variablePlot.Size = new System.Drawing.Size(712, 201);
-            this.variablePlot.TabIndex = 29;
-            this.variablePlot.Text = "plotView2";
-            this.variablePlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-            this.variablePlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.variablePlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
-            // 
-            // timePlot
-            // 
-            this.timePlot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timePlot.Location = new System.Drawing.Point(250, 557);
-            this.timePlot.Name = "timePlot";
-            this.timePlot.PanCursor = System.Windows.Forms.Cursors.Hand;
-            this.timePlot.Size = new System.Drawing.Size(712, 104);
-            this.timePlot.TabIndex = 28;
-            this.timePlot.Text = "plotView1";
-            this.timePlot.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
-            this.timePlot.ZoomRectangleCursor = System.Windows.Forms.Cursors.SizeNWSE;
-            this.timePlot.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
             // 
             // groupBox4
             // 
@@ -2721,10 +2669,6 @@ namespace QIXLPTesting
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.TextBox minTempBox;
         private System.Windows.Forms.TrackBar minTrack;
-        private OxyPlot.WindowsForms.PlotView hgmPlot;
-        private OxyPlot.WindowsForms.PlotView variablePlot;
-        private OxyPlot.WindowsForms.PlotView timePlot;
-        private System.Windows.Forms.ComboBox varySelectBox;
         private System.Windows.Forms.RadioButton coolerOnRadio;
         private System.Windows.Forms.RadioButton heaterOnRadio;
         private System.Windows.Forms.RadioButton relayOffRadio;
@@ -2773,6 +2717,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.ComponentModel.BackgroundWorker heatTestWorker;
+        private GeneralFirstPhase.Charting.HeatPlots heatPlots1;
     }
 }
 

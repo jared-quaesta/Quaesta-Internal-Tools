@@ -59,6 +59,12 @@
     <Compile Include="ChangeSerialForm.Designer.cs">
       <DependentUpon>ChangeSerialForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Charting\HeatPlots.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Charting\HeatPlots.Designer.cs">
+      <DependentUpon>HeatPlots.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\HeaterDataResults.cs" />
     <Compile Include="DirectTerm.cs">
       <SubType>Form</SubType>
@@ -72,10 +78,10 @@
     <Compile Include="HeaterOptions.Designer.cs">
       <DependentUpon>HeaterOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="HGMPlotForm.cs">
+    <Compile Include="Charting\HGMPlotForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HGMPlotForm.Designer.cs">
+    <Compile Include="Charting\HGMPlotForm.Designer.cs">
       <DependentUpon>HGMPlotForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -99,14 +105,17 @@
     <Compile Include="SerialTools\SerialNPMManager.cs" />
     <Compile Include="SQL\SQLManager.cs" />
     <Compile Include="Tests\Tests.cs" />
-    <Compile Include="LinePlotForm.cs">
+    <Compile Include="Charting\LinePlotForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LinePlotForm.Designer.cs">
+    <Compile Include="Charting\LinePlotForm.Designer.cs">
       <DependentUpon>LinePlotForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ChangeSerialForm.resx">
       <DependentUpon>ChangeSerialForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Charting\HeatPlots.resx">
+      <DependentUpon>HeatPlots.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DirectTerm.resx">
       <DependentUpon>DirectTerm.cs</DependentUpon>
@@ -114,7 +123,7 @@
     <EmbeddedResource Include="HeaterOptions.resx">
       <DependentUpon>HeaterOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="HGMPlotForm.resx">
+    <EmbeddedResource Include="Charting\HGMPlotForm.resx">
       <DependentUpon>HGMPlotForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -130,7 +139,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="LinePlotForm.resx">
+    <EmbeddedResource Include="Charting\LinePlotForm.resx">
       <DependentUpon>LinePlotForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelectDL.resx">
