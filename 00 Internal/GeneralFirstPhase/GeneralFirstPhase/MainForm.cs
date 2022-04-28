@@ -1,4 +1,5 @@
 ﻿using GeneralFirstPhase;
+using GeneralFirstPhase.Data;
 using OxyPlot;
 using OxyPlot.Series;
 using QIXLPTesting.SerialTools;
@@ -301,7 +302,7 @@ namespace QIXLPTesting
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            refreshConnectedToolStripMenuItem_Click(null, null);
+            //refreshConnectedToolStripMenuItem_Click(null, null);
             TestChange(null, null);
             // force load heater options without showing it.
             IntPtr p = heaterOptionsForm.Handle;
@@ -1870,86 +1871,88 @@ namespace QIXLPTesting
 
         private async void runHeatTest_ClickAsync(object sender, EventArgs e)
         {
-            
-            if (availNpmsHeater.CheckedItems.Count == 0)
+            if (heatTestWorker.IsBusy)
             {
-                MessageBox.Show("No NPMs Selected.", "Error");
-                return;
+                heatTestWorker.CancelAsync();
+                runHeatTest.Text = "Run Test";
+                runHeatTest.ForeColor = Color.Green;
             }
-            if (!dlMan.IsConnected())
+            else
             {
-                MessageBox.Show("Datalogger not connected.","Error");
-                return;
-            }
-
-            List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
-            foreach (string checkedCom in availNpms.CheckedItems)
-            {
-                serialMans.Add(new SerialNPMManager(checkedCom.Split(':')[0].Trim(), checkedCom.Split(':')[1].Trim()));
-            }
-            int finished = 0;
-            int numUpdating = serialMans.Count;
-            List<string> failedConnect = new List<string>();
-            List<Thread> threads = new List<Thread>();
-            BlockingCollection<string> coms = new BlockingCollection<string>();
-            foreach (SerialNPMManager serialMan in serialMans)
-            {
-                ThreadStart threadDelegate = new ThreadStart(() =>
+                if (availNpmsHeater.CheckedItems.Count == 0)
                 {
-                    // connect
-                    int att = 0;
+                    MessageBox.Show("No NPMs Selected.", "Error");
+                    return;
+                }
+                if (!dlMan.IsConnected())
+                {
+                    MessageBox.Show("Datalogger not connected.", "Error");
+                    return;
+                }
 
-                    serialMan.Connect(serialMan.com);
-                    while (!serialMan.IsConnected())
+                List<SerialNPMManager> serialMans = new List<SerialNPMManager>();
+                foreach (string checkedCom in availNpmsHeater.CheckedItems)
+                {
+                    serialMans.Add(new SerialNPMManager(checkedCom.Split(':')[0].Trim(), checkedCom.Split(':')[1].Trim()));
+                }
+                int finished = 0;
+                int numUpdating = serialMans.Count;
+                List<string> failedConnect = new List<string>();
+                List<Thread> threads = new List<Thread>();
+                BlockingCollection<string> coms = new BlockingCollection<string>();
+                foreach (SerialNPMManager serialMan in serialMans)
+                {
+                    ThreadStart threadDelegate = new ThreadStart(() =>
                     {
-                        if (att == 10)
-                        {
-                            break;
-                        }
-                        att++;
-                        Thread.Sleep(500);
+                        // connect
+                        int att = 0;
+
                         serialMan.Connect(serialMan.com);
-                    }
-                    if (!serialMan.IsConnected())
+                        while (!serialMan.IsConnected())
+                        {
+                            if (att == 10)
+                            {
+                                break;
+                            }
+                            att++;
+                            Thread.Sleep(500);
+                            serialMan.Connect(serialMan.com);
+                        }
+                        if (!serialMan.IsConnected())
+                        {
+                            MessageBox.Show("Unable to connect to ");
+                        }
+                    });
+                    Thread thread = new Thread(threadDelegate);
+                    thread.Start();
+                    threads.Add(thread);
+                }
+
+                await Task.Run(() =>
+                {
+                    foreach (var thread in threads)
                     {
-                        MessageBox.Show("Unable to connect to ");
+                        thread.Join();
                     }
                 });
-                Thread thread = new Thread(threadDelegate);
-                thread.Start();
-                threads.Add(thread);
-            }
 
-            await Task.Run(() =>
-            {
-                foreach (var thread in threads)
+                // validate all NPMs connected
+                if (failedConnect.Count != 0)
                 {
-                    thread.Join();
+                    MessageBox.Show("One or more NPMs refused to connect.\nTerminating Test", "Error");
+                    foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
+                    return;
                 }
-            });
 
-            // validate all NPMs connected
-            if (failedConnect.Count != 0)
-            {
-                MessageBox.Show("One or more NPMs refused to connect.\nTerminating Test", "Error");
-                foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
-                return;
+                runHeatTest.Text = "Stop Test";
+                runHeatTest.ForeColor = Color.Red;
+
+                await Tests.SetupSDI(serialMans, false);
+                heatTestWorker.RunWorkerAsync(serialMans);
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         }
+
 
         private async void cs215Btn_Click(object sender, EventArgs e)
         {
@@ -1998,6 +2001,73 @@ namespace QIXLPTesting
             heaterOptionsForm.ShowDialog();
         }
 
+        private void HeatTestWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            List<SerialNPMManager> serialMans = (List<SerialNPMManager>)e.Argument;
 
+            // get params from heateroptions
+            double psGain = heaterOptionsForm.GetHeatGain();
+            int queryTime = heaterOptionsForm.GetQueryTime();
+            int voltRange = heaterOptionsForm.GetHeatVoltRange();
+            int voltage = heaterOptionsForm.GetHeatVolts();
+            int sdevMaxBin = heaterOptionsForm.GetMaximumBin();
+            int psBinRange = heaterOptionsForm.GetPSBinRange();
+            
+            Tests.SetupHeaterTest(serialMans, voltage);
+            
+            Stopwatch timer = Stopwatch.StartNew();
+            Debug.WriteLine(heatTestWorker.IsBusy);
+            while (!heatTestWorker.CancellationPending)
+            {
+                if (timer.ElapsedMilliseconds / 60000 > queryTime)
+                {
+                    timer.Restart();
+                    string cs215str = dlMan.GetCS215Sync();
+                    string temp = "-1";
+                    if (!cs215str.Equals("UNK")) 
+                        temp = cs215str.Split('=')[1].Split(',')[0].Trim();
+                    List<Thread> threads = new List<Thread>();
+                    ConcurrentDictionary<string, HeaterDataResults> data = new ConcurrentDictionary<string, HeaterDataResults>();
+                    foreach (SerialNPMManager serialMan in serialMans)
+                    {
+                        ThreadStart threadDelegate = new ThreadStart(async () =>
+                        {
+                            HeaterDataResults res = Tests.GetHeaterData(serialMan, psGain, voltRange, voltage, sdevMaxBin, psBinRange);
+                            
+                            res.Cs215Temp = (int)double.Parse(temp);
+
+                            data.TryAdd(serialMan.GetSerial(), res);
+                            SQLManager.AddHeaterData(res.Serial, DateTime.Now, res.Voltage, res.NpmTemp, res.Cs215Temp, res.PsHGM, res.SdevHGM);
+                            Debug.WriteLine("Added entry");
+                        });
+                        Thread thread = new Thread(threadDelegate);
+                        thread.Start();
+                        threads.Add(thread);
+                    }
+
+                    // wait for collection to finish
+                    foreach (var thread in threads)
+                    {
+                        thread.Join();
+                    }
+
+                }
+                Thread.Sleep(300);
+            }
+
+
+
+
+        }
+
+        private void UpdateHeatCharts(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void heatTestWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            Debug.WriteLine("End");
+        }
     }
 }

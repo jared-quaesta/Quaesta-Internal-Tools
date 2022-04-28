@@ -384,12 +384,12 @@ namespace QIXLPTesting.SQL
         }
 
         // Not final version of this, just to get the tests going
-        internal static void AddHeaterData(string sn, DateTime time, double voltage, int temp, string PSCommaDelim, string SDEVCommaDelim)
+        internal static void AddHeaterData(string sn, DateTime time, double voltage, int npmTemp, int cs215Temp, string PSCommaDelim, string SDEVCommaDelim)
         {
             // build query
             string date = time.ToString("yyyy-MM-dd");
             date += " " + time.ToString("HH:mm:ss");
-            string query = $"INSERT INTO Heat_Testing VALUES('{sn}', '{date}',{voltage},{temp}";
+            string query = $"INSERT INTO Heat_Testing VALUES('{sn}', '{date}',{voltage},{npmTemp},{cs215Temp}";
             foreach (string psB in PSCommaDelim.Split(','))
             {
                 query += $",{psB}";

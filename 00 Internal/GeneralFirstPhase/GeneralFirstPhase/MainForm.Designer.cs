@@ -129,7 +129,43 @@ namespace QIXLPTesting
             this.availDataloggers = new System.Windows.Forms.CheckedListBox();
             this.serverTab = new System.Windows.Forms.TabPage();
             this.serverDetailsPanel = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label47 = new System.Windows.Forms.Label();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.radioButton7 = new System.Windows.Forms.RadioButton();
+            this.radioButton8 = new System.Windows.Forms.RadioButton();
+            this.radioButton9 = new System.Windows.Forms.RadioButton();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.radioButton10 = new System.Windows.Forms.RadioButton();
+            this.radioButton11 = new System.Windows.Forms.RadioButton();
+            this.radioButton12 = new System.Windows.Forms.RadioButton();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.radioButton13 = new System.Windows.Forms.RadioButton();
+            this.radioButton14 = new System.Windows.Forms.RadioButton();
+            this.radioButton15 = new System.Windows.Forms.RadioButton();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.radioButton19 = new System.Windows.Forms.RadioButton();
+            this.radioButton20 = new System.Windows.Forms.RadioButton();
+            this.radioButton21 = new System.Windows.Forms.RadioButton();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.ndSd = new System.Windows.Forms.RadioButton();
+            this.failSd = new System.Windows.Forms.RadioButton();
+            this.passSd = new System.Windows.Forms.RadioButton();
+            this.label44 = new System.Windows.Forms.Label();
             this.remBtn = new System.Windows.Forms.Button();
+            this.sdiLbl = new System.Windows.Forms.Label();
             this.cancelTestBtn = new System.Windows.Forms.Button();
             this.saveTestBtn = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -189,42 +225,7 @@ namespace QIXLPTesting
             this.showHeaterOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.ndSd = new System.Windows.Forms.RadioButton();
-            this.failSd = new System.Windows.Forms.RadioButton();
-            this.passSd = new System.Windows.Forms.RadioButton();
-            this.label44 = new System.Windows.Forms.Label();
-            this.sdiLbl = new System.Windows.Forms.Label();
-            this.label46 = new System.Windows.Forms.Label();
-            this.label47 = new System.Windows.Forms.Label();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.radioButton8 = new System.Windows.Forms.RadioButton();
-            this.radioButton9 = new System.Windows.Forms.RadioButton();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
-            this.radioButton11 = new System.Windows.Forms.RadioButton();
-            this.radioButton12 = new System.Windows.Forms.RadioButton();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.radioButton13 = new System.Windows.Forms.RadioButton();
-            this.radioButton14 = new System.Windows.Forms.RadioButton();
-            this.radioButton15 = new System.Windows.Forms.RadioButton();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.radioButton19 = new System.Windows.Forms.RadioButton();
-            this.radioButton20 = new System.Windows.Forms.RadioButton();
-            this.radioButton21 = new System.Windows.Forms.RadioButton();
-            this.label51 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label53 = new System.Windows.Forms.Label();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.heatTestWorker = new System.ComponentModel.BackgroundWorker();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -239,17 +240,17 @@ namespace QIXLPTesting
             ((System.ComponentModel.ISupportInitialize)(this.minTrack)).BeginInit();
             this.serverTab.SuspendLayout();
             this.serverDetailsPanel.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel9.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel11.SuspendLayout();
-            this.panel13.SuspendLayout();
             this.SuspendLayout();
             // 
             // testTabControl
@@ -1501,6 +1502,368 @@ namespace QIXLPTesting
             this.serverDetailsPanel.TabIndex = 27;
             this.serverDetailsPanel.Visible = false;
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(651, 340);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 74;
+            this.button4.Text = "See Chart";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(651, 314);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 73;
+            this.button3.Text = "See Chart";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(651, 288);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 72;
+            this.button2.Text = "See Chart";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(651, 262);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 71;
+            this.button1.Text = "See Chart";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.label47.Location = new System.Drawing.Point(311, 238);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(201, 18);
+            this.label47.TabIndex = 70;
+            this.label47.Text = "Bare-Board Heater Tests:";
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.radioButton7);
+            this.panel9.Controls.Add(this.radioButton8);
+            this.panel9.Controls.Add(this.radioButton9);
+            this.panel9.Location = new System.Drawing.Point(461, 340);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(184, 23);
+            this.panel9.TabIndex = 66;
+            // 
+            // radioButton7
+            // 
+            this.radioButton7.AutoSize = true;
+            this.radioButton7.Location = new System.Drawing.Point(105, 3);
+            this.radioButton7.Name = "radioButton7";
+            this.radioButton7.Size = new System.Drawing.Size(71, 17);
+            this.radioButton7.TabIndex = 2;
+            this.radioButton7.TabStop = true;
+            this.radioButton7.Text = "Not Done";
+            this.radioButton7.UseVisualStyleBackColor = true;
+            // 
+            // radioButton8
+            // 
+            this.radioButton8.AutoSize = true;
+            this.radioButton8.Location = new System.Drawing.Point(58, 3);
+            this.radioButton8.Name = "radioButton8";
+            this.radioButton8.Size = new System.Drawing.Size(41, 17);
+            this.radioButton8.TabIndex = 1;
+            this.radioButton8.TabStop = true;
+            this.radioButton8.Text = "Fail";
+            this.radioButton8.UseVisualStyleBackColor = true;
+            // 
+            // radioButton9
+            // 
+            this.radioButton9.AutoSize = true;
+            this.radioButton9.Location = new System.Drawing.Point(4, 4);
+            this.radioButton9.Name = "radioButton9";
+            this.radioButton9.Size = new System.Drawing.Size(48, 17);
+            this.radioButton9.TabIndex = 0;
+            this.radioButton9.TabStop = true;
+            this.radioButton9.Text = "Pass";
+            this.radioButton9.UseVisualStyleBackColor = true;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.radioButton10);
+            this.panel10.Controls.Add(this.radioButton11);
+            this.panel10.Controls.Add(this.radioButton12);
+            this.panel10.Location = new System.Drawing.Point(461, 314);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(184, 23);
+            this.panel10.TabIndex = 65;
+            // 
+            // radioButton10
+            // 
+            this.radioButton10.AutoSize = true;
+            this.radioButton10.Location = new System.Drawing.Point(105, 3);
+            this.radioButton10.Name = "radioButton10";
+            this.radioButton10.Size = new System.Drawing.Size(71, 17);
+            this.radioButton10.TabIndex = 2;
+            this.radioButton10.TabStop = true;
+            this.radioButton10.Text = "Not Done";
+            this.radioButton10.UseVisualStyleBackColor = true;
+            // 
+            // radioButton11
+            // 
+            this.radioButton11.AutoSize = true;
+            this.radioButton11.Location = new System.Drawing.Point(58, 3);
+            this.radioButton11.Name = "radioButton11";
+            this.radioButton11.Size = new System.Drawing.Size(41, 17);
+            this.radioButton11.TabIndex = 1;
+            this.radioButton11.TabStop = true;
+            this.radioButton11.Text = "Fail";
+            this.radioButton11.UseVisualStyleBackColor = true;
+            // 
+            // radioButton12
+            // 
+            this.radioButton12.AutoSize = true;
+            this.radioButton12.Location = new System.Drawing.Point(4, 4);
+            this.radioButton12.Name = "radioButton12";
+            this.radioButton12.Size = new System.Drawing.Size(48, 17);
+            this.radioButton12.TabIndex = 0;
+            this.radioButton12.TabStop = true;
+            this.radioButton12.Text = "Pass";
+            this.radioButton12.UseVisualStyleBackColor = true;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.radioButton13);
+            this.panel11.Controls.Add(this.radioButton14);
+            this.panel11.Controls.Add(this.radioButton15);
+            this.panel11.Location = new System.Drawing.Point(461, 288);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(184, 23);
+            this.panel11.TabIndex = 64;
+            // 
+            // radioButton13
+            // 
+            this.radioButton13.AutoSize = true;
+            this.radioButton13.Location = new System.Drawing.Point(105, 3);
+            this.radioButton13.Name = "radioButton13";
+            this.radioButton13.Size = new System.Drawing.Size(71, 17);
+            this.radioButton13.TabIndex = 2;
+            this.radioButton13.TabStop = true;
+            this.radioButton13.Text = "Not Done";
+            this.radioButton13.UseVisualStyleBackColor = true;
+            // 
+            // radioButton14
+            // 
+            this.radioButton14.AutoSize = true;
+            this.radioButton14.Location = new System.Drawing.Point(58, 3);
+            this.radioButton14.Name = "radioButton14";
+            this.radioButton14.Size = new System.Drawing.Size(41, 17);
+            this.radioButton14.TabIndex = 1;
+            this.radioButton14.TabStop = true;
+            this.radioButton14.Text = "Fail";
+            this.radioButton14.UseVisualStyleBackColor = true;
+            // 
+            // radioButton15
+            // 
+            this.radioButton15.AutoSize = true;
+            this.radioButton15.Location = new System.Drawing.Point(4, 4);
+            this.radioButton15.Name = "radioButton15";
+            this.radioButton15.Size = new System.Drawing.Size(48, 17);
+            this.radioButton15.TabIndex = 0;
+            this.radioButton15.TabStop = true;
+            this.radioButton15.Text = "Pass";
+            this.radioButton15.UseVisualStyleBackColor = true;
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.radioButton19);
+            this.panel13.Controls.Add(this.radioButton20);
+            this.panel13.Controls.Add(this.radioButton21);
+            this.panel13.Location = new System.Drawing.Point(461, 262);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(184, 23);
+            this.panel13.TabIndex = 62;
+            // 
+            // radioButton19
+            // 
+            this.radioButton19.AutoSize = true;
+            this.radioButton19.Location = new System.Drawing.Point(105, 3);
+            this.radioButton19.Name = "radioButton19";
+            this.radioButton19.Size = new System.Drawing.Size(71, 17);
+            this.radioButton19.TabIndex = 2;
+            this.radioButton19.TabStop = true;
+            this.radioButton19.Text = "Not Done";
+            this.radioButton19.UseVisualStyleBackColor = true;
+            // 
+            // radioButton20
+            // 
+            this.radioButton20.AutoSize = true;
+            this.radioButton20.Location = new System.Drawing.Point(58, 3);
+            this.radioButton20.Name = "radioButton20";
+            this.radioButton20.Size = new System.Drawing.Size(41, 17);
+            this.radioButton20.TabIndex = 1;
+            this.radioButton20.TabStop = true;
+            this.radioButton20.Text = "Fail";
+            this.radioButton20.UseVisualStyleBackColor = true;
+            // 
+            // radioButton21
+            // 
+            this.radioButton21.AutoSize = true;
+            this.radioButton21.Location = new System.Drawing.Point(4, 4);
+            this.radioButton21.Name = "radioButton21";
+            this.radioButton21.Size = new System.Drawing.Size(48, 17);
+            this.radioButton21.TabIndex = 0;
+            this.radioButton21.TabStop = true;
+            this.radioButton21.Text = "Pass";
+            this.radioButton21.UseVisualStyleBackColor = true;
+            // 
+            // label51
+            // 
+            this.label51.Location = new System.Drawing.Point(325, 348);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(79, 13);
+            this.label51.TabIndex = 60;
+            this.label51.Text = "Temperature:";
+            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.ForeColor = System.Drawing.Color.Green;
+            this.label52.Location = new System.Drawing.Point(405, 348);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(42, 13);
+            this.label52.TabIndex = 61;
+            this.label52.Text = "Passed";
+            // 
+            // label53
+            // 
+            this.label53.Location = new System.Drawing.Point(325, 320);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(79, 13);
+            this.label53.TabIndex = 58;
+            this.label53.Text = "PulseSim:";
+            this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label54
+            // 
+            this.label54.Location = new System.Drawing.Point(325, 293);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(79, 13);
+            this.label54.TabIndex = 56;
+            this.label54.Text = "SDEV:";
+            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label56
+            // 
+            this.label56.Location = new System.Drawing.Point(325, 267);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(79, 13);
+            this.label56.TabIndex = 52;
+            this.label56.Text = "Voltage:";
+            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.ForeColor = System.Drawing.Color.Green;
+            this.label57.Location = new System.Drawing.Point(405, 320);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(42, 13);
+            this.label57.TabIndex = 59;
+            this.label57.Text = "Passed";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.ForeColor = System.Drawing.Color.Red;
+            this.label58.Location = new System.Drawing.Point(405, 293);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(35, 13);
+            this.label58.TabIndex = 57;
+            this.label58.Text = "Failed";
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.ForeColor = System.Drawing.Color.Green;
+            this.label59.Location = new System.Drawing.Point(405, 267);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(42, 13);
+            this.label59.TabIndex = 53;
+            this.label59.Text = "Passed";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
+            this.label46.Location = new System.Drawing.Point(311, 4);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(99, 18);
+            this.label46.TabIndex = 51;
+            this.label46.Text = "Desk Tests:";
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.ndSd);
+            this.panel7.Controls.Add(this.failSd);
+            this.panel7.Controls.Add(this.passSd);
+            this.panel7.Location = new System.Drawing.Point(461, 167);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(184, 23);
+            this.panel7.TabIndex = 49;
+            // 
+            // ndSd
+            // 
+            this.ndSd.AutoSize = true;
+            this.ndSd.Location = new System.Drawing.Point(105, 3);
+            this.ndSd.Name = "ndSd";
+            this.ndSd.Size = new System.Drawing.Size(71, 17);
+            this.ndSd.TabIndex = 2;
+            this.ndSd.TabStop = true;
+            this.ndSd.Text = "Not Done";
+            this.ndSd.UseVisualStyleBackColor = true;
+            this.ndSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
+            this.ndSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
+            // 
+            // failSd
+            // 
+            this.failSd.AutoSize = true;
+            this.failSd.Location = new System.Drawing.Point(58, 3);
+            this.failSd.Name = "failSd";
+            this.failSd.Size = new System.Drawing.Size(41, 17);
+            this.failSd.TabIndex = 1;
+            this.failSd.TabStop = true;
+            this.failSd.Text = "Fail";
+            this.failSd.UseVisualStyleBackColor = true;
+            this.failSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
+            this.failSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
+            // 
+            // passSd
+            // 
+            this.passSd.AutoSize = true;
+            this.passSd.Location = new System.Drawing.Point(4, 4);
+            this.passSd.Name = "passSd";
+            this.passSd.Size = new System.Drawing.Size(48, 17);
+            this.passSd.TabIndex = 0;
+            this.passSd.TabStop = true;
+            this.passSd.Text = "Pass";
+            this.passSd.UseVisualStyleBackColor = true;
+            this.passSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
+            this.passSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
+            // 
+            // label44
+            // 
+            this.label44.Location = new System.Drawing.Point(325, 175);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(79, 13);
+            this.label44.TabIndex = 47;
+            this.label44.Text = "SDI:";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // remBtn
             // 
             this.remBtn.Location = new System.Drawing.Point(232, 3);
@@ -1510,6 +1873,16 @@ namespace QIXLPTesting
             this.remBtn.Text = "Remove";
             this.remBtn.UseVisualStyleBackColor = true;
             this.remBtn.Click += new System.EventHandler(this.remBtn_Click);
+            // 
+            // sdiLbl
+            // 
+            this.sdiLbl.AutoSize = true;
+            this.sdiLbl.ForeColor = System.Drawing.Color.Green;
+            this.sdiLbl.Location = new System.Drawing.Point(405, 175);
+            this.sdiLbl.Name = "sdiLbl";
+            this.sdiLbl.Size = new System.Drawing.Size(42, 13);
+            this.sdiLbl.TabIndex = 48;
+            this.sdiLbl.Text = "Passed";
             // 
             // cancelTestBtn
             // 
@@ -2129,377 +2502,13 @@ namespace QIXLPTesting
             this.manualToolStripMenuItem.Text = "Manual";
             this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
             // 
-            // panel7
-            // 
-            this.panel7.Controls.Add(this.ndSd);
-            this.panel7.Controls.Add(this.failSd);
-            this.panel7.Controls.Add(this.passSd);
-            this.panel7.Location = new System.Drawing.Point(461, 167);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(184, 23);
-            this.panel7.TabIndex = 49;
-            // 
-            // ndSd
-            // 
-            this.ndSd.AutoSize = true;
-            this.ndSd.Location = new System.Drawing.Point(105, 3);
-            this.ndSd.Name = "ndSd";
-            this.ndSd.Size = new System.Drawing.Size(71, 17);
-            this.ndSd.TabIndex = 2;
-            this.ndSd.TabStop = true;
-            this.ndSd.Text = "Not Done";
-            this.ndSd.UseVisualStyleBackColor = true;
-            this.ndSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
-            this.ndSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
-            // 
-            // failSd
-            // 
-            this.failSd.AutoSize = true;
-            this.failSd.Location = new System.Drawing.Point(58, 3);
-            this.failSd.Name = "failSd";
-            this.failSd.Size = new System.Drawing.Size(41, 17);
-            this.failSd.TabIndex = 1;
-            this.failSd.TabStop = true;
-            this.failSd.Text = "Fail";
-            this.failSd.UseVisualStyleBackColor = true;
-            this.failSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
-            this.failSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
-            // 
-            // passSd
-            // 
-            this.passSd.AutoSize = true;
-            this.passSd.Location = new System.Drawing.Point(4, 4);
-            this.passSd.Name = "passSd";
-            this.passSd.Size = new System.Drawing.Size(48, 17);
-            this.passSd.TabIndex = 0;
-            this.passSd.TabStop = true;
-            this.passSd.Text = "Pass";
-            this.passSd.UseVisualStyleBackColor = true;
-            this.passSd.CheckedChanged += new System.EventHandler(this.CheckSDIRadio);
-            this.passSd.Click += new System.EventHandler(this.EnableTestSaveCancelBtns);
-            // 
-            // label44
-            // 
-            this.label44.Location = new System.Drawing.Point(325, 175);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(79, 13);
-            this.label44.TabIndex = 47;
-            this.label44.Text = "SDI:";
-            this.label44.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // sdiLbl
-            // 
-            this.sdiLbl.AutoSize = true;
-            this.sdiLbl.ForeColor = System.Drawing.Color.Green;
-            this.sdiLbl.Location = new System.Drawing.Point(405, 175);
-            this.sdiLbl.Name = "sdiLbl";
-            this.sdiLbl.Size = new System.Drawing.Size(42, 13);
-            this.sdiLbl.TabIndex = 48;
-            this.sdiLbl.Text = "Passed";
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.label46.Location = new System.Drawing.Point(311, 4);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(99, 18);
-            this.label46.TabIndex = 51;
-            this.label46.Text = "Desk Tests:";
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.label47.Location = new System.Drawing.Point(311, 238);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(201, 18);
-            this.label47.TabIndex = 70;
-            this.label47.Text = "Bare-Board Heater Tests:";
-            // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.radioButton7);
-            this.panel9.Controls.Add(this.radioButton8);
-            this.panel9.Controls.Add(this.radioButton9);
-            this.panel9.Location = new System.Drawing.Point(461, 340);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(184, 23);
-            this.panel9.TabIndex = 66;
-            // 
-            // radioButton7
-            // 
-            this.radioButton7.AutoSize = true;
-            this.radioButton7.Location = new System.Drawing.Point(105, 3);
-            this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(71, 17);
-            this.radioButton7.TabIndex = 2;
-            this.radioButton7.TabStop = true;
-            this.radioButton7.Text = "Not Done";
-            this.radioButton7.UseVisualStyleBackColor = true;
-            // 
-            // radioButton8
-            // 
-            this.radioButton8.AutoSize = true;
-            this.radioButton8.Location = new System.Drawing.Point(58, 3);
-            this.radioButton8.Name = "radioButton8";
-            this.radioButton8.Size = new System.Drawing.Size(41, 17);
-            this.radioButton8.TabIndex = 1;
-            this.radioButton8.TabStop = true;
-            this.radioButton8.Text = "Fail";
-            this.radioButton8.UseVisualStyleBackColor = true;
-            // 
-            // radioButton9
-            // 
-            this.radioButton9.AutoSize = true;
-            this.radioButton9.Location = new System.Drawing.Point(4, 4);
-            this.radioButton9.Name = "radioButton9";
-            this.radioButton9.Size = new System.Drawing.Size(48, 17);
-            this.radioButton9.TabIndex = 0;
-            this.radioButton9.TabStop = true;
-            this.radioButton9.Text = "Pass";
-            this.radioButton9.UseVisualStyleBackColor = true;
-            // 
-            // panel10
-            // 
-            this.panel10.Controls.Add(this.radioButton10);
-            this.panel10.Controls.Add(this.radioButton11);
-            this.panel10.Controls.Add(this.radioButton12);
-            this.panel10.Location = new System.Drawing.Point(461, 314);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(184, 23);
-            this.panel10.TabIndex = 65;
-            // 
-            // radioButton10
-            // 
-            this.radioButton10.AutoSize = true;
-            this.radioButton10.Location = new System.Drawing.Point(105, 3);
-            this.radioButton10.Name = "radioButton10";
-            this.radioButton10.Size = new System.Drawing.Size(71, 17);
-            this.radioButton10.TabIndex = 2;
-            this.radioButton10.TabStop = true;
-            this.radioButton10.Text = "Not Done";
-            this.radioButton10.UseVisualStyleBackColor = true;
-            // 
-            // radioButton11
-            // 
-            this.radioButton11.AutoSize = true;
-            this.radioButton11.Location = new System.Drawing.Point(58, 3);
-            this.radioButton11.Name = "radioButton11";
-            this.radioButton11.Size = new System.Drawing.Size(41, 17);
-            this.radioButton11.TabIndex = 1;
-            this.radioButton11.TabStop = true;
-            this.radioButton11.Text = "Fail";
-            this.radioButton11.UseVisualStyleBackColor = true;
-            // 
-            // radioButton12
-            // 
-            this.radioButton12.AutoSize = true;
-            this.radioButton12.Location = new System.Drawing.Point(4, 4);
-            this.radioButton12.Name = "radioButton12";
-            this.radioButton12.Size = new System.Drawing.Size(48, 17);
-            this.radioButton12.TabIndex = 0;
-            this.radioButton12.TabStop = true;
-            this.radioButton12.Text = "Pass";
-            this.radioButton12.UseVisualStyleBackColor = true;
-            // 
-            // panel11
-            // 
-            this.panel11.Controls.Add(this.radioButton13);
-            this.panel11.Controls.Add(this.radioButton14);
-            this.panel11.Controls.Add(this.radioButton15);
-            this.panel11.Location = new System.Drawing.Point(461, 288);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(184, 23);
-            this.panel11.TabIndex = 64;
-            // 
-            // radioButton13
-            // 
-            this.radioButton13.AutoSize = true;
-            this.radioButton13.Location = new System.Drawing.Point(105, 3);
-            this.radioButton13.Name = "radioButton13";
-            this.radioButton13.Size = new System.Drawing.Size(71, 17);
-            this.radioButton13.TabIndex = 2;
-            this.radioButton13.TabStop = true;
-            this.radioButton13.Text = "Not Done";
-            this.radioButton13.UseVisualStyleBackColor = true;
-            // 
-            // radioButton14
-            // 
-            this.radioButton14.AutoSize = true;
-            this.radioButton14.Location = new System.Drawing.Point(58, 3);
-            this.radioButton14.Name = "radioButton14";
-            this.radioButton14.Size = new System.Drawing.Size(41, 17);
-            this.radioButton14.TabIndex = 1;
-            this.radioButton14.TabStop = true;
-            this.radioButton14.Text = "Fail";
-            this.radioButton14.UseVisualStyleBackColor = true;
-            // 
-            // radioButton15
-            // 
-            this.radioButton15.AutoSize = true;
-            this.radioButton15.Location = new System.Drawing.Point(4, 4);
-            this.radioButton15.Name = "radioButton15";
-            this.radioButton15.Size = new System.Drawing.Size(48, 17);
-            this.radioButton15.TabIndex = 0;
-            this.radioButton15.TabStop = true;
-            this.radioButton15.Text = "Pass";
-            this.radioButton15.UseVisualStyleBackColor = true;
-            // 
-            // panel13
-            // 
-            this.panel13.Controls.Add(this.radioButton19);
-            this.panel13.Controls.Add(this.radioButton20);
-            this.panel13.Controls.Add(this.radioButton21);
-            this.panel13.Location = new System.Drawing.Point(461, 262);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(184, 23);
-            this.panel13.TabIndex = 62;
-            // 
-            // radioButton19
-            // 
-            this.radioButton19.AutoSize = true;
-            this.radioButton19.Location = new System.Drawing.Point(105, 3);
-            this.radioButton19.Name = "radioButton19";
-            this.radioButton19.Size = new System.Drawing.Size(71, 17);
-            this.radioButton19.TabIndex = 2;
-            this.radioButton19.TabStop = true;
-            this.radioButton19.Text = "Not Done";
-            this.radioButton19.UseVisualStyleBackColor = true;
-            // 
-            // radioButton20
-            // 
-            this.radioButton20.AutoSize = true;
-            this.radioButton20.Location = new System.Drawing.Point(58, 3);
-            this.radioButton20.Name = "radioButton20";
-            this.radioButton20.Size = new System.Drawing.Size(41, 17);
-            this.radioButton20.TabIndex = 1;
-            this.radioButton20.TabStop = true;
-            this.radioButton20.Text = "Fail";
-            this.radioButton20.UseVisualStyleBackColor = true;
-            // 
-            // radioButton21
-            // 
-            this.radioButton21.AutoSize = true;
-            this.radioButton21.Location = new System.Drawing.Point(4, 4);
-            this.radioButton21.Name = "radioButton21";
-            this.radioButton21.Size = new System.Drawing.Size(48, 17);
-            this.radioButton21.TabIndex = 0;
-            this.radioButton21.TabStop = true;
-            this.radioButton21.Text = "Pass";
-            this.radioButton21.UseVisualStyleBackColor = true;
-            // 
-            // label51
-            // 
-            this.label51.Location = new System.Drawing.Point(325, 348);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(79, 13);
-            this.label51.TabIndex = 60;
-            this.label51.Text = "Temperature:";
-            this.label51.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.ForeColor = System.Drawing.Color.Green;
-            this.label52.Location = new System.Drawing.Point(405, 348);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(42, 13);
-            this.label52.TabIndex = 61;
-            this.label52.Text = "Passed";
-            // 
-            // label53
-            // 
-            this.label53.Location = new System.Drawing.Point(325, 320);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(79, 13);
-            this.label53.TabIndex = 58;
-            this.label53.Text = "PulseSim:";
-            this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label54
-            // 
-            this.label54.Location = new System.Drawing.Point(325, 293);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(79, 13);
-            this.label54.TabIndex = 56;
-            this.label54.Text = "SDEV:";
-            this.label54.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label56
-            // 
-            this.label56.Location = new System.Drawing.Point(325, 267);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(79, 13);
-            this.label56.TabIndex = 52;
-            this.label56.Text = "Voltage:";
-            this.label56.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.ForeColor = System.Drawing.Color.Green;
-            this.label57.Location = new System.Drawing.Point(405, 320);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(42, 13);
-            this.label57.TabIndex = 59;
-            this.label57.Text = "Passed";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.ForeColor = System.Drawing.Color.Red;
-            this.label58.Location = new System.Drawing.Point(405, 293);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(35, 13);
-            this.label58.TabIndex = 57;
-            this.label58.Text = "Failed";
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.ForeColor = System.Drawing.Color.Green;
-            this.label59.Location = new System.Drawing.Point(405, 267);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(42, 13);
-            this.label59.TabIndex = 53;
-            this.label59.Text = "Passed";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(651, 262);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 71;
-            this.button1.Text = "See Chart";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(651, 288);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 72;
-            this.button2.Text = "See Chart";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(651, 314);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 73;
-            this.button3.Text = "See Chart";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(651, 340);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 74;
-            this.button4.Text = "See Chart";
-            this.button4.UseVisualStyleBackColor = true;
+            // heatTestWorker
+            // 
+            this.heatTestWorker.WorkerReportsProgress = true;
+            this.heatTestWorker.WorkerSupportsCancellation = true;
+            this.heatTestWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.HeatTestWork);
+            this.heatTestWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.UpdateHeatCharts);
+            this.heatTestWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.heatTestWorker_RunWorkerCompleted);
             // 
             // MainForm
             // 
@@ -2538,6 +2547,16 @@ namespace QIXLPTesting
             this.serverTab.PerformLayout();
             this.serverDetailsPanel.ResumeLayout(false);
             this.serverDetailsPanel.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.panel13.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -2550,16 +2569,6 @@ namespace QIXLPTesting
             this.panel2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
-            this.panel11.ResumeLayout(false);
-            this.panel11.PerformLayout();
-            this.panel13.ResumeLayout(false);
-            this.panel13.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2763,6 +2772,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
+        private System.ComponentModel.BackgroundWorker heatTestWorker;
     }
 }
 

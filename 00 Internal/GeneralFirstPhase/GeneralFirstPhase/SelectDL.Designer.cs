@@ -83,7 +83,6 @@ namespace GeneralFirstPhase
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comSel);
             this.Name = "SelectDL";
-            this.Text = "Select Datalogger";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.HideForm);
             this.Load += new System.EventHandler(this.SelectDL_Load);
             this.ResumeLayout(false);

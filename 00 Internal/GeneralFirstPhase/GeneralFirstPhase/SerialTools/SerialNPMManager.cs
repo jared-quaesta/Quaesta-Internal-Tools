@@ -39,6 +39,11 @@ namespace QIXLPTesting.SerialTools
             _serialPort.DataReceived += (sender, e) => listener.NewData(_serialPort.ReadExisting(), lastCom);
         }
 
+        override public string ToString()
+        {
+            return serial;
+        }
+
         internal string GetSerial()
         {
             return serial;

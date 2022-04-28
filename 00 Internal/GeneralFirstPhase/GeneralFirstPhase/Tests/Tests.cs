@@ -1,6 +1,8 @@
-﻿using OxyPlot;
+﻿using GeneralFirstPhase.Data;
+using OxyPlot;
 using OxyPlot.Series;
 using QIXLPTesting.SerialTools;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -79,7 +81,6 @@ namespace QIXLPTesting
                         return; 
                     }
 
-                    Debug.WriteLine($"localaddress={sdiAddress}");
                     // set sdi
                     serialMan.SendCommand($"localaddress={sdiAddress}\r\n");
                     Thread.Sleep(30);
@@ -315,6 +316,136 @@ namespace QIXLPTesting
             serialMan.SendCommand($"temperature\r\n");
             Thread.Sleep(50);
             return serialMan.listener.GetTemperature();
+        }
+
+        internal static void SetupHeaterTest(List<SerialNPMManager> serialMans, int voltage)
+        {
+            List<Thread> threads = new List<Thread>();
+            foreach (SerialNPMManager serialMan in serialMans)
+            {
+                ThreadStart threadDelegate = new ThreadStart(() =>
+                {
+                    // connect
+                    serialMan.SendCommand($"voltage = {voltage}\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"voltage = {voltage}\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"nbins=64\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"nbins=64\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"gain=25.5\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"gain=25.5\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"zerohgm\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"zerohgm\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"pulsesim=0\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"pulsesim=0\r\n");
+                    Thread.Sleep(30);
+                });
+                Thread thread = new Thread(threadDelegate);
+                thread.Start();
+                threads.Add(thread);
+            }
+
+            foreach (var thread in threads)
+            {
+                thread.Join();
+            }
+        }
+
+        internal static HeaterDataResults GetHeaterData(SerialNPMManager serialMan, double psGain, int voltRange, int voltage, int sdevMaxBin, int psBinRange)
+        {
+            HeaterDataResults res = new HeaterDataResults();
+
+            // get sdev hgm
+            serialMan.ClearInput();
+            Thread.Sleep(30);
+            serialMan.listener.ClearHGM();
+            serialMan.SendCommand("hgm\r\n");
+            Thread.Sleep(30);
+            List<int> hgm = serialMan.listener.GetHGM();
+            if (hgm.Count != 64)
+            {
+                hgm.Clear();
+                for (int i = 0; i < 64; i++)
+                {
+                    hgm.Add(0);
+                }
+            }
+            res.SdevHGM = string.Join(",",hgm.GetRange(0, 64));
+
+            // get voltage
+            serialMan.ClearInput();
+            Thread.Sleep(30);
+            serialMan.SendCommand($"voltage\r\n");
+            Thread.Sleep(50);
+            serialMan.listener.ClearVoltage();
+            serialMan.SendCommand($"voltage\r\n");
+            Thread.Sleep(50);
+
+            string initVolts = serialMan.listener.GetVoltage().Replace("Measured/Set:", "M/S:");
+            double initMeas = -1;
+            if (initVolts.Split(' ').Length < 2)
+            {
+                res.Voltage = -1;
+            }
+            else if (!double.TryParse(initVolts.Split(' ')[1].Split('/')[0].Trim(), out initMeas))
+            {
+                res.Voltage = -1;
+            }
+            else
+            {
+                res.Voltage = initMeas;
+            }
+
+            // get temp
+            serialMan.listener.ClearTemperature();
+            serialMan.ClearInput();
+            Thread.Sleep(30);
+            serialMan.SendCommand($"temperature\r\n");
+            Thread.Sleep(100);
+            res.NpmTemp = (int)serialMan.listener.GetTemperature();
+
+            // zero hgm and begin ps test
+            serialMan.SendCommand($"gain={psGain}\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"gain={psGain}\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand("zerohgm\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand("zerohgm\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"pulsesim=1\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"pulsesim=1\r\n");
+            Thread.Sleep(10000);
+
+            serialMan.ClearInput();
+            Thread.Sleep(30);
+            serialMan.listener.ClearHGM();
+            serialMan.SendCommand("hgm\r\n");
+            Thread.Sleep(30);
+            List<int> sdevhgm = serialMan.listener.GetHGM();
+            if (sdevhgm.Count != 64)
+            {
+                sdevhgm.Clear();
+                for (int i = 0; i < 64; i++)
+                {
+                    sdevhgm.Add(0);
+                }
+            }
+            res.PsHGM = string.Join(",", sdevhgm.GetRange(0,64));
+
+            res.Serial = serialMan.GetSerial();
+            serialMan.SendCommand($"pulsesim=0\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"pulsesim=0\r\n");
+            return res;
         }
     }
 }

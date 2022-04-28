@@ -45,6 +45,9 @@ namespace GeneralFirstPhase
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.voltLevel = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timeBox = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.voltOptionsGB.SuspendLayout();
@@ -234,11 +237,48 @@ namespace GeneralFirstPhase
             this.voltLevel.TabIndex = 0;
             this.voltLevel.Text = "500";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(277, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(23, 13);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "min";
+            // 
+            // timeBox
+            // 
+            this.timeBox.FormattingEnabled = true;
+            this.timeBox.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "15",
+            "20",
+            "30",
+            "60"});
+            this.timeBox.Location = new System.Drawing.Point(227, 12);
+            this.timeBox.Name = "timeBox";
+            this.timeBox.Size = new System.Drawing.Size(49, 21);
+            this.timeBox.TabIndex = 23;
+            this.timeBox.Text = "5";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(161, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "Query Every";
+            // 
             // HeaterOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(320, 239);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.timeBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.voltOptionsGB);
@@ -277,5 +317,8 @@ namespace GeneralFirstPhase
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox voltLevel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox timeBox;
+        private System.Windows.Forms.Label label2;
     }
 }

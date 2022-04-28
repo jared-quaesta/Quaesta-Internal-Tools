@@ -26,15 +26,19 @@ namespace GeneralFirstPhase
         {
             return int.Parse(voltLevel.Text);
         }
+        internal int GetQueryTime()
+        {
+            return int.Parse(timeBox.Text);
+        }
 
         internal int GetHeatVoltRange()
         {
             return int.Parse(validVoltRange.Text);
         }
 
-        internal int GetHeatGain()
+        internal double GetHeatGain()
         {
-            return int.Parse(gainBox.Text);
+            return double.Parse(gainBox.Text);
         }
 
         internal int GetPSBinRange()

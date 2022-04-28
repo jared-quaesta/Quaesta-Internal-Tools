@@ -256,5 +256,30 @@ namespace QIXLPTesting.SerialTools
             });
             return listener.GetR8();
         }
+
+        internal string GetCS215Sync()
+        {
+            string cmd = "showcs215\r\n";
+            SendCommand(cmd, 0);
+
+            int tries = 0;
+            Stopwatch watch = Stopwatch.StartNew();
+            while (!listener.GotCS215())
+            {
+                if (watch.ElapsedMilliseconds > 3000)
+                {
+                    tries++;
+                    watch.Restart();
+                    SendCommand(cmd, 0);
+                }
+                if (tries == 5)
+                {
+                    break;
+                }
+                Thread.Sleep(20);
+            }
+
+            return listener.GetCS215();
+        }
     }
 }
