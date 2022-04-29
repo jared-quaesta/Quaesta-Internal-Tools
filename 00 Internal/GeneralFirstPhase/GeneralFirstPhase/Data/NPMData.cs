@@ -20,6 +20,11 @@ namespace QIXLPTesting
         private bool? pulsesim;
         private bool? temp;
         private bool? sdi;
+        private bool? heatNoise;
+        private bool? heatTemp;
+        private bool? heatPulsesim;
+        private bool? heatVolt;
+
 
         public string Sn { get => sn; set => sn = value; }
         public string Family { get => family; set => family = value; }
@@ -34,5 +39,9 @@ namespace QIXLPTesting
         public bool? Pulsesim { get => pulsesim; set => pulsesim = value; }
         public bool? Temp { get => temp; set => temp = value; }
         public bool? Sdi { get => sdi; set => sdi = value; }
+        public bool? HeatNoise { get => heatNoise; set => heatNoise = value; }
+        public bool? HeatTemp { get => heatTemp; set => heatTemp = value; }
+        public bool? HeatPulsesim { get => heatPulsesim; set => heatPulsesim = value; }
+        public bool? HeatVolt { get => heatVolt; set => heatVolt = value; }
     }
 }

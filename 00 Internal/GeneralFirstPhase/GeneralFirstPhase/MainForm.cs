@@ -49,6 +49,7 @@ namespace QIXLPTesting
         // Heater stuff
         HeaterOptions heaterOptionsForm = new HeaterOptions();
 
+        bool manCollect = false;
         
         public MainForm()
         {
@@ -799,7 +800,9 @@ namespace QIXLPTesting
         {
             if (!int.TryParse(waitPs.Text, out int waitSec) ||
                 !int.TryParse(psNbins.Text, out int nbins) ||
-                !int.TryParse(psValid.Text, out int range) ||
+                !int.TryParse(psCenterSpread.Text, out int range) ||
+                !int.TryParse(psCenter.Text, out int center) ||
+                !int.TryParse(psCenterSpread.Text, out int centerSpread) ||
                 !double.TryParse(gainBox.Text, out double gain) ||
                 !int.TryParse(psDiscHigh.Text, out int discHigh) ||
                 !int.TryParse(psDiscLow.Text, out int discLow))
@@ -820,12 +823,14 @@ namespace QIXLPTesting
             AddOutput(gainBox.Text + Environment.NewLine, Color.White);
             AddOutput("Wait: ", Color.FromArgb(71, 134, 255));
             AddOutput(waitPs.Text + " Seconds" + Environment.NewLine, Color.White);
+            AddOutput("Maximum Spread: ", Color.FromArgb(71, 134, 255));
+            AddOutput(psCenterSpread.Text + " Bins" + Environment.NewLine, Color.White);
             AddOutput("Valid Within: ", Color.FromArgb(71, 134, 255));
-            AddOutput(psValid.Text + " Bins" + Environment.NewLine, Color.White);
+            AddOutput(psCenterSpread.Text + " Bins of Center " + psCenter.Text + Environment.NewLine, Color.White);
 
             List<Thread> threads = new List<Thread>();
 
-            ConcurrentDictionary<string, Tuple<bool, int>> psDict = new ConcurrentDictionary<string, Tuple<bool, int>>();
+            ConcurrentDictionary<string, Tuple<bool, int, double>> psDict = new ConcurrentDictionary<string, Tuple<bool, int, double>>();
             HGMPlotForm pf = new HGMPlotForm("Counts");
             pf.Show();
             progressBar.Value = 0;
@@ -838,7 +843,7 @@ namespace QIXLPTesting
                 ThreadStart threadDelegate = new ThreadStart(() =>
                 {
                     Tests psTestClass = new Tests();
-                    foreach (int[] series in psTestClass.PulseSimTest(serialMan, gain, waitSec, range, discLow, discHigh, nbins))
+                    foreach (int[] series in psTestClass.PulseSimTest(serialMan, gain, waitSec, range, discLow, discHigh, nbins, center, centerSpread))
                     {
                         Invoke((MethodInvoker)delegate
                         {
@@ -853,7 +858,7 @@ namespace QIXLPTesting
                     //       my server somehow.
                     while (!psDict.TryAdd(
                         serialMan.GetSerial(),
-                        new Tuple<bool, int>(psTestClass.errOccurred, psTestClass.maxSpread)))
+                        new Tuple<bool, int, double>(psTestClass.errOccurred, psTestClass.maxSpread, psTestClass.center)))
                     {
                         Thread.Sleep(100);
                     }
@@ -893,15 +898,15 @@ namespace QIXLPTesting
             bool errFound = false;
             foreach (string key in psDict.Keys)
             {
-                if (psDict[key].Item2 < range)
+                if (!psDict[key].Item1)
                 {
                     AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
-                    AddOutput(psDict[key].Item2 + " Bin Max Spread" + Environment.NewLine, Color.FromArgb(0, 200, 156));
+                    AddOutput(psDict[key].Item2 + " Bin Max Spread, Center: " + $"{psDict[key].Item3:0.00}" + Environment.NewLine, Color.FromArgb(0, 200, 156));
                 }
                 else
                 {
                     AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
-                    AddOutput(psDict[key].Item2 + " Bin Max Spread" + Environment.NewLine, Color.FromArgb(251, 55, 40));
+                    AddOutput(psDict[key].Item2 + " Bin Max Spread, Center: " + $"{psDict[key].Item3:0.00}" + Environment.NewLine, Color.FromArgb(251, 55, 40));
                 }
                 errFound = errFound || psDict[key].Item1;
                 SQLManager.UpdatePSTest(key, !psDict[key].Item1);
@@ -1230,6 +1235,58 @@ namespace QIXLPTesting
                 failSd.Checked = true;
             }
 
+            if (data.HeatTemp == null)
+            {
+                ndHt.Checked = true;
+            }
+            else if (data.HeatTemp == true)
+            {
+                passHt.Checked = true;
+            }
+            else if (data.HeatTemp == false)
+            {
+                failHt.Checked = true;
+            }
+            
+            if (data.HeatVolt == null)
+            {
+                ndHv.Checked = true;
+            }
+            else if (data.HeatVolt == true)
+            {
+                passHv.Checked = true;
+            }
+            else if (data.HeatVolt == false)
+            {
+                failHv.Checked = true;
+            }
+            
+            if (data.HeatPulsesim == null)
+            {
+                ndHp.Checked = true;
+            }
+            else if (data.HeatPulsesim == true)
+            {
+                passHp.Checked = true;
+            }
+            else if (data.HeatPulsesim == false)
+            {
+                failHp.Checked = true;
+            }
+            
+            if (data.HeatNoise == null)
+            {
+                ndHn.Checked = true;
+            }
+            else if (data.HeatNoise == true)
+            {
+                passHn.Checked = true;
+            }
+            else if (data.HeatNoise == false)
+            {
+                failHn.Checked = true;
+            }
+
 
             Refresh();
         }
@@ -1407,6 +1464,82 @@ namespace QIXLPTesting
             {
                 ledLbl.Text = "Not Done";
                 ledLbl.ForeColor = Color.Orange;
+            }
+        }
+
+        private void CheckHvRadio(object sender, EventArgs e)
+        {
+            if (passHv.Checked)
+            {
+                hvLbl.Text = "Passed";
+                hvLbl.ForeColor = Color.Green;
+            }
+            else if (failHv.Checked)
+            {
+                hvLbl.Text = "Failed";
+                hvLbl.ForeColor = Color.Red;
+            }
+            else
+            {
+                hvLbl.Text = "Not Done";
+                hvLbl.ForeColor = Color.Orange;
+            }
+        }
+
+        private void CheckHnRadio(object sender, EventArgs e)
+        {
+            if (passHn.Checked)
+            {
+                hnLbl.Text = "Passed";
+                hnLbl.ForeColor = Color.Green;
+            }
+            else if (failHn.Checked)
+            {
+                hnLbl.Text = "Failed";
+                hnLbl.ForeColor = Color.Red;
+            }
+            else
+            {
+                hnLbl.Text = "Not Done";
+                hnLbl.ForeColor = Color.Orange;
+            }
+        }
+
+        private void CheckHpRadio(object sender, EventArgs e)
+        {
+            if (passHp.Checked)
+            {
+                hpLbl.Text = "Passed";
+                hpLbl.ForeColor = Color.Green;
+            }
+            else if (failHp.Checked)
+            {
+                hpLbl.Text = "Failed";
+                hpLbl.ForeColor = Color.Red;
+            }
+            else
+            {
+                hpLbl.Text = "Not Done";
+                hpLbl.ForeColor = Color.Orange;
+            }
+        }
+
+        private void CheckHtRadio(object sender, EventArgs e)
+        {
+            if (passHt.Checked)
+            {
+                htLbl.Text = "Passed";
+                htLbl.ForeColor = Color.Green;
+            }
+            else if (failHt.Checked)
+            {
+                htLbl.Text = "Failed";
+                htLbl.ForeColor = Color.Red;
+            }
+            else
+            {
+                htLbl.Text = "Not Done";
+                htLbl.ForeColor = Color.Orange;
             }
         }
 
@@ -1667,6 +1800,10 @@ namespace QIXLPTesting
             bool? pulse;
             bool? temp;
             bool? sdi;
+            bool? heatVolt;
+            bool? heatNoise;
+            bool? heatPulsesim;
+            bool? heatTemp;
             // voltage
             if (ndV.Checked)
             {
@@ -1715,8 +1852,40 @@ namespace QIXLPTesting
             {
                 sdi = passSd.Checked;
             }
+            if (ndHv.Checked)
+            {
+                heatVolt = null;
+            }
+            else
+            {
+                heatVolt = passHv.Checked;
+            }
+            if (ndHn.Checked)
+            {
+                heatNoise = null;
+            }
+            else
+            {
+                heatNoise = passHn.Checked;
+            }
+            if (ndHp.Checked)
+            {
+                heatPulsesim = null;
+            }
+            else
+            {
+                heatPulsesim = passHp.Checked;
+            }
+            if (ndHt.Checked)
+            {
+                heatTemp = null;
+            }
+            else
+            {
+                heatTemp = passHt.Checked;
+            }
 
-            SQLManager.UpdateAllTests(sn, volt, sdev, temp, led, pulse, sdi);
+            SQLManager.UpdateAllTests(sn, volt, sdev, temp, led, pulse, sdi, heatVolt, heatNoise, heatPulsesim, heatTemp);
 
             DisplayInfo(null, null);
         }
@@ -1883,6 +2052,10 @@ namespace QIXLPTesting
             if (heatTestWorker.IsBusy)
             {
                 heatTestWorker.CancelAsync();
+                await Task.Run(() =>
+                {
+                    while (heatTestWorker.IsBusy) Thread.Sleep(30);
+                });
                 runHeatTest.Text = "Run Test";
                 runHeatTest.ForeColor = Color.Green;
             }
@@ -1957,6 +2130,8 @@ namespace QIXLPTesting
                 runHeatTest.ForeColor = Color.Red;
 
                 await Tests.SetupSDI(serialMans, false);
+                nextRecLbl.Visible = true;
+                manColBtn.Visible = true;
                 heatTestWorker.RunWorkerAsync(serialMans);
             }
 
@@ -2018,20 +2193,30 @@ namespace QIXLPTesting
             double psGain = heaterOptionsForm.GetHeatGain();
             int queryTime = heaterOptionsForm.GetQueryTime();
             int voltRange = heaterOptionsForm.GetHeatVoltRange();
+            int noiseFloor = heaterOptionsForm.GetNoiseFloor();
             int voltage = heaterOptionsForm.GetHeatVolts();
-            int sdevMaxBin = heaterOptionsForm.GetMaximumBin();
+            int nullMax = heaterOptionsForm.GetMaximumBin();
             int psBinRange = heaterOptionsForm.GetPSBinRange();
-            
+            TimeSpan span = TimeSpan.FromMinutes(queryTime);
             Tests.SetupHeaterTest(serialMans, voltage);
             
             Stopwatch timer = Stopwatch.StartNew();
             Debug.WriteLine(heatTestWorker.IsBusy);
             while (!heatTestWorker.CancellationPending)
             {
-                if (timer.ElapsedMilliseconds > queryTime*60000)
+                if (timer.ElapsedMilliseconds > queryTime*60000 || manCollect)
                 {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        nextRecLbl.Text = $"Next Record: Now";
+                        nextRecLbl.Refresh();
+                        manColBtn.Enabled = false;
+                    });
+                    manCollect = false;
                     DateTime now = DateTime.Now;
                     timer.Restart();
+                    span = TimeSpan.FromMinutes(queryTime);
+
                     string cs215str = dlMan.GetCS215Sync();
                     string temp = "-1";
                     try
@@ -2057,12 +2242,13 @@ namespace QIXLPTesting
                     {
                         ThreadStart threadDelegate = new ThreadStart(async () =>
                         {
-                            HeaterDataResults res = Tests.GetHeaterData(serialMan, psGain, voltRange, voltage, sdevMaxBin, psBinRange);
+                            HeaterDataResults res = Tests.GetHeaterData(serialMan, psGain, voltRange, voltage, nullMax, psBinRange, noiseFloor);
                             
                             res.Cs215Temp = (int)double.Parse(temp);
                             res.Time = now;
                             data.TryAdd(serialMan.GetSerial(), res);
                             SQLManager.AddHeaterData(res.Serial, now, res.Voltage, res.NpmTemp, res.Cs215Temp, res.PsHGM, res.SdevHGM);
+                            DetermineHeaterResults(res, noiseFloor, nullMax, psGain, voltage, voltRange, psBinRange);
                             Debug.WriteLine("Added entry");
                         });
                         Thread thread = new Thread(threadDelegate);
@@ -2078,6 +2264,64 @@ namespace QIXLPTesting
                     heatTestWorker.ReportProgress(0, data);
                 }
                 Thread.Sleep(300);
+
+                span -= TimeSpan.FromMilliseconds(300);
+                Invoke((MethodInvoker)delegate
+                {
+                    nextRecLbl.Text = $"Next Record: {span.ToString(@"hh\:mm\:ss")}";
+                    nextRecLbl.Refresh();
+                    manColBtn.Enabled = true;
+                });
+            }
+            foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
+
+        }
+
+        private void DetermineHeaterResults(HeaterDataResults res, int noiseFloor, int nullMax, double psGain, int voltage, int voltRange, int psRange)
+        {
+            // voltage
+            if (res.Voltage >= voltage + voltRange || res.Voltage <= voltage - voltRange)
+            {
+                SQLManager.UpdateHeatVoltTest(res.Serial, false);
+            }
+
+            // noise
+            int[] noiseHGM = Array.ConvertAll(res.SdevHGM.Split(','), int.Parse);
+            int maxBin = 0;
+            for (int i = 0; i < noiseHGM.Length; i++)
+            {
+                if (noiseHGM[i] - noiseFloor < 0)
+                {
+                    maxBin = i;
+                    break;
+                }
+            }
+            if (maxBin > nullMax)
+            {
+                SQLManager.UpdateHeatNoiseTest(res.Serial, false);
+            }
+
+            // pulsesim
+            int[] psHGM = Array.ConvertAll(res.SdevHGM.Split(','), int.Parse);
+            int startBin = 0;
+            int endBin = 0;
+            for (int i = 0; i < noiseHGM.Length; i++)
+            {
+                if (noiseHGM[i] > 0)
+                {
+                    if (startBin != 0) startBin = i;
+                    endBin = i;
+                }
+            }
+            if (endBin - startBin > psRange)
+            {
+                SQLManager.UpdateHeatPulsesimTest(res.Serial, false);
+            }
+
+            // temp
+            if (res.NpmTemp > res.Cs215Temp + 10 || res.NpmTemp < res.Cs215Temp - 10)
+            {
+                SQLManager.UpdateHeatTempTest(res.Serial, false);
             }
 
 
@@ -2094,8 +2338,9 @@ namespace QIXLPTesting
         private void heatTestWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             Debug.WriteLine("End");
-            
-            
+            nextRecLbl.Visible = false;
+            manColBtn.Visible = false;
+
         }
 
         private async void setMinMaxTemp_Click(object sender, EventArgs e)
@@ -2121,5 +2366,12 @@ namespace QIXLPTesting
             await dlMan.QueryCycle();
             queryDlBtn_Click(null, null);
         }
+
+        private void manColBtn_Click(object sender, EventArgs e)
+        {
+            manCollect = true;
+        }
+
+        
     }
 }

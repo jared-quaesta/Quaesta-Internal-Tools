@@ -118,7 +118,7 @@ namespace QIXLPTesting.SQL
                     con.Open();
                     SqlDataReader dataReader = cmd.ExecuteReader();
                     dataReader.Read();
-
+                    Debug.WriteLine(dataReader.GetValue(8));
                     if (!dataReader.IsDBNull(1))
                     {
                         ret.Volt = dataReader.GetBoolean(1);
@@ -142,6 +142,22 @@ namespace QIXLPTesting.SQL
                     if (!dataReader.IsDBNull(6))
                     {
                         ret.Sdi = dataReader.GetBoolean(6);
+                    }
+                    if (!dataReader.IsDBNull(7))
+                    {
+                        ret.HeatVolt = dataReader.GetBoolean(7);
+                    }
+                    if (!dataReader.IsDBNull(8))
+                    {
+                        ret.HeatNoise = dataReader.GetBoolean(8);
+                    }
+                    if (!dataReader.IsDBNull(9))
+                    {
+                        ret.HeatPulsesim = dataReader.GetBoolean(9);
+                    }
+                    if (!dataReader.IsDBNull(10))
+                    {
+                        ret.HeatTemp = dataReader.GetBoolean(10);
                     }
 
                 }
@@ -305,7 +321,9 @@ namespace QIXLPTesting.SQL
             }
         }
 
-        internal static void UpdateAllTests(string serial, bool? volt, bool? sdev, bool? temp, bool? led, bool? pulsesim, bool? sdi)
+        internal static void UpdateAllTests(string serial, 
+            bool? volt, bool? sdev, bool? temp, bool? led, bool? pulsesim, bool? sdi,
+            bool? heatVolt, bool? heatNoise, bool? heatPulsesim, bool? heatTemp)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -321,6 +339,27 @@ namespace QIXLPTesting.SQL
                     cmd.Parameters.Add("@sdev", SqlDbType.Bit).Value = sdev;
                     cmd.Parameters.Add("@temp", SqlDbType.Bit).Value = temp;
                     cmd.Parameters.Add("@sdi", SqlDbType.Bit).Value = sdi;
+                    cmd.Parameters.Add("@heat_volt", SqlDbType.Bit).Value = heatVolt;
+                    cmd.Parameters.Add("@heat_noise", SqlDbType.Bit).Value = heatNoise;
+                    cmd.Parameters.Add("@heat_temp", SqlDbType.Bit).Value = heatTemp;
+                    cmd.Parameters.Add("@heat_pulsesim", SqlDbType.Bit).Value = heatPulsesim;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+        internal static void OverwriteHeat(string serial)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Remove_Heat_Data", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@serial", SqlDbType.VarChar).Value = serial;
 
                     con.Open();
                     cmd.ExecuteNonQuery();
@@ -357,6 +396,76 @@ namespace QIXLPTesting.SQL
 
                     cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
                     cmd.Parameters.Add("@sdev", SqlDbType.Bit).Value = val;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+        
+        internal static void UpdateHeatVoltTest(string serial, bool? val)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Alter_Gen_Tests", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+                    cmd.Parameters.Add("@heat_volt", SqlDbType.Bit).Value = val;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+        internal static void UpdateHeatNoiseTest(string serial, bool? val)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Alter_Gen_Tests", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+                    cmd.Parameters.Add("@heat_noise", SqlDbType.Bit).Value = val;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+        internal static void UpdateHeatTempTest(string serial, bool? val)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Alter_Gen_Tests", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+                    cmd.Parameters.Add("@heat_temp", SqlDbType.Bit).Value = val;
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+        
+        internal static void UpdateHeatPulsesimTest(string serial, bool? val)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Alter_Gen_Tests", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+                    cmd.Parameters.Add("@heat_pulsesim", SqlDbType.Bit).Value = val;
 
                     con.Open();
                     cmd.ExecuteNonQuery();

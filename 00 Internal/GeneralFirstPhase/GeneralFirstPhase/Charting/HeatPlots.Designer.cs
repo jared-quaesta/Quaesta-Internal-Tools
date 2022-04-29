@@ -154,6 +154,7 @@ namespace GeneralFirstPhase.Charting
             this.hgmBox.Name = "hgmBox";
             this.hgmBox.Size = new System.Drawing.Size(153, 21);
             this.hgmBox.TabIndex = 40;
+            this.hgmBox.SelectedIndexChanged += new System.EventHandler(this.hgmBox_SelectedIndexChanged);
             // 
             // HeatPlots
             // 

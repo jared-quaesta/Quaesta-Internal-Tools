@@ -2,6 +2,7 @@
 using OxyPlot;
 using OxyPlot.Series;
 using QIXLPTesting.SerialTools;
+using QIXLPTesting.SQL;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,6 +21,8 @@ namespace QIXLPTesting
         public int maxBin = 0;
 
         static char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".ToCharArray();
+        internal double center = 0;
+        private int centerSum = 0;
 
         public IEnumerable<DataPoint> VoltageTest(SerialNPMManager serialMan, int testVoltage, int range, int wait, bool rampDown)
         {
@@ -172,7 +175,7 @@ namespace QIXLPTesting
 
         }
 
-        internal IEnumerable<int[]> PulseSimTest(SerialNPMManager serialMan, double gain, int waitSec, int range, int discLow, int discHigh, int nbins)
+        internal IEnumerable<int[]> PulseSimTest(SerialNPMManager serialMan, double gain, int waitSec, int range, int discLow, int discHigh, int nbins, int center, int centerSpread)
         {
             // set initial parameters
 
@@ -199,20 +202,21 @@ namespace QIXLPTesting
                 serialMan.SendCommand($"zerohgm\r\n");
                 Thread.Sleep(30);
             }
-            
+            Thread.Sleep(1500);
 
             Stopwatch watch = Stopwatch.StartNew();
 
             while (watch.ElapsedMilliseconds / 1000 < waitSec)
             {
-                int[] ls = GetHGMPS(serialMan, range);
+                int[] ls = GetHGMPS(serialMan, range, center, centerSpread);
                 yield return ls;
             }
-
+            if (centerSum != 0)
+                this.center /= centerSum;
 
         }
 
-        private int[] GetHGMPS(SerialNPMManager serialMan, int range)
+        private int[] GetHGMPS(SerialNPMManager serialMan, int range, int center, int centerSpread)
         {
             serialMan.listener.ClearHGM();
             serialMan.ClearInput();
@@ -226,8 +230,32 @@ namespace QIXLPTesting
             int spread = DetermineSpread(hgm);
             if (spread > range) errOccurred = true;
             if (spread > maxSpread) maxSpread = spread;
+
+            int tCenter = DetermineCenter(hgm);
+            this.center += tCenter;
+            centerSum++;
+            if (tCenter > center + centerSpread || tCenter < center - centerSpread) errOccurred = true;
+
             return hgm.ToArray();
 
+        }
+
+        private int DetermineCenter(List<int> hgm)
+        {
+            int c = 0;
+            int sumWeights = 0;
+            for (int i = 0; i < hgm.Count; i++)
+            {
+                if (hgm[i] > 0)
+                {
+                    sumWeights += i * hgm[i];
+                    c+=hgm[i];
+                }
+            }
+            if (c != 0)
+                return sumWeights / c;
+            else
+                return 0;
         }
 
         private int DetermineSpread(List<int> hgm)
@@ -334,6 +362,8 @@ namespace QIXLPTesting
             List<Thread> threads = new List<Thread>();
             foreach (SerialNPMManager serialMan in serialMans)
             {
+                SQLManager.OverwriteHeat(serialMan.GetSerial());
+
                 ThreadStart threadDelegate = new ThreadStart(() =>
                 {
                     // connect
@@ -341,11 +371,21 @@ namespace QIXLPTesting
                     Thread.Sleep(30);
                     serialMan.SendCommand($"voltage = {voltage}\r\n");
                     Thread.Sleep(30);
-                    serialMan.SendCommand($"nbins=64\r\n");
+                    serialMan.SendCommand($"nbins=512\r\n");
                     Thread.Sleep(30);
-                    serialMan.SendCommand($"nbins=64\r\n");
+                    serialMan.SendCommand($"nbins=512\r\n");
                     Thread.Sleep(30);
                     serialMan.SendCommand($"gain=25.5\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"gain=25.5\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"disclow=1\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"dischigh=512\r\n");
+                    Thread.Sleep(30);                    
+                    serialMan.SendCommand($"disclow=1\r\n");
+                    Thread.Sleep(30);
+                    serialMan.SendCommand($"dischigh=512\r\n");
                     Thread.Sleep(30);
                     serialMan.SendCommand($"gain=25.5\r\n");
                     Thread.Sleep(30);
@@ -369,7 +409,7 @@ namespace QIXLPTesting
             }
         }
 
-        internal static HeaterDataResults GetHeaterData(SerialNPMManager serialMan, double psGain, int voltRange, int voltage, int sdevMaxBin, int psBinRange)
+        internal static HeaterDataResults GetHeaterData(SerialNPMManager serialMan, double psGain, int voltRange, int voltage, int sdevMaxBin, int psBinRange, int noiseFloor)
         {
             HeaterDataResults res = new HeaterDataResults();
 
@@ -380,13 +420,9 @@ namespace QIXLPTesting
             serialMan.SendCommand("hgm\r\n");
             Thread.Sleep(30);
             List<int> hgm = serialMan.listener.GetHGM(out int t);
-            if (hgm.Count != 64)
+            while (hgm.Count < 64)
             {
-                hgm.Clear();
-                for (int i = 0; i < 64; i++)
-                {
-                    hgm.Add(0);
-                }
+                hgm.Add(0);
             }
             res.SdevHGM = string.Join(",",hgm.GetRange(0, 64));
 
@@ -427,6 +463,18 @@ namespace QIXLPTesting
             Thread.Sleep(30);
             serialMan.SendCommand($"gain={psGain}\r\n");
             Thread.Sleep(30);
+            serialMan.SendCommand($"nbins=64\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"nbins=64\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"disclow=4\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"disclow=4\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"dischigh=4\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"dischigh=4\r\n");
+            Thread.Sleep(30);
             serialMan.SendCommand("zerohgm\r\n");
             Thread.Sleep(30);
             serialMan.SendCommand("zerohgm\r\n");
@@ -463,7 +511,19 @@ namespace QIXLPTesting
             Thread.Sleep(30);
             serialMan.SendCommand($"gain=25.5\r\n");
             Thread.Sleep(30);
-            serialMan.SendCommand($"gain=25.5\r\n");
+            serialMan.SendCommand($"gain=25.5\r\n");            
+            Thread.Sleep(30);
+            serialMan.SendCommand($"nbins=512\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"nbins=512\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"disclow=1\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"dischigh=512\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"disclow=1\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"dischigh=512\r\n");
             return res;
         }
     }

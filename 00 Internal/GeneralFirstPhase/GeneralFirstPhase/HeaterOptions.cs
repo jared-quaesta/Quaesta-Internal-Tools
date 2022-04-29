@@ -30,6 +30,11 @@ namespace GeneralFirstPhase
         {
             return int.Parse(timeBox.Text);
         }
+        
+        internal int GetNoiseFloor()
+        {
+            return int.Parse(noiseFloor.Text);
+        }
 
         internal int GetHeatVoltRange()
         {
@@ -49,6 +54,11 @@ namespace GeneralFirstPhase
         internal int GetMaximumBin()
         {
             return int.Parse(minBinBox.Text);
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -58,6 +58,9 @@ namespace GeneralFirstPhase.Charting
         //              {Time: NPM12 SERIES}             
         //          }
         // }
+
+
+        // put lineseries in the correct place 
         List<Tuple<PlotModel, List<Dictionary<double, LineSeries>>>> sdevSplit = new List<Tuple<PlotModel, List<Dictionary<double, LineSeries>>>>();
         List<Tuple<PlotModel, List<Dictionary<double, LineSeries>>>> psSplit = new List<Tuple<PlotModel, List<Dictionary<double, LineSeries>>>>();
 
@@ -73,6 +76,8 @@ namespace GeneralFirstPhase.Charting
             MajorStep = 30,
             IsZoomEnabled = false
         };
+
+        // directly edit the Line Series using a dictionary
         Dictionary<string, LineSeries> voltSeriesDict = new Dictionary<string, LineSeries>();
         Dictionary<string, LineSeries> npmSeriesDict = new Dictionary<string, LineSeries>();
         Dictionary<string, Dictionary<double, LineSeries>> psSeriesDict = new Dictionary<string, Dictionary<double, LineSeries>>();
@@ -99,7 +104,7 @@ namespace GeneralFirstPhase.Charting
                 double time = DateTimeAxis.ToDouble(results.Time);
 
                 // psHGM
-                LineSeries psSeries = new LineSeries();
+                LineSeries psSeries = new LineSeries() {Title = results.Serial};
                 int psB = 0;
                 foreach (string bin in results.PsHGM.Split(','))
                 {
@@ -129,7 +134,7 @@ namespace GeneralFirstPhase.Charting
                     if (!added)
                     {
                         PlotModel newModel = new PlotModel() { IsLegendVisible = true };
-                        Legend leg = new Legend() { LegendPosition = LegendPosition.BottomRight };
+                        Legend leg = new Legend() { LegendPosition = LegendPosition.TopRight };
                         newModel.Legends.Add(leg);
                         Tuple<PlotModel, List<Dictionary<double, LineSeries>>> rack = 
                             new Tuple<PlotModel, List<Dictionary<double, LineSeries>>>(newModel, new List<Dictionary<double, LineSeries>>() {newDict});
@@ -140,7 +145,7 @@ namespace GeneralFirstPhase.Charting
                 }
 
                 // psHGM
-                LineSeries sdevSeries = new LineSeries();
+                LineSeries sdevSeries = new LineSeries() { Title = results.Serial };
                 int sdevB = 0;
                 foreach (string bin in results.SdevHGM.Split(','))
                 {
@@ -171,8 +176,12 @@ namespace GeneralFirstPhase.Charting
                     if (!added)
                     {
                         PlotModel newModel = new PlotModel() { IsLegendVisible = true };
-                        Legend leg = new Legend() { LegendPosition = LegendPosition.BottomRight };
+                        Legend leg = new Legend() { LegendPosition = LegendPosition.TopRight };
                         newModel.Legends.Add(leg);
+
+                        LogarithmicAxis yAx = new LogarithmicAxis();
+                        newModel.Axes.Add(yAx);
+
                         Tuple<PlotModel, List<Dictionary<double, LineSeries>>> rack =
                             new Tuple<PlotModel, List<Dictionary<double, LineSeries>>>(newModel, new List<Dictionary<double, LineSeries>>() { newDict });
                         sdevSplit.Add(rack);
@@ -387,14 +396,7 @@ namespace GeneralFirstPhase.Charting
         private void varySelectBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (voltageSplit.Count == 0) return;
-            if (varySelectBox.Text.Equals("Voltage"))
-            {
-                variablePlot.Model = voltageSplit[selIndex].Item1;
-            }
-            else
-            {
-                variablePlot.Model = tempSplit[selIndex].Item1;
-            }
+            UpdateCurPlots();
         }
 
         private void varyBack_Click(object sender, EventArgs e)
@@ -408,6 +410,12 @@ namespace GeneralFirstPhase.Charting
         {
             selIndex++;
             if (selIndex > voltageSplit.Count - 1) selIndex = 0;
+            UpdateCurPlots();
+        }
+
+        private void hgmBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (voltageSplit.Count == 0) return;
             UpdateCurPlots();
         }
     }
