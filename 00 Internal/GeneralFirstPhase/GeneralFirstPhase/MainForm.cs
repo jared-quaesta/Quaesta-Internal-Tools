@@ -675,6 +675,7 @@ namespace QIXLPTesting
 
             if (!int.TryParse(sdevWait.Text, out int waitSec) ||
                 !int.TryParse(sdevVolt.Text, out int voltage) ||
+                !int.TryParse(noiseFloorBox.Text, out int floor) ||
                 !int.TryParse(minBinBox.Text, out int minBin))
             {
                 AddOutput("Invalid Inputs\n", Color.FromArgb(251, 55, 40));
@@ -688,18 +689,20 @@ namespace QIXLPTesting
                     return true;
                 }
             }
-            AddOutput("--Begin SDEV Test--\n", Color.FromArgb(255, 131, 89));
+            AddOutput("--Begin Null Hist Test--\n", Color.FromArgb(255, 131, 89));
             AddOutput("Wait: ", Color.FromArgb(71, 134, 255));
             AddOutput(sdevWait.Text + " Seconds" + Environment.NewLine, Color.White);
             AddOutput("Valid Below: ", Color.FromArgb(71, 134, 255));
             AddOutput("Bin " + minBinBox.Text + Environment.NewLine, Color.White);
             AddOutput("Voltage: ", Color.FromArgb(71, 134, 255));
             AddOutput(sdevVolt.Text + "V" + Environment.NewLine, Color.White);
+            AddOutput("Floor: ", Color.FromArgb(71, 134, 255));
+            AddOutput(floor + " Counts/Second" + Environment.NewLine, Color.White);
 
             List<Thread> threads = new List<Thread>();
 
             ConcurrentDictionary<string, Tuple<bool, int>> psDict = new ConcurrentDictionary<string, Tuple<bool, int>>();
-            HGMPlotForm pf = new HGMPlotForm();
+            HGMPlotForm pf = new HGMPlotForm("Counts/Second", true);
             pf.Show();
             progressBar.Value = 0;
             progressBar.Maximum = 1000;
@@ -711,7 +714,7 @@ namespace QIXLPTesting
                 ThreadStart threadDelegate = new ThreadStart(() =>
                 {
                     Tests psTestClass = new Tests();
-                    foreach (int[] series in psTestClass.SdevTest(serialMan, waitSec, voltage, minBin))
+                    foreach (int[] series in psTestClass.NullHist(serialMan, waitSec, voltage, minBin, floor))
                     {
                         Invoke((MethodInvoker)delegate
                         {
@@ -726,7 +729,7 @@ namespace QIXLPTesting
                     //       my server somehow.
                     while (!psDict.TryAdd(
                         serialMan.GetSerial(),
-                        new Tuple<bool, int>(psTestClass.errOccurred, psTestClass.maxBin)))
+                        new Tuple<bool, int>(psTestClass.errOccurred, psTestClass.maxBin/4)))
                     {
                         Thread.Sleep(100);
                     }
@@ -769,13 +772,17 @@ namespace QIXLPTesting
             {
                 if (psDict[key].Item2 <= minBin)
                 {
-                    AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
-                    AddOutput("Max bin " + psDict[key].Item2 + Environment.NewLine, Color.FromArgb(0, 200, 156));
+                    AddOutput(key + " Noise Floor: ", Color.FromArgb(71, 134, 255));
+                    if (psDict[key].Item2 < int.Parse(tagNoise.Text))
+                        AddOutput(psDict[key].Item2 + "/64 (TAG!)" + Environment.NewLine, Color.FromArgb(0, 200, 156));
+                    else
+                        AddOutput(psDict[key].Item2 + "/64" + Environment.NewLine, Color.FromArgb(0, 200, 156));
                 }
+                
                 else
                 {
-                    AddOutput(key + ": ", Color.FromArgb(71, 134, 255));
-                    AddOutput("Max bin " + psDict[key].Item2 + Environment.NewLine, Color.FromArgb(251, 55, 40));
+                    AddOutput(key + " Noise Floor: ", Color.FromArgb(71, 134, 255));
+                    AddOutput(psDict[key].Item2 + "/64" + Environment.NewLine, Color.FromArgb(251, 55, 40));
                 }
                 errFound = errFound || psDict[key].Item1;
                 SQLManager.UpdateSdevTest(key, !psDict[key].Item1);
@@ -819,7 +826,7 @@ namespace QIXLPTesting
             List<Thread> threads = new List<Thread>();
 
             ConcurrentDictionary<string, Tuple<bool, int>> psDict = new ConcurrentDictionary<string, Tuple<bool, int>>();
-            HGMPlotForm pf = new HGMPlotForm();
+            HGMPlotForm pf = new HGMPlotForm("Counts");
             pf.Show();
             progressBar.Value = 0;
             progressBar.Maximum = 1000;
@@ -1958,14 +1965,14 @@ namespace QIXLPTesting
 
         private async void cs215Btn_Click(object sender, EventArgs e)
         {
-            cs215Btn.Enabled = false;
-            dlPanel.Enabled = false;
             cs215Lbl.Text = "";
             if (!dlMan.IsConnected())
             {
                 MessageBox.Show("Datalogger not connected.", "Error");
                 return;
             }
+            cs215Btn.Enabled = false;
+            dlPanel.Enabled = false;
             string cs215 = await dlMan.GetCS215();
             cs215Lbl.Text = cs215;
             cs215Btn.Enabled = true;
@@ -2027,8 +2034,23 @@ namespace QIXLPTesting
                     timer.Restart();
                     string cs215str = dlMan.GetCS215Sync();
                     string temp = "-1";
-                    if (!cs215str.Equals("UNK")) 
+                    try
+                    {
                         temp = cs215str.Split('=')[1].Split(',')[0].Trim();
+                    }
+                    catch 
+                    {
+                        cs215str = dlMan.GetCS215Sync();
+                        temp = "-1";
+                        try
+                        {
+                            temp = cs215str.Split('=')[1].Split(',')[0].Trim();
+                        }
+                        catch
+                        {
+                            continue;
+                        }
+                    }
                     List<Thread> threads = new List<Thread>();
                     ConcurrentDictionary<string, HeaterDataResults> data = new ConcurrentDictionary<string, HeaterDataResults>();
                     foreach (SerialNPMManager serialMan in serialMans)
@@ -2066,20 +2088,6 @@ namespace QIXLPTesting
             // unpack and display data
             ConcurrentDictionary<string, HeaterDataResults> data = (ConcurrentDictionary<string, HeaterDataResults>)e.UserState;
             heatPlots1.UpdateCharts(data);
-            //foreach (string sn in data.Keys)
-            //{
-            //    // voltage
-                
-
-
-
-
-            //    HeaterDataResults results = data[sn];
-            //    Debug.WriteLine($"Added {results.Cs215Temp}");
-            //    cs215Series.Points.Add(new DataPoint(DateTimeAxis.ToDouble(results.Time), results.Cs215Temp));
-            //}
-
-            //cs215Model.InvalidatePlot(true);
 
         }
 
@@ -2088,6 +2096,30 @@ namespace QIXLPTesting
             Debug.WriteLine("End");
             
             
+        }
+
+        private async void setMinMaxTemp_Click(object sender, EventArgs e)
+        {
+            if (!dlMan.IsConnected())
+            {
+                if (!dlMan.IsConnected())
+                {
+                    MessageBox.Show("Datalogger not connected.", "Error");
+                    return;
+                }
+            }
+            cs215Btn.Enabled = false;
+            dlPanel.Enabled = false;
+            //MaxCycleTemp = 40
+            //MinCycleTemp = 20
+            await dlMan.INICommand($"MaxCycleTemp = {maxTempBox.Text}\r\n");
+            Thread.Sleep(30);
+            await dlMan.INICommand($"MinCycleTemp = {minTempBox.Text}\r\n");
+            Thread.Sleep(30);
+            cs215Btn.Enabled = true;
+            dlPanel.Enabled = true;
+            await dlMan.QueryCycle();
+            queryDlBtn_Click(null, null);
         }
     }
 }

@@ -261,7 +261,7 @@ namespace QIXLPTesting.SQL
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
-                    cmd.Parameters.Add("@PSb", SqlDbType.Bit).Value = val;
+                    cmd.Parameters.Add("@sdi", SqlDbType.Bit).Value = val;
 
                     con.Open();
                     cmd.ExecuteNonQuery();

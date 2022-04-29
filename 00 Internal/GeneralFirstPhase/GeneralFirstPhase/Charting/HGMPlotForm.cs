@@ -16,8 +16,12 @@ namespace QIXLPTesting
         Dictionary<string, Tuple<LineSeries, LineSeries>> seriesDict = new Dictionary<string, Tuple<LineSeries, LineSeries>>();
         internal bool canClose = false;
         int range;
-        public HGMPlotForm()
+        bool log = false;
+        string yAxis;
+        public HGMPlotForm(string yAxis, bool log = false)
         {
+            this.yAxis = yAxis;
+            this.log = log;
             InitializeComponent();
         }
 
@@ -34,14 +38,32 @@ namespace QIXLPTesting
                 LegendTextColor = OxyColors.White
             });
             rawModel.Axes.Clear();
-            LinearAxis yAx = new LinearAxis()
+            if (log)
             {
-                Title = "Counts",
-                Position = AxisPosition.Left,
-                TextColor = OxyColors.White,
-                AxislineColor = OxyColors.White,
-                TicklineColor = OxyColors.White
-            };
+                LogarithmicAxis yAx = new LogarithmicAxis()
+                {
+                    Title = yAxis,
+                    Position = AxisPosition.Left,
+                    TextColor = OxyColors.White,
+                    AxislineColor = OxyColors.White,
+                    TicklineColor = OxyColors.White
+                };
+
+                rawModel.Axes.Add(yAx);
+            }
+            else
+            {
+                LinearAxis yAx = new LinearAxis()
+                {
+                    Title = yAxis,
+                    Position = AxisPosition.Left,
+                    TextColor = OxyColors.White,
+                    AxislineColor = OxyColors.White,
+                    TicklineColor = OxyColors.White
+                };
+
+                rawModel.Axes.Add(yAx);
+            }
             LinearAxis xAx = new LinearAxis()
             {
                 Title = "Bin",
@@ -50,7 +72,6 @@ namespace QIXLPTesting
                 AxislineColor = OxyColors.White,
                 TicklineColor = OxyColors.White
             };
-            rawModel.Axes.Add(yAx);
             rawModel.Axes.Add(xAx);
 
 

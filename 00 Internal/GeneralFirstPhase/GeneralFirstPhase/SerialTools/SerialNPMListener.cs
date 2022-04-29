@@ -148,13 +148,18 @@ namespace QIXLPTesting.SerialTools
             else return false;
         }
 
-        internal List<int> GetHGM()
+        internal List<int> GetHGM(out int t)
         {
+            t = -1;
             foreach (string line in hgmString.Split('\n'))
             {
                 if (int.TryParse(line, out int val))
                 {
                     hgm.Add(val);
+                }
+                if (line.Contains(','))
+                {
+                    int.TryParse(line.Split(',')[1], out t);
                 }
             }
             return hgm;

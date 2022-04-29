@@ -107,8 +107,9 @@ namespace QIXLPTesting
             return err;
         }
 
-        internal IEnumerable<int[]> SdevTest(SerialNPMManager serialMan, int waitSec, int voltage, int minBin)
+        internal IEnumerable<int[]> NullHist(SerialNPMManager serialMan, int waitSec, int voltage, int minBin, int floor)
         {
+            minBin *= 4;
             serialMan.ClearInput();
             serialMan.listener.ClearVoltage();
             serialMan.SendCommand($"gain = 25.5\r\n");
@@ -117,11 +118,15 @@ namespace QIXLPTesting
             Thread.Sleep(30);
             serialMan.SendCommand($"voltage={voltage}\r\n");
             Thread.Sleep(30);
-            serialMan.SendCommand($"nbins=64\r\n");
+            serialMan.SendCommand($"nbins=512\r\n");
             Thread.Sleep(30);
-            serialMan.SendCommand($"disclow=2\r\n");
+            serialMan.SendCommand($"disclow=1\r\n");
             Thread.Sleep(30);
-            serialMan.SendCommand($"dischigh=63\r\n");
+            serialMan.SendCommand($"dischigh=10000000\r\n");
+            Thread.Sleep(30);           
+            serialMan.SendCommand($"disclow=1\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"dischigh=10000000\r\n");
             Thread.Sleep(30);
             serialMan.SendCommand($"ledmode = 1\r\n");
             Thread.Sleep(30);
@@ -138,27 +143,29 @@ namespace QIXLPTesting
 
             while (watch.ElapsedMilliseconds / 1000 < waitSec)
             {
-                int[] ls = GetHGMSdev(serialMan, minBin);
+                Thread.Sleep(1000);
+                int[] ls = GetHGMSdev(serialMan, minBin, floor);
                 yield return ls;
             }
 
         }
 
-        private int[] GetHGMSdev(SerialNPMManager serialMan, int minBin)
+        private int[] GetHGMSdev(SerialNPMManager serialMan, int minBin, int floor)
         {
             serialMan.listener.ClearHGM();
             serialMan.ClearInput();
             Thread.Sleep(30);
             serialMan.SendCommand("hgm\r\n");
-            Thread.Sleep(30);
+            Thread.Sleep(100);
 
-            List<int> hgm = serialMan.listener.GetHGM();
+            List<int> hgm = serialMan.listener.GetHGM(out int t);
 
             // find max bin with counts
 
             for (int i = 0; i < hgm.Count; i++)
             {
-                if (hgm[i] > 0) maxBin = i;
+                hgm[i] /= t;
+                if (hgm[i] > floor) maxBin = i;
             }
             if (maxBin > minBin) errOccurred = true;
             return hgm.ToArray();
@@ -171,24 +178,28 @@ namespace QIXLPTesting
 
             serialMan.ClearInput();
             serialMan.listener.ClearVoltage();
-            serialMan.SendCommand($"gain = {gain}\r\n");
-            Thread.Sleep(30);
-            serialMan.SendCommand($"nbins={nbins}\r\n");
-            Thread.Sleep(30);
-            serialMan.SendCommand($"disclow={discLow}\r\n");
-            Thread.Sleep(30);
-            serialMan.SendCommand($"dischigh={discHigh}\r\n");
-            Thread.Sleep(30);
-            serialMan.SendCommand($"ledmode = 1\r\n");
-            Thread.Sleep(30);
-            serialMan.SendCommand($"pulsesim=1\r\n");
-            Thread.Sleep(30);
-            serialMan.SendCommand($"hgmmode=1\r\n");
-            Thread.Sleep(30);
-            serialMan.SendCommand($"zerohgm\r\n");
-            Thread.Sleep(30);
-            serialMan.SendCommand($"zerohgm\r\n");
-            Thread.Sleep(30);
+            for (int i = 0; i < 3; i++)
+            {
+                serialMan.SendCommand($"gain = {gain}\r\n");
+                Thread.Sleep(30);
+                serialMan.SendCommand($"nbins={nbins}\r\n");
+                Thread.Sleep(30);
+                serialMan.SendCommand($"disclow={discLow}\r\n");
+                Thread.Sleep(30);
+                serialMan.SendCommand($"dischigh={discHigh}\r\n");
+                Thread.Sleep(30);
+                serialMan.SendCommand($"ledmode = 1\r\n");
+                Thread.Sleep(30);
+                serialMan.SendCommand($"pulsesim=1\r\n");
+                Thread.Sleep(30);
+                serialMan.SendCommand($"hgmmode=1\r\n");
+                Thread.Sleep(30);
+                serialMan.SendCommand($"zerohgm\r\n");
+                Thread.Sleep(30);
+                serialMan.SendCommand($"zerohgm\r\n");
+                Thread.Sleep(30);
+            }
+            
 
             Stopwatch watch = Stopwatch.StartNew();
 
@@ -211,7 +222,7 @@ namespace QIXLPTesting
 
             LineSeries series = new LineSeries() { Title = serialMan.GetSerial() };
 
-            List<int> hgm = serialMan.listener.GetHGM();
+            List<int> hgm = serialMan.listener.GetHGM(out int t);
             int spread = DetermineSpread(hgm);
             if (spread > range) errOccurred = true;
             if (spread > maxSpread) maxSpread = spread;
@@ -368,7 +379,7 @@ namespace QIXLPTesting
             serialMan.listener.ClearHGM();
             serialMan.SendCommand("hgm\r\n");
             Thread.Sleep(30);
-            List<int> hgm = serialMan.listener.GetHGM();
+            List<int> hgm = serialMan.listener.GetHGM(out int t);
             if (hgm.Count != 64)
             {
                 hgm.Clear();
@@ -430,7 +441,7 @@ namespace QIXLPTesting
             serialMan.listener.ClearHGM();
             serialMan.SendCommand("hgm\r\n");
             Thread.Sleep(30);
-            List<int> sdevhgm = serialMan.listener.GetHGM();
+            List<int> sdevhgm = serialMan.listener.GetHGM(out t);
             if (sdevhgm.Count != 64)
             {
                 sdevhgm.Clear();
@@ -445,6 +456,14 @@ namespace QIXLPTesting
             serialMan.SendCommand($"pulsesim=0\r\n");
             Thread.Sleep(30);
             serialMan.SendCommand($"pulsesim=0\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"zerohgm\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"zerohgm\r\n");            
+            Thread.Sleep(30);
+            serialMan.SendCommand($"gain=25.5\r\n");
+            Thread.Sleep(30);
+            serialMan.SendCommand($"gain=25.5\r\n");
             return res;
         }
     }
