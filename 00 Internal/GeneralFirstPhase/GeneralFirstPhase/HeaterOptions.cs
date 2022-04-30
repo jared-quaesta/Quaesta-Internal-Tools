@@ -50,6 +50,14 @@ namespace GeneralFirstPhase
         {
             return int.Parse(psValid.Text);
         }
+        internal int GetPSCenter()
+        {
+            return int.Parse(center.Text);
+        }
+        internal int GetPSCenterSpread()
+        {
+            return int.Parse(centerSpread.Text);
+        }
 
         internal int GetMaximumBin()
         {

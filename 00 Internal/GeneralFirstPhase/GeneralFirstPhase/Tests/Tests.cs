@@ -482,7 +482,7 @@ namespace QIXLPTesting
             serialMan.SendCommand($"pulsesim=1\r\n");
             Thread.Sleep(30);
             serialMan.SendCommand($"pulsesim=1\r\n");
-            Thread.Sleep(10000);
+            Thread.Sleep(20000);
 
             serialMan.ClearInput();
             Thread.Sleep(30);

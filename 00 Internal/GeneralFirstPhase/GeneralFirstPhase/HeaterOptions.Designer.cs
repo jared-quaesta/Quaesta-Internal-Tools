@@ -30,9 +30,19 @@ namespace GeneralFirstPhase
         private void InitializeComponent()
         {
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.minBinBox = new System.Windows.Forms.ComboBox();
+            this.noiseFloor = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label58 = new System.Windows.Forms.Label();
+            this.center = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.centerSpread = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.psValid = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.gainBox = new System.Windows.Forms.ComboBox();
@@ -46,16 +56,6 @@ namespace GeneralFirstPhase
             this.label1 = new System.Windows.Forms.Label();
             this.timeBox = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.noiseFloor = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.voltOptionsGB.SuspendLayout();
@@ -76,6 +76,15 @@ namespace GeneralFirstPhase
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SDEV Noise Test Options";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(116, 52);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(82, 13);
+            this.label8.TabIndex = 28;
+            this.label8.Text = "Counts/Second";
+            // 
             // minBinBox
             // 
             this.minBinBox.FormattingEnabled = true;
@@ -91,6 +100,29 @@ namespace GeneralFirstPhase
             this.minBinBox.TabIndex = 11;
             this.minBinBox.Text = "3";
             // 
+            // noiseFloor
+            // 
+            this.noiseFloor.FormattingEnabled = true;
+            this.noiseFloor.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "15",
+            "30"});
+            this.noiseFloor.Location = new System.Drawing.Point(67, 49);
+            this.noiseFloor.Name = "noiseFloor";
+            this.noiseFloor.Size = new System.Drawing.Size(49, 21);
+            this.noiseFloor.TabIndex = 27;
+            this.noiseFloor.Text = "100";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(8, 52);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(60, 13);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Noise Floor";
+            // 
             // label34
             // 
             this.label34.AutoSize = true;
@@ -105,9 +137,9 @@ namespace GeneralFirstPhase
             this.groupBox1.Controls.Add(this.label52);
             this.groupBox1.Controls.Add(this.label57);
             this.groupBox1.Controls.Add(this.label58);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.center);
             this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.comboBox2);
+            this.groupBox1.Controls.Add(this.centerSpread);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.psValid);
             this.groupBox1.Controls.Add(this.label26);
@@ -119,6 +151,75 @@ namespace GeneralFirstPhase
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PulseSim Test Options";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(285, 24);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(47, 13);
+            this.label52.TabIndex = 31;
+            this.label52.Text = "Bins /64";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(131, 24);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(98, 13);
+            this.label57.TabIndex = 29;
+            this.label57.Text = "Acceptable Spread";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(305, 51);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(24, 13);
+            this.label58.TabIndex = 28;
+            this.label58.Text = "/64";
+            // 
+            // center
+            // 
+            this.center.FormattingEnabled = true;
+            this.center.Location = new System.Drawing.Point(254, 48);
+            this.center.Name = "center";
+            this.center.Size = new System.Drawing.Size(49, 21);
+            this.center.TabIndex = 27;
+            this.center.Text = "36";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(117, 51);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(135, 13);
+            this.label9.TabIndex = 26;
+            this.label9.Text = "Bins From Expected Center";
+            // 
+            // centerSpread
+            // 
+            this.centerSpread.FormattingEnabled = true;
+            this.centerSpread.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"});
+            this.centerSpread.Location = new System.Drawing.Point(67, 48);
+            this.centerSpread.Name = "centerSpread";
+            this.centerSpread.Size = new System.Drawing.Size(49, 21);
+            this.centerSpread.TabIndex = 25;
+            this.centerSpread.Text = "3";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 51);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(63, 13);
+            this.label10.TabIndex = 24;
+            this.label10.Text = "Valid Within";
             // 
             // psValid
             // 
@@ -270,107 +371,6 @@ namespace GeneralFirstPhase
             this.label2.TabIndex = 24;
             this.label2.Text = "Query Every";
             // 
-            // noiseFloor
-            // 
-            this.noiseFloor.FormattingEnabled = true;
-            this.noiseFloor.Items.AddRange(new object[] {
-            "5",
-            "10",
-            "15",
-            "30"});
-            this.noiseFloor.Location = new System.Drawing.Point(67, 49);
-            this.noiseFloor.Name = "noiseFloor";
-            this.noiseFloor.Size = new System.Drawing.Size(49, 21);
-            this.noiseFloor.TabIndex = 27;
-            this.noiseFloor.Text = "100";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 52);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(60, 13);
-            this.label7.TabIndex = 26;
-            this.label7.Text = "Noise Floor";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(116, 52);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(82, 13);
-            this.label8.TabIndex = 28;
-            this.label8.Text = "Counts/Second";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(305, 51);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(24, 13);
-            this.label58.TabIndex = 28;
-            this.label58.Text = "/64";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(254, 48);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(49, 21);
-            this.comboBox1.TabIndex = 27;
-            this.comboBox1.Text = "11";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(117, 51);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(135, 13);
-            this.label9.TabIndex = 26;
-            this.label9.Text = "Bins From Expected Center";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.comboBox2.Location = new System.Drawing.Point(67, 48);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(49, 21);
-            this.comboBox2.TabIndex = 25;
-            this.comboBox2.Text = "3";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 51);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(63, 13);
-            this.label10.TabIndex = 24;
-            this.label10.Text = "Valid Within";
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(285, 24);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(47, 13);
-            this.label52.TabIndex = 31;
-            this.label52.Text = "Bins /64";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(131, 24);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(98, 13);
-            this.label57.TabIndex = 29;
-            this.label57.Text = "Acceptable Spread";
-            // 
             // HeaterOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -422,9 +422,9 @@ namespace GeneralFirstPhase
         private System.Windows.Forms.ComboBox noiseFloor;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label58;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox center;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox centerSpread;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.Label label57;

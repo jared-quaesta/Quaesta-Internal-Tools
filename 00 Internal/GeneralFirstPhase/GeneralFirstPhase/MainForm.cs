@@ -2103,6 +2103,7 @@ namespace QIXLPTesting
                         if (!serialMan.IsConnected())
                         {
                             MessageBox.Show("Unable to connect to ");
+                            return;
                         }
                     });
                     Thread thread = new Thread(threadDelegate);
@@ -2197,6 +2198,8 @@ namespace QIXLPTesting
             int voltage = heaterOptionsForm.GetHeatVolts();
             int nullMax = heaterOptionsForm.GetMaximumBin();
             int psBinRange = heaterOptionsForm.GetPSBinRange();
+            int psCenter = heaterOptionsForm.GetPSCenter();
+            int psCenterSpread = heaterOptionsForm.GetPSCenterSpread();
             TimeSpan span = TimeSpan.FromMinutes(queryTime);
             Tests.SetupHeaterTest(serialMans, voltage);
             
@@ -2211,6 +2214,12 @@ namespace QIXLPTesting
                         nextRecLbl.Text = $"Next Record: Now";
                         nextRecLbl.Refresh();
                         manColBtn.Enabled = false;
+
+                        heatProgress.Value = 0;
+                        heatProgress.Maximum = 25;
+                        heatProgress.Visible = true;
+                        heatProgress.Refresh();
+
                     });
                     manCollect = false;
                     DateTime now = DateTime.Now;
@@ -2238,17 +2247,45 @@ namespace QIXLPTesting
                     }
                     List<Thread> threads = new List<Thread>();
                     ConcurrentDictionary<string, HeaterDataResults> data = new ConcurrentDictionary<string, HeaterDataResults>();
+                    // progress
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    Task.Run(() =>
+                    {
+
+                        Stopwatch w = Stopwatch.StartNew();
+                        while (heatProgress.Value < heatProgress.Maximum)
+                        {
+                            if (w.ElapsedMilliseconds > 1000)
+                            {
+                                Invoke((MethodInvoker)delegate
+                                {
+                                    heatProgress.Value++;
+                                    Refresh();
+                                });
+                                w.Restart();
+                            }
+                            Thread.Sleep(200);
+                        }
+                        Invoke((MethodInvoker)delegate
+                        {
+                            heatProgress.Visible = false;
+                        });
+                    });
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+
                     foreach (SerialNPMManager serialMan in serialMans)
                     {
                         ThreadStart threadDelegate = new ThreadStart(async () =>
                         {
+                            
                             HeaterDataResults res = Tests.GetHeaterData(serialMan, psGain, voltRange, voltage, nullMax, psBinRange, noiseFloor);
                             
                             res.Cs215Temp = (int)double.Parse(temp);
                             res.Time = now;
                             data.TryAdd(serialMan.GetSerial(), res);
+
                             SQLManager.AddHeaterData(res.Serial, now, res.Voltage, res.NpmTemp, res.Cs215Temp, res.PsHGM, res.SdevHGM);
-                            DetermineHeaterResults(res, noiseFloor, nullMax, psGain, voltage, voltRange, psBinRange);
+                            DetermineHeaterResults(res, noiseFloor, nullMax, psGain, voltage, voltRange, psBinRange, psCenter, psCenterSpread);
                             Debug.WriteLine("Added entry");
                         });
                         Thread thread = new Thread(threadDelegate);
@@ -2277,7 +2314,8 @@ namespace QIXLPTesting
 
         }
 
-        private void DetermineHeaterResults(HeaterDataResults res, int noiseFloor, int nullMax, double psGain, int voltage, int voltRange, int psRange)
+        private void DetermineHeaterResults
+            (HeaterDataResults res, int noiseFloor, int nullMax, double psGain, int voltage, int voltRange, int psRange, int psCenter, int psCenterSpread)
         {
             // voltage
             if (res.Voltage >= voltage + voltRange || res.Voltage <= voltage - voltRange)
@@ -2317,6 +2355,28 @@ namespace QIXLPTesting
             {
                 SQLManager.UpdateHeatPulsesimTest(res.Serial, false);
             }
+
+            // determine senter
+            int c = 0;
+            int sumWeights = 0;
+            for (int i = 0; i < psHGM.Length; i++)
+            {
+                if (psHGM[i] > 0)
+                {
+                    sumWeights += i * psHGM[i];
+                    c += psHGM[i];
+                }
+            }
+            if (c != 0)
+            {
+                int rCenter = sumWeights / c; 
+                if (rCenter > psCenter + psCenterSpread || rCenter < psCenter - psCenterSpread)
+                {
+                    SQLManager.UpdateHeatPulsesimTest(res.Serial, false);
+
+                }
+            }
+                
 
             // temp
             if (res.NpmTemp > res.Cs215Temp + 10 || res.NpmTemp < res.Cs215Temp - 10)

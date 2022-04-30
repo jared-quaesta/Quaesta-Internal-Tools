@@ -59,6 +59,11 @@ namespace QIXLPTesting
             this.minBinBox = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label58 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.psSpread = new System.Windows.Forms.ComboBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.psCenter = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
             this.psNbins = new System.Windows.Forms.ComboBox();
             this.psDiscLow = new System.Windows.Forms.ComboBox();
@@ -232,11 +237,7 @@ namespace QIXLPTesting
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heatTestWorker = new System.ComponentModel.BackgroundWorker();
             this.nextRecLbl = new System.Windows.Forms.Label();
-            this.psCenter = new System.Windows.Forms.ComboBox();
-            this.label52 = new System.Windows.Forms.Label();
-            this.psSpread = new System.Windows.Forms.ComboBox();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
+            this.heatProgress = new System.Windows.Forms.ProgressBar();
             this.heatPlots1 = new GeneralFirstPhase.Charting.HeatPlots();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
@@ -646,6 +647,56 @@ namespace QIXLPTesting
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PulseSim Test Options";
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Location = new System.Drawing.Point(316, 110);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(24, 13);
+            this.label58.TabIndex = 23;
+            this.label58.Text = "/64";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(341, 78);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(47, 13);
+            this.label52.TabIndex = 22;
+            this.label52.Text = "Bins /64";
+            // 
+            // psSpread
+            // 
+            this.psSpread.FormattingEnabled = true;
+            this.psSpread.Items.AddRange(new object[] {
+            "5",
+            "10",
+            "15",
+            "30"});
+            this.psSpread.Location = new System.Drawing.Point(291, 75);
+            this.psSpread.Name = "psSpread";
+            this.psSpread.Size = new System.Drawing.Size(49, 21);
+            this.psSpread.TabIndex = 21;
+            this.psSpread.Text = "5";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(192, 78);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(98, 13);
+            this.label57.TabIndex = 20;
+            this.label57.Text = "Acceptable Spread";
+            // 
+            // psCenter
+            // 
+            this.psCenter.FormattingEnabled = true;
+            this.psCenter.Location = new System.Drawing.Point(262, 107);
+            this.psCenter.Name = "psCenter";
+            this.psCenter.Size = new System.Drawing.Size(49, 21);
+            this.psCenter.TabIndex = 19;
+            this.psCenter.Text = "36";
             // 
             // label28
             // 
@@ -1132,6 +1183,7 @@ namespace QIXLPTesting
             // 
             // dlTab
             // 
+            this.dlTab.Controls.Add(this.heatProgress);
             this.dlTab.Controls.Add(this.manColBtn);
             this.dlTab.Controls.Add(this.cs215Btn);
             this.dlTab.Controls.Add(this.runHeatTest);
@@ -2602,64 +2654,22 @@ namespace QIXLPTesting
             // nextRecLbl
             // 
             this.nextRecLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.nextRecLbl.BackColor = System.Drawing.Color.Transparent;
-            this.nextRecLbl.Location = new System.Drawing.Point(884, 0);
+            this.nextRecLbl.BackColor = System.Drawing.SystemColors.Control;
+            this.nextRecLbl.Location = new System.Drawing.Point(868, 0);
             this.nextRecLbl.Name = "nextRecLbl";
             this.nextRecLbl.Size = new System.Drawing.Size(148, 24);
             this.nextRecLbl.TabIndex = 37;
-            this.nextRecLbl.Text = "Next Record:";
+            this.nextRecLbl.Text = "Next Record: Now";
             this.nextRecLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.nextRecLbl.Visible = false;
             // 
-            // psCenter
+            // heatProgress
             // 
-            this.psCenter.FormattingEnabled = true;
-            this.psCenter.Location = new System.Drawing.Point(262, 107);
-            this.psCenter.Name = "psCenter";
-            this.psCenter.Size = new System.Drawing.Size(49, 21);
-            this.psCenter.TabIndex = 19;
-            this.psCenter.Text = "36";
-            // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(341, 78);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(47, 13);
-            this.label52.TabIndex = 22;
-            this.label52.Text = "Bins /64";
-            // 
-            // psSpread
-            // 
-            this.psSpread.FormattingEnabled = true;
-            this.psSpread.Items.AddRange(new object[] {
-            "5",
-            "10",
-            "15",
-            "30"});
-            this.psSpread.Location = new System.Drawing.Point(291, 75);
-            this.psSpread.Name = "psSpread";
-            this.psSpread.Size = new System.Drawing.Size(49, 21);
-            this.psSpread.TabIndex = 21;
-            this.psSpread.Text = "5";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(192, 78);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(98, 13);
-            this.label57.TabIndex = 20;
-            this.label57.Text = "Acceptable Spread";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Location = new System.Drawing.Point(316, 110);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(24, 13);
-            this.label58.TabIndex = 23;
-            this.label58.Text = "/64";
+            this.heatProgress.Location = new System.Drawing.Point(609, 108);
+            this.heatProgress.Name = "heatProgress";
+            this.heatProgress.Size = new System.Drawing.Size(119, 24);
+            this.heatProgress.TabIndex = 38;
+            this.heatProgress.Visible = false;
             // 
             // heatPlots1
             // 
@@ -2947,6 +2957,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.ComboBox psSpread;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.ComboBox psCenter;
+        private System.Windows.Forms.ProgressBar heatProgress;
     }
 }
 
