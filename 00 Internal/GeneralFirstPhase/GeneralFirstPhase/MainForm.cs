@@ -4,8 +4,8 @@ using GeneralFirstPhase.Data;
 using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
-using QIXLPTesting.SerialTools;
-using QIXLPTesting.SQL;
+using GeneralFirstPhase.SerialTools;
+using GeneralFirstPhase.SQL;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -16,7 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QIXLPTesting
+namespace GeneralFirstPhase
 {
     public partial class MainForm : Form
     {
@@ -2432,6 +2432,15 @@ namespace QIXLPTesting
             manCollect = true;
         }
 
-        
+        private void copyOutput_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(outputBox.Text);
+        }
+
+        private void ShowHeatVoltagePlots(object sender, EventArgs e)
+        {
+            HeatTestPlotView newPlots = new HeatTestPlotView("voltage", snLbl.Text);
+            newPlots.ShowPlots();
+        }
     }
 }

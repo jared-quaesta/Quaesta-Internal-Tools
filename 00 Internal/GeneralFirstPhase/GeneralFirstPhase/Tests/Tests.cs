@@ -1,8 +1,8 @@
 ﻿using GeneralFirstPhase.Data;
 using OxyPlot;
 using OxyPlot.Series;
-using QIXLPTesting.SerialTools;
-using QIXLPTesting.SQL;
+using GeneralFirstPhase.SerialTools;
+using GeneralFirstPhase.SQL;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QIXLPTesting
+namespace GeneralFirstPhase
 {
     class Tests
     {

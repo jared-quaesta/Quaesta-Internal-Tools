@@ -1,10 +1,10 @@
-﻿using QIXLPTesting.SerialTools;
-using QIXLPTesting.SQL;
+﻿using GeneralFirstPhase.SerialTools;
+using GeneralFirstPhase.SQL;
 using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace QIXLPTesting
+namespace GeneralFirstPhase
 {
     public partial class ChangeSerialForm : Form
     {

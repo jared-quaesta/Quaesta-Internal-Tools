@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 
-namespace QIXLPTesting.SQL
+namespace GeneralFirstPhase.SQL
 {
     class SQLManager
     {
@@ -36,6 +36,29 @@ namespace QIXLPTesting.SQL
                 }
             }
             return ret == 0;
+        }
+
+        internal static List<Tuple<DateTime, int, double>> GetHeatVoltage(string serial)
+        {
+            List<Tuple<DateTime, int, double>> ret = new List<Tuple<DateTime, int, double>>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Get_heat_test_Voltage", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ret.Add(new Tuple<DateTime, int, double>(reader.GetDateTime(0), reader.GetInt32(1), (double)reader.GetDecimal(2)));
+                    }
+                }
+            }
+            return ret;
         }
 
         internal static bool EditSerial(string oldSn, string newSN)

@@ -1,5 +1,5 @@
 ﻿
-namespace QIXLPTesting
+namespace GeneralFirstPhase
 {
     partial class ChangeSerialForm
     {

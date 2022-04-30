@@ -65,6 +65,12 @@
     <Compile Include="Charting\HeatPlots.Designer.cs">
       <DependentUpon>HeatPlots.cs</DependentUpon>
     </Compile>
+    <Compile Include="Charting\HeatTestPlotView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Charting\HeatTestPlotView.Designer.cs">
+      <DependentUpon>HeatTestPlotView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\HeaterDataResults.cs" />
     <Compile Include="DirectTerm.cs">
       <SubType>Form</SubType>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Charting\HeatPlots.resx">
       <DependentUpon>HeatPlots.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Charting\HeatTestPlotView.resx">
+      <DependentUpon>HeatTestPlotView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DirectTerm.resx">
       <DependentUpon>DirectTerm.cs</DependentUpon>

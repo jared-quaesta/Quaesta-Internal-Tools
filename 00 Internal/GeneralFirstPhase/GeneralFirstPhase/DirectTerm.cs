@@ -1,4 +1,4 @@
-﻿using QIXLPTesting.SerialTools;
+﻿using GeneralFirstPhase.SerialTools;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace QIXLPTesting
+namespace GeneralFirstPhase
 {
     public partial class DirectTerm : Form
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace QIXLPTesting
+namespace GeneralFirstPhase
 {
     static class Program
     {

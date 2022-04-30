@@ -137,11 +137,10 @@ namespace GeneralFirstPhase.Charting
                         Legend leg = new Legend() { LegendPosition = LegendPosition.TopRight };
                         newModel.Legends.Add(leg);
                         Tuple<PlotModel, List<Dictionary<double, LineSeries>>> rack = 
-                            new Tuple<PlotModel, List<Dictionary<double, LineSeries>>>(newModel, new List<Dictionary<double, LineSeries>>() {newDict});
+                            new Tuple<PlotModel, List<Dictionary<double, LineSeries>>>
+                            (newModel, new List<Dictionary<double, LineSeries>>() {newDict});
                         psSplit.Add(rack);
                     }
-
-
                 }
 
                 // psHGM

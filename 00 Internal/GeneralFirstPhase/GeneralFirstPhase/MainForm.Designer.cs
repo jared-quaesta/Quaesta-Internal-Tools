@@ -1,5 +1,5 @@
 ﻿
-namespace QIXLPTesting
+namespace GeneralFirstPhase
 {
     partial class MainForm
     {
@@ -31,6 +31,7 @@ namespace QIXLPTesting
         {
             this.testTabControl = new System.Windows.Forms.TabControl();
             this.testTab = new System.Windows.Forms.TabPage();
+            this.copyOutput = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label37 = new System.Windows.Forms.Label();
             this.tempMaxBox = new System.Windows.Forms.ComboBox();
@@ -108,6 +109,7 @@ namespace QIXLPTesting
             this.avail = new System.Windows.Forms.Label();
             this.availNpms = new System.Windows.Forms.CheckedListBox();
             this.dlTab = new System.Windows.Forms.TabPage();
+            this.heatProgress = new System.Windows.Forms.ProgressBar();
             this.manColBtn = new System.Windows.Forms.Button();
             this.cs215Btn = new System.Windows.Forms.Button();
             this.runHeatTest = new System.Windows.Forms.Button();
@@ -133,6 +135,7 @@ namespace QIXLPTesting
             this.selNoneHeat = new System.Windows.Forms.Button();
             this.selAllHeat = new System.Windows.Forms.Button();
             this.label40 = new System.Windows.Forms.Label();
+            this.heatPlots1 = new GeneralFirstPhase.Charting.HeatPlots();
             this.availNpmsHeater = new System.Windows.Forms.CheckedListBox();
             this.dlConnectedLabel = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
@@ -237,8 +240,6 @@ namespace QIXLPTesting
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heatTestWorker = new System.ComponentModel.BackgroundWorker();
             this.nextRecLbl = new System.Windows.Forms.Label();
-            this.heatProgress = new System.Windows.Forms.ProgressBar();
-            this.heatPlots1 = new GeneralFirstPhase.Charting.HeatPlots();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -283,6 +284,7 @@ namespace QIXLPTesting
             // 
             // testTab
             // 
+            this.testTab.Controls.Add(this.copyOutput);
             this.testTab.Controls.Add(this.groupBox3);
             this.testTab.Controls.Add(this.testDesc);
             this.testTab.Controls.Add(this.blinkBtn);
@@ -308,6 +310,18 @@ namespace QIXLPTesting
             this.testTab.TabIndex = 1;
             this.testTab.Text = "Desk Tests";
             this.testTab.UseVisualStyleBackColor = true;
+            // 
+            // copyOutput
+            // 
+            this.copyOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyOutput.Location = new System.Drawing.Point(905, 632);
+            this.copyOutput.Name = "copyOutput";
+            this.copyOutput.Size = new System.Drawing.Size(89, 33);
+            this.copyOutput.TabIndex = 22;
+            this.copyOutput.Text = "Copy";
+            this.copyOutput.UseVisualStyleBackColor = true;
+            this.copyOutput.Click += new System.EventHandler(this.copyOutput_Click);
             // 
             // groupBox3
             // 
@@ -1110,7 +1124,7 @@ namespace QIXLPTesting
             | System.Windows.Forms.AnchorStyles.Right)));
             this.clearOut.Location = new System.Drawing.Point(646, 632);
             this.clearOut.Name = "clearOut";
-            this.clearOut.Size = new System.Drawing.Size(348, 33);
+            this.clearOut.Size = new System.Drawing.Size(253, 33);
             this.clearOut.TabIndex = 7;
             this.clearOut.Text = "Clear";
             this.clearOut.UseVisualStyleBackColor = true;
@@ -1205,6 +1219,14 @@ namespace QIXLPTesting
             this.dlTab.TabIndex = 3;
             this.dlTab.Text = "Heater Tests";
             this.dlTab.UseVisualStyleBackColor = true;
+            // 
+            // heatProgress
+            // 
+            this.heatProgress.Location = new System.Drawing.Point(609, 108);
+            this.heatProgress.Name = "heatProgress";
+            this.heatProgress.Size = new System.Drawing.Size(119, 24);
+            this.heatProgress.TabIndex = 38;
+            this.heatProgress.Visible = false;
             // 
             // manColBtn
             // 
@@ -1499,6 +1521,16 @@ namespace QIXLPTesting
             this.label40.TabIndex = 22;
             this.label40.Text = "Available";
             // 
+            // heatPlots1
+            // 
+            this.heatPlots1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.heatPlots1.Location = new System.Drawing.Point(248, 137);
+            this.heatPlots1.Name = "heatPlots1";
+            this.heatPlots1.Size = new System.Drawing.Size(749, 532);
+            this.heatPlots1.TabIndex = 36;
+            // 
             // availNpmsHeater
             // 
             this.availNpmsHeater.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1654,6 +1686,7 @@ namespace QIXLPTesting
             this.button1.TabIndex = 71;
             this.button1.Text = "See Chart";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.ShowHeatVoltagePlots);
             // 
             // label47
             // 
@@ -2663,24 +2696,6 @@ namespace QIXLPTesting
             this.nextRecLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.nextRecLbl.Visible = false;
             // 
-            // heatProgress
-            // 
-            this.heatProgress.Location = new System.Drawing.Point(609, 108);
-            this.heatProgress.Name = "heatProgress";
-            this.heatProgress.Size = new System.Drawing.Size(119, 24);
-            this.heatProgress.TabIndex = 38;
-            this.heatProgress.Visible = false;
-            // 
-            // heatPlots1
-            // 
-            this.heatPlots1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.heatPlots1.Location = new System.Drawing.Point(248, 137);
-            this.heatPlots1.Name = "heatPlots1";
-            this.heatPlots1.Size = new System.Drawing.Size(749, 532);
-            this.heatPlots1.TabIndex = 36;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2958,6 +2973,7 @@ namespace QIXLPTesting
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.ComboBox psCenter;
         private System.Windows.Forms.ProgressBar heatProgress;
+        private System.Windows.Forms.Button copyOutput;
     }
 }
 

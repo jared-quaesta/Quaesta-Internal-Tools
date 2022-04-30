@@ -24,14 +24,9 @@ C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\Gen
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\bin\Debug\OxyPlot.WindowsForms.dll
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\bin\Debug\OxyPlot.xml
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\bin\Debug\OxyPlot.WindowsForms.xml
-C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.ChangeSerialForm.resources
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.Charting.HeatPlots.resources
-C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.DirectTerm.resources
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.HeaterOptions.resources
-C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.HGMPlotForm.resources
-C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.MainForm.resources
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.Properties.Resources.resources
-C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.LinePlotForm.resources
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.SelectDL.resources
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.csproj.GenerateResource.cache
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.csproj.CoreCompileInputs.cache
@@ -39,3 +34,9 @@ C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\Gen
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.exe
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.pdb
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.csproj.AssemblyReference.cache
+C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.ChangeSerialForm.resources
+C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.Charting.HeatTestPlotView.resources
+C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.DirectTerm.resources
+C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.HGMPlotForm.resources
+C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.MainForm.resources
+C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.LinePlotForm.resources

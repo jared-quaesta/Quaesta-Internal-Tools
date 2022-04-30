@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QIXLPTesting
+namespace GeneralFirstPhase
 {
     class NPMData
     {
