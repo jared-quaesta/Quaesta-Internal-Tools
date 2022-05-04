@@ -2061,6 +2061,14 @@ namespace GeneralFirstPhase
             }
             else
             {
+                if (MessageBox.Show("Are you sure you want to begin this test? " +
+                    "All previous data for the selected NPMs will be overwritten.",
+                    "Warning",
+                    MessageBoxButtons.YesNo) != DialogResult.Yes) 
+                    return;
+
+
+
                 if (availNpmsHeater.CheckedItems.Count == 0)
                 {
                     MessageBox.Show("No NPMs Selected.", "Error");
@@ -2391,7 +2399,7 @@ namespace GeneralFirstPhase
         {
             // unpack and display data
             ConcurrentDictionary<string, HeaterDataResults> data = (ConcurrentDictionary<string, HeaterDataResults>)e.UserState;
-            heatPlots1.UpdateCharts(data);
+            heatPlots1.UpdateCharts(data, heaterOptionsForm.GetHeatVolts());
 
         }
 

@@ -64,7 +64,6 @@ namespace GeneralFirstPhase.Charting
         List<Tuple<PlotModel, List<Dictionary<double, LineSeries>>>> sdevSplit = new List<Tuple<PlotModel, List<Dictionary<double, LineSeries>>>>();
         List<Tuple<PlotModel, List<Dictionary<double, LineSeries>>>> psSplit = new List<Tuple<PlotModel, List<Dictionary<double, LineSeries>>>>();
 
-
         int selIndex = 0;
         double selTime = -1;
 
@@ -94,8 +93,9 @@ namespace GeneralFirstPhase.Charting
             InitializeComponent();
         }
 
-        internal void UpdateCharts(ConcurrentDictionary<string, HeaterDataResults> data)
+        internal void UpdateCharts(ConcurrentDictionary<string, HeaterDataResults> data, int desvolts)
         {
+
             bool gotFirst = false;
 
             foreach (string sn in data.Keys)
@@ -222,11 +222,20 @@ namespace GeneralFirstPhase.Charting
                         DateTimeAxis voltX = new DateTimeAxis()
                         {
                             IsPanEnabled = false,
-                            IsZoomEnabled = false
+                            IsZoomEnabled = false,
+
+                        };
+
+                        LinearAxis voltY = new LinearAxis()
+                        {
+                            Minimum = desvolts - 200,
+                            Maximum = desvolts + 200,
+                            MajorStep = 200,
                         };
                         Legend leg = new Legend() { LegendPosition = LegendPosition.BottomRight};
                         newModel.Legends.Add(leg);
                         newModel.Axes.Add(voltX);
+                        newModel.Axes.Add(voltY);
                         Tuple<PlotModel, List<LineSeries>> rack = new Tuple<PlotModel, List<LineSeries>>(newModel, new List<LineSeries>());
                         voltageSplit.Add(rack);
                         rack.Item2.Add(series);
