@@ -135,17 +135,13 @@ namespace GeneralFirstPhase
             this.selNoneHeat = new System.Windows.Forms.Button();
             this.selAllHeat = new System.Windows.Forms.Button();
             this.label40 = new System.Windows.Forms.Label();
-            this.heatPlots1 = new GeneralFirstPhase.Charting.HeatPlots();
             this.availNpmsHeater = new System.Windows.Forms.CheckedListBox();
             this.dlConnectedLabel = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.availDataloggers = new System.Windows.Forms.CheckedListBox();
             this.serverTab = new System.Windows.Forms.TabPage();
             this.serverDetailsPanel = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.seeChartsBtn = new System.Windows.Forms.Button();
             this.label47 = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.ndHt = new System.Windows.Forms.RadioButton();
@@ -240,6 +236,8 @@ namespace GeneralFirstPhase
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heatTestWorker = new System.ComponentModel.BackgroundWorker();
             this.nextRecLbl = new System.Windows.Forms.Label();
+            this.pauseBtn = new System.Windows.Forms.Button();
+            this.heatPlots1 = new GeneralFirstPhase.Charting.HeatPlots();
             this.testTabControl.SuspendLayout();
             this.testTab.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -1197,6 +1195,7 @@ namespace GeneralFirstPhase
             // 
             // dlTab
             // 
+            this.dlTab.Controls.Add(this.pauseBtn);
             this.dlTab.Controls.Add(this.heatProgress);
             this.dlTab.Controls.Add(this.manColBtn);
             this.dlTab.Controls.Add(this.cs215Btn);
@@ -1257,9 +1256,9 @@ namespace GeneralFirstPhase
             this.runHeatTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.runHeatTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.runHeatTest.ForeColor = System.Drawing.Color.Green;
-            this.runHeatTest.Location = new System.Drawing.Point(851, 108);
+            this.runHeatTest.Location = new System.Drawing.Point(922, 108);
             this.runHeatTest.Name = "runHeatTest";
-            this.runHeatTest.Size = new System.Drawing.Size(137, 23);
+            this.runHeatTest.Size = new System.Drawing.Size(66, 23);
             this.runHeatTest.TabIndex = 32;
             this.runHeatTest.Text = "Run Test";
             this.runHeatTest.UseVisualStyleBackColor = true;
@@ -1521,16 +1520,6 @@ namespace GeneralFirstPhase
             this.label40.TabIndex = 22;
             this.label40.Text = "Available";
             // 
-            // heatPlots1
-            // 
-            this.heatPlots1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.heatPlots1.Location = new System.Drawing.Point(248, 137);
-            this.heatPlots1.Name = "heatPlots1";
-            this.heatPlots1.Size = new System.Drawing.Size(749, 532);
-            this.heatPlots1.TabIndex = 36;
-            // 
             // availNpmsHeater
             // 
             this.availNpmsHeater.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1588,10 +1577,7 @@ namespace GeneralFirstPhase
             // 
             // serverDetailsPanel
             // 
-            this.serverDetailsPanel.Controls.Add(this.button4);
-            this.serverDetailsPanel.Controls.Add(this.button3);
-            this.serverDetailsPanel.Controls.Add(this.button2);
-            this.serverDetailsPanel.Controls.Add(this.button1);
+            this.serverDetailsPanel.Controls.Add(this.seeChartsBtn);
             this.serverDetailsPanel.Controls.Add(this.label47);
             this.serverDetailsPanel.Controls.Add(this.panel9);
             this.serverDetailsPanel.Controls.Add(this.panel10);
@@ -1651,42 +1637,15 @@ namespace GeneralFirstPhase
             this.serverDetailsPanel.TabIndex = 27;
             this.serverDetailsPanel.Visible = false;
             // 
-            // button4
+            // seeChartsBtn
             // 
-            this.button4.Location = new System.Drawing.Point(651, 340);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 74;
-            this.button4.Text = "See Chart";
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(651, 314);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 73;
-            this.button3.Text = "See Chart";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(651, 288);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 72;
-            this.button2.Text = "See Chart";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(651, 262);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 71;
-            this.button1.Text = "See Chart";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.ShowHeatVoltagePlots);
+            this.seeChartsBtn.Location = new System.Drawing.Point(339, 369);
+            this.seeChartsBtn.Name = "seeChartsBtn";
+            this.seeChartsBtn.Size = new System.Drawing.Size(306, 23);
+            this.seeChartsBtn.TabIndex = 71;
+            this.seeChartsBtn.Text = "See Charts";
+            this.seeChartsBtn.UseVisualStyleBackColor = true;
+            this.seeChartsBtn.Click += new System.EventHandler(this.seeChartsBtn_Click);
             // 
             // label47
             // 
@@ -2696,6 +2655,30 @@ namespace GeneralFirstPhase
             this.nextRecLbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.nextRecLbl.Visible = false;
             // 
+            // pauseBtn
+            // 
+            this.pauseBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pauseBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pauseBtn.ForeColor = System.Drawing.Color.Black;
+            this.pauseBtn.Location = new System.Drawing.Point(853, 108);
+            this.pauseBtn.Name = "pauseBtn";
+            this.pauseBtn.Size = new System.Drawing.Size(63, 23);
+            this.pauseBtn.TabIndex = 39;
+            this.pauseBtn.Text = "Pause";
+            this.pauseBtn.UseVisualStyleBackColor = true;
+            this.pauseBtn.Visible = false;
+            this.pauseBtn.Click += new System.EventHandler(this.pauseBtn_Click);
+            // 
+            // heatPlots1
+            // 
+            this.heatPlots1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.heatPlots1.Location = new System.Drawing.Point(248, 137);
+            this.heatPlots1.Name = "heatPlots1";
+            this.heatPlots1.Size = new System.Drawing.Size(749, 532);
+            this.heatPlots1.TabIndex = 36;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2919,7 +2902,6 @@ namespace GeneralFirstPhase
         private System.Windows.Forms.Button cs215Btn;
         private System.Windows.Forms.Label cs215Lbl;
         private System.Windows.Forms.ToolStripMenuItem showHeaterOptionsToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.RadioButton ndHt;
@@ -2952,9 +2934,6 @@ namespace GeneralFirstPhase
         private System.Windows.Forms.RadioButton passSd;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Label sdiLbl;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
         private System.ComponentModel.BackgroundWorker heatTestWorker;
         private GeneralFirstPhase.Charting.HeatPlots heatPlots1;
         private System.Windows.Forms.Button setMinMaxTemp;
@@ -2974,6 +2953,8 @@ namespace GeneralFirstPhase
         private System.Windows.Forms.ComboBox psCenter;
         private System.Windows.Forms.ProgressBar heatProgress;
         private System.Windows.Forms.Button copyOutput;
+        private System.Windows.Forms.Button seeChartsBtn;
+        private System.Windows.Forms.Button pauseBtn;
     }
 }
 

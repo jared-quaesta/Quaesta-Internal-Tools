@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GeneralFirstPhase.Data;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -38,28 +39,6 @@ namespace GeneralFirstPhase.SQL
             return ret == 0;
         }
 
-        internal static List<Tuple<DateTime, int, double>> GetHeatVoltage(string serial)
-        {
-            List<Tuple<DateTime, int, double>> ret = new List<Tuple<DateTime, int, double>>();
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("Get_heat_test_Voltage", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
-
-                    con.Open();
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        ret.Add(new Tuple<DateTime, int, double>(reader.GetDateTime(0), reader.GetInt32(1), (double)reader.GetDecimal(2)));
-                    }
-                }
-            }
-            return ret;
-        }
 
         internal static bool EditSerial(string oldSn, string newSN)
         {
@@ -372,6 +351,53 @@ namespace GeneralFirstPhase.SQL
 
                 }
             }
+        }
+
+        internal static List<HeaterDataResults> GetHeatData(string serial)
+        {
+            List<HeaterDataResults> ret = new List<HeaterDataResults>();
+
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("Get_Heat_Data", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@sn", SqlDbType.VarChar).Value = serial;
+
+                    con.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        HeaterDataResults toAdd = new HeaterDataResults();
+                        toAdd.Serial = reader.GetString(0);
+                        toAdd.Time = reader.GetDateTime(1);
+                        toAdd.Voltage = (double)reader.GetDecimal(2);
+                        toAdd.NpmTemp = reader.GetInt32(3);
+                        toAdd.Cs215Temp = reader.GetInt32(4);
+
+                        string psHGM = "";
+                        for (int i = 0; i < 64; i++)
+                        {
+                            psHGM += reader.GetInt32(5+i) + ",";
+                        }
+                        toAdd.PsHGM = psHGM.Trim(',');
+                        
+                        string sdevHGM = "";
+                        for (int i = 0; i < 64; i++)
+                        {
+                            sdevHGM += reader.GetInt32(64 + 5 + i) + ",";
+                        }
+                        toAdd.SdevHGM = sdevHGM.Trim(',');
+
+                        ret.Add(toAdd);
+                    }
+
+                }
+            }
+
+            return ret;
         }
 
         internal static void OverwriteHeat(string serial)

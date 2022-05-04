@@ -50,6 +50,7 @@ namespace GeneralFirstPhase
         HeaterOptions heaterOptionsForm = new HeaterOptions();
 
         bool manCollect = false;
+        bool pause = false;
         
         public MainForm()
         {
@@ -2061,11 +2062,11 @@ namespace GeneralFirstPhase
             }
             else
             {
-                if (MessageBox.Show("Are you sure you want to begin this test? " +
-                    "All previous data for the selected NPMs will be overwritten.",
-                    "Warning",
-                    MessageBoxButtons.YesNo) != DialogResult.Yes) 
-                    return;
+                //if (MessageBox.Show("Are you sure you want to begin this test? " +
+                //    "All previous data for the selected NPMs will be overwritten.",
+                //    "Warning",
+                //    MessageBoxButtons.YesNo) != DialogResult.Yes) 
+                //    return;
 
 
 
@@ -2140,6 +2141,7 @@ namespace GeneralFirstPhase
 
                 await Tests.SetupSDI(serialMans, false);
                 nextRecLbl.Visible = true;
+                pauseBtn.Visible = true;
                 manColBtn.Visible = true;
                 heatTestWorker.RunWorkerAsync(serialMans);
             }
@@ -2212,7 +2214,6 @@ namespace GeneralFirstPhase
             Tests.SetupHeaterTest(serialMans, voltage);
             
             Stopwatch timer = Stopwatch.StartNew();
-            Debug.WriteLine(heatTestWorker.IsBusy);
             while (!heatTestWorker.CancellationPending)
             {
                 if (timer.ElapsedMilliseconds > queryTime*60000 || manCollect)
@@ -2222,11 +2223,15 @@ namespace GeneralFirstPhase
                         nextRecLbl.Text = $"Next Record: Now";
                         nextRecLbl.Refresh();
                         manColBtn.Enabled = false;
+                        pauseBtn.Enabled = false;
 
                         heatProgress.Value = 0;
                         heatProgress.Maximum = 25;
                         heatProgress.Visible = true;
                         heatProgress.Refresh();
+
+                        pauseBtn.Visible = true;
+                        pauseBtn.Refresh();
 
                     });
                     manCollect = false;
@@ -2308,7 +2313,6 @@ namespace GeneralFirstPhase
                     }
                     heatTestWorker.ReportProgress(0, data);
                 }
-                Thread.Sleep(300);
 
                 span -= TimeSpan.FromMilliseconds(300);
                 Invoke((MethodInvoker)delegate
@@ -2316,10 +2320,91 @@ namespace GeneralFirstPhase
                     nextRecLbl.Text = $"Next Record: {span.ToString(@"hh\:mm\:ss")}";
                     nextRecLbl.Refresh();
                     manColBtn.Enabled = true;
+                    pauseBtn.Enabled = true;
                 });
+
+                if (pause) 
+                { 
+                    Invoke((MethodInvoker)delegate
+                    {
+                        nextRecLbl.Text = $"Next Record: PAUSED";
+                        nextRecLbl.Refresh();
+
+                        dlConnectedLabel.Text = "Paused";
+                        dlConnectedLabel.Refresh();
+                    });
+                    foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
+                    dlMan.Disconnect();
+                    while (pause)
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                    // reconnect
+                    string selCom = "";
+                    Invoke((MethodInvoker)delegate
+                    {
+                        nextRecLbl.Text = $"Reconnecting...";
+                        nextRecLbl.Refresh();
+                        selCom = availDataloggers.CheckedItems[0].ToString();
+                    });
+                    bool npmErr = false;
+                    foreach (SerialNPMManager serialMan in serialMans) 
+                    {
+                        int att = 0;
+                        serialMan.Connect(serialMan.com);
+                        while (!serialMan.IsConnected())
+                        {
+                            if (att++ > 10) break;
+                            serialMan.Connect(serialMan.com);
+                            Thread.Sleep(100);
+                        }
+                        if (!serialMan.IsConnected())
+                        {
+                            pause = true;
+                            MessageBox.Show($"Unable to connect to {serialMan.com} (NPM)", "Error");
+                            npmErr = true;
+                            break;
+                        }
+                    }
+
+                    int attdl = 0;
+                    dlMan.Connect(selCom);
+                    while (!dlMan.IsConnected())
+                    {
+                        if (attdl++ == 10) break;
+                        Thread.Sleep(100);
+                        dlMan.Connect(selCom);
+                    }
+                    if (!dlMan.IsConnected())
+                    {
+                        pause = true;
+                        MessageBox.Show($"Unable to connect to {selCom} (Datalogger)", "Error");
+                    }
+                    if (dlMan.IsConnected() && !npmErr)
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            nextRecLbl.Text = $"Reconnecting...";
+                            nextRecLbl.Refresh();
+                            dlConnectedLabel.Text = "Connected";
+                        });
+                    }
+                    else
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            pauseBtn.Text = "Resume";
+                        });
+                    }
+                    
+
+                    timer.Restart();
+                }
+                Thread.Sleep(300);
+
             }
             foreach (SerialNPMManager serialMan in serialMans) serialMan.Disconnect();
-
         }
 
         private void DetermineHeaterResults
@@ -2328,7 +2413,8 @@ namespace GeneralFirstPhase
             // voltage
             if (res.Voltage >= voltage + voltRange || res.Voltage <= voltage - voltRange)
             {
-                SQLManager.UpdateHeatVoltTest(res.Serial, false);
+                if (res.Voltage != -1)
+                    SQLManager.UpdateHeatVoltTest(res.Serial, false);
             }
 
             // noise
@@ -2389,7 +2475,8 @@ namespace GeneralFirstPhase
             // temp
             if (res.NpmTemp > res.Cs215Temp + 10 || res.NpmTemp < res.Cs215Temp - 10)
             {
-                SQLManager.UpdateHeatTempTest(res.Serial, false);
+                if (res.NpmTemp != -1)
+                    SQLManager.UpdateHeatTempTest(res.Serial, false);
             }
 
 
@@ -2408,6 +2495,7 @@ namespace GeneralFirstPhase
             Debug.WriteLine("End");
             nextRecLbl.Visible = false;
             manColBtn.Visible = false;
+            pauseBtn.Visible = false;
 
         }
 
@@ -2442,13 +2530,38 @@ namespace GeneralFirstPhase
 
         private void copyOutput_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(outputBox.Text);
+            try
+            {
+                Clipboard.SetText(outputBox.Text);
+            }
+            catch { }
         }
 
         private void ShowHeatVoltagePlots(object sender, EventArgs e)
         {
-            HeatTestPlotView newPlots = new HeatTestPlotView("voltage", snLbl.Text);
-            newPlots.ShowPlots();
+            
+        }
+
+        private void seeChartsBtn_Click(object sender, EventArgs e)
+        {
+            HeatTestPlotView newPlots = new HeatTestPlotView(snLbl.Text);
+            if (newPlots.HasData())
+                newPlots.ShowPlots();
+            else
+                MessageBox.Show("No data for this device.", "Error");
+        }
+
+        private void pauseBtn_Click(object sender, EventArgs e)
+        {
+            pause = !pause;
+            if (pause)
+            {
+                pauseBtn.Text = "Resume";
+            } 
+            else
+            {
+                pauseBtn.Text = "Pause";
+            }
         }
     }
 }

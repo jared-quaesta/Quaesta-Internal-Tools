@@ -136,6 +136,18 @@ namespace GeneralFirstPhase.Charting
                         PlotModel newModel = new PlotModel() { IsLegendVisible = true };
                         Legend leg = new Legend() { LegendPosition = LegendPosition.TopRight };
                         newModel.Legends.Add(leg);
+                        LinearAxis xAx = new LinearAxis()
+                        {
+                            Position = AxisPosition.Bottom
+                        };
+                        LinearAxis yAx = new LinearAxis()
+                        {
+                            Position = AxisPosition.Left,
+                            AbsoluteMaximum = 20000
+
+                        };
+                        newModel.Axes.Add(xAx);
+                        newModel.Axes.Add(yAx);
                         Tuple<PlotModel, List<Dictionary<double, LineSeries>>> rack = 
                             new Tuple<PlotModel, List<Dictionary<double, LineSeries>>>
                             (newModel, new List<Dictionary<double, LineSeries>>() {newDict});
@@ -143,7 +155,7 @@ namespace GeneralFirstPhase.Charting
                     }
                 }
 
-                // psHGM
+                // sdevHGM
                 LineSeries sdevSeries = new LineSeries() { Title = results.Serial };
                 int sdevB = 0;
                 foreach (string bin in results.SdevHGM.Split(','))
@@ -178,8 +190,19 @@ namespace GeneralFirstPhase.Charting
                         Legend leg = new Legend() { LegendPosition = LegendPosition.TopRight };
                         newModel.Legends.Add(leg);
 
-                        LogarithmicAxis yAx = new LogarithmicAxis();
+                        LogarithmicAxis yAx = new LogarithmicAxis()
+                        {
+                            Position = AxisPosition.Left
+                        };
+
+                        LinearAxis xAx = new LinearAxis()
+                        {
+                            Maximum = 50,
+                            Position = AxisPosition.Bottom
+
+                        };
                         newModel.Axes.Add(yAx);
+                        newModel.Axes.Add(xAx);
 
                         Tuple<PlotModel, List<Dictionary<double, LineSeries>>> rack =
                             new Tuple<PlotModel, List<Dictionary<double, LineSeries>>>(newModel, new List<Dictionary<double, LineSeries>>() { newDict });
@@ -223,6 +246,8 @@ namespace GeneralFirstPhase.Charting
                         {
                             IsPanEnabled = false,
                             IsZoomEnabled = false,
+                            Position = AxisPosition.Bottom
+
 
                         };
 
@@ -231,6 +256,8 @@ namespace GeneralFirstPhase.Charting
                             Minimum = desvolts - 200,
                             Maximum = desvolts + 200,
                             MajorStep = 200,
+                            Position = AxisPosition.Left
+
                         };
                         Legend leg = new Legend() { LegendPosition = LegendPosition.BottomRight};
                         newModel.Legends.Add(leg);
@@ -273,9 +300,17 @@ namespace GeneralFirstPhase.Charting
                         DateTimeAxis voltX = new DateTimeAxis()
                         {
                             IsPanEnabled = false,
-                            IsZoomEnabled = false
+                            IsZoomEnabled = false,
+                            Position = AxisPosition.Bottom
+
+                        };
+                        LinearAxis voltY = new LinearAxis()
+                        {
+                            Position = AxisPosition.Left
+
                         };
                         newModel.Axes.Add(voltX);
+                        newModel.Axes.Add(voltY);
                         Tuple<PlotModel, List<LineSeries>> rack = new Tuple<PlotModel, List<LineSeries>>(newModel, new List<LineSeries>());
                         tempSplit.Add(rack);
                         Legend leg = new Legend() { LegendPosition = LegendPosition.BottomRight };
@@ -293,6 +328,22 @@ namespace GeneralFirstPhase.Charting
             }
             cs215Model.InvalidatePlot(true);
             UpdateCurPlots();
+        }
+
+        internal void ClearData()
+        {
+            
+            voltageSplit.Clear();
+            voltSeriesDict.Clear();
+
+            tempSplit.Clear();
+            npmSeriesDict.Clear();
+
+            psSplit.Clear();
+            psSeriesDict.Clear();
+            sdevSeriesDict.Clear();
+            sdevSplit.Clear();
+            
         }
 
         private void UpdateCurPlots()
@@ -357,8 +408,10 @@ namespace GeneralFirstPhase.Charting
             DateTimeAxis cs215X = new DateTimeAxis()
             {
                 IsPanEnabled = false,
-                IsZoomEnabled = false
+                IsZoomEnabled = false,
+                Position = AxisPosition.Bottom
             };
+
 
             cs215Model.Axes.Add(cs215X);
             cs215Model.Axes.Add(cs215Y);
