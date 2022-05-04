@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\00 Internal",
+    "\\00 Internal\\GeneralFirstPhase",
+    "\\00 Internal\\GeneralFirstPhase\\GeneralFirstPhase",
+    "\\00 Internal\\GeneralFirstPhase\\GeneralFirstPhase\\Charting"
   ],
-  "SelectedNode": "\\GeneralFirstPhase.sln",
+  "SelectedNode": "\\00 Internal\\GeneralFirstPhase\\GeneralFirstPhase\\Charting\\HeatPlots.cs",
   "PreviewInSolutionExplorer": false
 }

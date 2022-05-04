@@ -362,7 +362,7 @@ namespace GeneralFirstPhase
             List<Thread> threads = new List<Thread>();
             foreach (SerialNPMManager serialMan in serialMans)
             {
-                SQLManager.OverwriteHeat(serialMan.GetSerial());
+                //SQLManager.OverwriteHeat(serialMan.GetSerial());
 
                 ThreadStart threadDelegate = new ThreadStart(() =>
                 {
