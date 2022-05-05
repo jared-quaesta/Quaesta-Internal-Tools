@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,7 @@ namespace Universal_NPM_Interface.Serial
 
         internal void NewData(string data, string lastCom)
         {
+            //Debug.WriteLine(data);
             cmdString += data;
             if (cmdString.Contains('\n'))
             {
@@ -91,29 +93,26 @@ namespace Universal_NPM_Interface.Serial
             return infoString;
         }
 
-        internal void ParseInfo()
+        internal List<Tuple<string, string>> ParseInfo()
         {
+            List<Tuple<string, string>> ret = new List<Tuple<string, string>>();
             foreach (string line in infoString.Split('\n'))
             {
-                if (line.Contains("Firmware Version"))
+                string[] splitLine = line.Trim(' ', '\r').Split(' ');
+                if (splitLine.Length < 2) continue;
+                if (!double.TryParse(splitLine[splitLine.Length - 1], out double val)) continue;
+                string param = "";
+                for (int i = 0; i < splitLine.Length - 2; i++)
                 {
-                    firmwareString = line.Trim().Split(' ')[line.Trim().Split(' ').Length - 1].Trim('\r', ' ');
+                    if (splitLine[i].Equals("")) continue;
+                    param += splitLine[i] + " ";
                 }
-                else if (line.Contains("Serial Number"))
-                {
-                    serialString = line.Trim().Split(' ')[line.Trim().Split(' ').Length - 1].Trim('\r', ' ');
-                    Debug.Write("");
-                }
-                else if (line.Contains("Model") && !line.Contains("Type"))
-                {
-                    modelString = line.Trim().Split(' ')[line.Trim().Split(' ').Length - 1].Trim('\r', ' ');
-                }
-                else if (line.Contains("LocalAddress"))
-                {
-                    localAddress = line.Trim().Split(' ')[line.Trim().Split(' ').Length - 1].Trim('\r', ' ');
-                }
-            }
 
+                ret.Add(new Tuple<string, string>(param, val.ToString()));
+
+            }
+            infoString = "";
+            return ret;
         }
 
         internal string GetFirmware()

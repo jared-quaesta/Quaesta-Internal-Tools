@@ -6,6 +6,7 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading;
+using Universal_NPM_Interface.Controls;
 
 namespace Universal_NPM_Interface.Serial
 {
@@ -19,9 +20,10 @@ namespace Universal_NPM_Interface.Serial
         private string lastCom = "";
         string serial;
         char addr;
-        public SerialNPMManager(string serial, string com, char addr = '-')
+        DirectTerminal term;
+        public SerialNPMManager(string serial, string com)
         {
-            this.addr = addr;
+            term = new DirectTerminal(this);
             this.serial = serial;
             this.com = com;
             listener = new SerialNPMListener(this);
@@ -33,7 +35,20 @@ namespace Universal_NPM_Interface.Serial
                 BaudRate = 115200,
                 DtrEnable = true
             };
-            _serialPort.DataReceived += (sender, e) => listener.NewData(_serialPort.ReadExisting(), lastCom);
+            _serialPort.DataReceived += (sender, e) =>
+            {
+                string data = _serialPort.ReadExisting();
+                listener.NewData(data, lastCom);
+                if (term.IsHandleCreated)
+                {
+                    term.NewData(data);
+                }
+            };
+        }
+
+        internal DirectTerminal GetTerm()
+        {
+            return term;
         }
 
         override public string ToString()

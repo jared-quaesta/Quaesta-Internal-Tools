@@ -33,11 +33,7 @@ namespace Universal_NPM_Interface
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findNPMsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.npmParamControl1 = new Universal_NPM_Interface.Controls.NPMParamControl();
-            this.tabControl.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -45,7 +41,6 @@ namespace Universal_NPM_Interface
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Location = new System.Drawing.Point(12, 28);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -76,27 +71,6 @@ namespace Universal_NPM_Interface
             this.findNPMsToolStripMenuItem.Text = "Find NPMs";
             this.findNPMsToolStripMenuItem.Click += new System.EventHandler(this.findNPMsToolStripMenuItem_Click);
             // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.npmParamControl1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1209, 685);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // npmParamControl1
-            // 
-            this.npmParamControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.npmParamControl1.Location = new System.Drawing.Point(3, 3);
-            this.npmParamControl1.Name = "npmParamControl1";
-            this.npmParamControl1.Size = new System.Drawing.Size(536, 679);
-            this.npmParamControl1.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,10 +81,8 @@ namespace Universal_NPM_Interface
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "NPM Universal Interface";
-            this.tabControl.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -122,8 +94,6 @@ namespace Universal_NPM_Interface
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findNPMsToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabPage1;
-        private Controls.NPMParamControl npmParamControl1;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Universal_NPM_Interface.Controls
 {
@@ -7,6 +8,12 @@ namespace Universal_NPM_Interface.Controls
         public SingleParameterControl()
         {
             InitializeComponent();
+        }
+
+        internal void SetData(Tuple<string, string> pair)
+        {
+            paramName.Text = pair.Item1;
+            paramValue.Text = pair.Item2;
         }
     }
 }
