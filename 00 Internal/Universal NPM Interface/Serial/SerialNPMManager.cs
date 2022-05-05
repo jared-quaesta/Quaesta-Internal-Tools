@@ -13,12 +13,11 @@ namespace Universal_NPM_Interface.Serial
     class SerialNPMManager
     {
         internal string com;
-        internal SerialListener listener;
+        internal SerialNPMListener listener;
         private SerialPort _serialPort;
         private bool connected = false;
         private string curConnected = "";
         private string lastCom = "";
-        internal DirectTerm term;
         string serial;
         char addr;
         public SerialNPMManager(string serial, string com, char addr = '-')
@@ -26,8 +25,7 @@ namespace Universal_NPM_Interface.Serial
             this.addr = addr;
             this.serial = serial;
             this.com = com;
-            listener = new SerialListener(this);
-            term = new DirectTerm(this);
+            listener = new SerialNPMListener(this);
             _serialPort = new SerialPort
             {
                 ReadTimeout = 200,
@@ -49,19 +47,7 @@ namespace Universal_NPM_Interface.Serial
             return serial;
         }
 
-        internal void NewData(string data)
-        {
-
-            if (term.IsHandleCreated && !term.IsDisposed)
-            {
-                term.Invoke((MethodInvoker)delegate
-                {
-                    term.AddData(data);
-                });
-
-            }
-        }
-
+       
         public string GetCurConnected()
         {
             if (connected)
@@ -297,11 +283,6 @@ namespace Universal_NPM_Interface.Serial
             _serialPort.Write(Encoding.ASCII.GetBytes("\r"), 0, 1); Thread.Sleep(150);
             // Secret command takes a bit of time to register for whatever reason
             Thread.Sleep(10);
-        }
-
-        internal void ShowTerm()
-        {
-            term.ShowDialog();
         }
 
         internal char GetAddress()
