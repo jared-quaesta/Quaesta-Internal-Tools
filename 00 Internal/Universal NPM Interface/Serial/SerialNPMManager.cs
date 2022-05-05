@@ -6,7 +6,6 @@ using System.Linq;
 using System.Management;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Universal_NPM_Interface.Serial
 {
@@ -47,7 +46,7 @@ namespace Universal_NPM_Interface.Serial
             return serial;
         }
 
-       
+
         public string GetCurConnected()
         {
             if (connected)
@@ -63,9 +62,9 @@ namespace Universal_NPM_Interface.Serial
          * Returns ArrayList of strings 
          *              ex// ["COM1" , "COM2" , "COM3]
          */
-        public static List<Tuple<string, string>> GetComs(string match)
+        public static List<string> GetComs(string match)
         {
-            List<Tuple<string, string>> ret = new List<Tuple<string, string>>();
+            List<string> ret = new List<string>();
             using (var searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE Caption like '%(COM%'"))
             {
                 var ports = searcher.Get().Cast<ManagementBaseObject>().ToList().Select(p => p["Caption"].ToString() + p["DeviceID"].ToString());
@@ -81,8 +80,7 @@ namespace Universal_NPM_Interface.Serial
 
                         string sn = i.Split('\\')[i.Split('\\').Length - 1];
 
-
-                        ret.Add(new Tuple<string, string>(com, sn));
+                        ret.Add(com);
                     }
                 }
             }
