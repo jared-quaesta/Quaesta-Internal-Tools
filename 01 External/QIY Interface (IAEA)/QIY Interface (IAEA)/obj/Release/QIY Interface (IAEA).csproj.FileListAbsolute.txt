@@ -23,3 +23,28 @@ C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Releas
 C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).exe
 C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).pdb
 C:\Users\shama\source\repos\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).csproj.AssemblyReference.cache
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Release\QIY Interface (IAEA).exe.config
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Release\QIY Interface (IAEA).exe
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Release\QIY Interface (IAEA).pdb
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Release\OxyPlot.dll
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Release\OxyPlot.WindowsForms.dll
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Release\OxyPlot.xml
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\bin\Release\OxyPlot.WindowsForms.xml
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).csproj.AssemblyReference.cache
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.DataRetrievalForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.DirectoriesForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.FWUpgradeTCP.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.IpListForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.MainForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.OfflineHGMForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.OfflinePlotForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.OnlineHGMForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.OnlinePlotForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.TerminalForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.TransferFileForm.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY_Interface__IAEA_.Properties.Resources.resources
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).csproj.GenerateResource.cache
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).csproj.CoreCompileInputs.cache
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).csproj.CopyComplete
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).exe
+C:\Users\sqeud\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\01 External\QIY Interface (IAEA)\QIY Interface (IAEA)\obj\Release\QIY Interface (IAEA).pdb
