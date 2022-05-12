@@ -52,7 +52,7 @@ namespace GeneralFirstPhase
         }
         internal int GetPSCenter()
         {
-            return int.Parse(center.Text);
+            return int.Parse(center.Text) * 4;
         }
         internal int GetPSCenterSpread()
         {
