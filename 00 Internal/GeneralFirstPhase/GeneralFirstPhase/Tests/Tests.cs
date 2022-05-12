@@ -463,9 +463,9 @@ namespace GeneralFirstPhase
             Thread.Sleep(30);
             serialMan.SendCommand($"gain={psGain}\r\n");
             Thread.Sleep(30);
-            serialMan.SendCommand($"nbins=64\r\n");
+            serialMan.SendCommand($"nbins=256\r\n");
             Thread.Sleep(30);
-            serialMan.SendCommand($"nbins=64\r\n");
+            serialMan.SendCommand($"nbins=256\r\n");
             Thread.Sleep(30);
             serialMan.SendCommand($"disclow=4\r\n");
             Thread.Sleep(30);
@@ -490,15 +490,15 @@ namespace GeneralFirstPhase
             serialMan.SendCommand("hgm\r\n");
             Thread.Sleep(30);
             List<int> sdevhgm = serialMan.listener.GetHGM(out t);
-            if (sdevhgm.Count != 64)
+            if (sdevhgm.Count != 256)
             {
                 sdevhgm.Clear();
-                for (int i = 0; i < 64; i++)
+                for (int i = 0; i < 256; i++)
                 {
                     sdevhgm.Add(0);
                 }
             }
-            res.PsHGM = string.Join(",", sdevhgm.GetRange(0,64));
+            res.PsHGM = string.Join(",", sdevhgm.GetRange(0,256));
 
             res.Serial = serialMan.GetSerial();
             serialMan.SendCommand($"pulsesim=0\r\n");

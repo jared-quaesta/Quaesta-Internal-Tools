@@ -58,7 +58,7 @@ namespace GeneralFirstPhase.Charting
                 {
                     curTime = data.Time;
                     dateBox.Items.Add(curTime.ToString("yyyy-MM-dd HH:mm:ss"));
-                    splitData.Add(last.Time, new List<HeaterDataResults>() { data });
+                    splitData.Add(curTime, new List<HeaterDataResults>() { data });
                 }
                 last = data;
 

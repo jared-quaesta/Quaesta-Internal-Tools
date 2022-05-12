@@ -6,12 +6,7 @@ C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstP
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\bin\Debug\OxyPlot.xml
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\bin\Debug\OxyPlot.WindowsForms.xml
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.csproj.AssemblyReference.cache
-C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.ChangeSerialForm.resources
-C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.DirectTerm.resources
-C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.HGMPlotForm.resources
-C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.MainForm.resources
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.Properties.Resources.resources
-C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\QIXLPTesting.LinePlotForm.resources
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.csproj.GenerateResource.cache
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.csproj.CoreCompileInputs.cache
 C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.csproj.CopyComplete
@@ -40,3 +35,12 @@ C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\Gen
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.HGMPlotForm.resources
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.MainForm.resources
 C:\Users\admin\Source\Repos\jared-quaesta\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.LinePlotForm.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.ChangeSerialForm.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.Charting.HeatPlots.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.Charting.HeatTestPlotView.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.DirectTerm.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.HeaterOptions.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.HGMPlotForm.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.MainForm.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.LinePlotForm.resources
+C:\Users\shama\Documents\GitHub\Quaesta-Internal-Tools\00 Internal\GeneralFirstPhase\GeneralFirstPhase\obj\Debug\GeneralFirstPhase.SelectDL.resources

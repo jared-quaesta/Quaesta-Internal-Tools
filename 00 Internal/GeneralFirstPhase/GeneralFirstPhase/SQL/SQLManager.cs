@@ -382,7 +382,6 @@ namespace GeneralFirstPhase.SQL
                         {
                             psHGM += reader.GetInt32(5+i) + ",";
                         }
-                        toAdd.PsHGM = psHGM.Trim(',');
                         
                         string sdevHGM = "";
                         for (int i = 0; i < 64; i++)
@@ -390,6 +389,16 @@ namespace GeneralFirstPhase.SQL
                             sdevHGM += reader.GetInt32(64 + 5 + i) + ",";
                         }
                         toAdd.SdevHGM = sdevHGM.Trim(',');
+
+                        for (int i = 0; i < 192; i++)
+                        {
+                            if (reader.IsDBNull(64 + 64 + 5 + i)) 
+                                psHGM += "0" + ",";
+                            else
+                                psHGM += reader.GetInt32(64+64+5 + i) + ",";
+                        }
+                        toAdd.PsHGM = psHGM.Trim(',');
+
 
                         ret.Add(toAdd);
                     }
