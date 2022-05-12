@@ -71,7 +71,7 @@ namespace GeneralFirstPhase.Charting
         LinearAxis cs215Y = new LinearAxis()
         {
             Maximum = 70,
-            Minimum = -10,
+            Minimum = -30,
             MajorStep = 30,
             IsZoomEnabled = false
         };

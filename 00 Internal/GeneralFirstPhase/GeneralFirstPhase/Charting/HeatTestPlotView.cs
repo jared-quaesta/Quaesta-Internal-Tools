@@ -20,7 +20,7 @@ namespace GeneralFirstPhase.Charting
         List<HeaterDataResults> allData;
 
         Dictionary<DateTime ,List<HeaterDataResults>> splitData = new Dictionary<DateTime, List<HeaterDataResults>>();
-
+        bool done = false;
         public HeatTestPlotView(string serial)
         {
             this.serial = serial;
@@ -30,6 +30,13 @@ namespace GeneralFirstPhase.Charting
         private void HeatTestPlotView_Load(object sender, EventArgs e)
         {
             serialLbl.Text = serial;
+            dateBox.SelectedIndexChanged += (sen, ex) => 
+            {
+                if (done)
+                {
+                    DisplayData();
+                }
+            };
         }
 
         internal bool HasData()
@@ -67,7 +74,7 @@ namespace GeneralFirstPhase.Charting
             dateBox.SelectedIndex = 0;
 
             DisplayData();
-
+            done = true;
             Show();
 
 
